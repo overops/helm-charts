@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "overops-server.fullname" . }}
+  labels:
+    {{- include "overops-server.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "overops-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "overops-server.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "overops-server.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: HOST_URL
+              value: {{ include "overops-server.fullname" . }}
+            - name: FRONTEND_URL
+              value: {{ .Values.frontendURL | quote }}
+            - name: DB_TYPE
+              value: {{ .Values.database.type | quote }}
+            - name: DB_SSL
+              value: "--no-db-ssl"
+            - name: DB_URL
+              value: "{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}"
+            - name: DB_USER
+              value: {{ .Values.mysql.mysqlUser | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "overops-server.fullname" . }}
+                  key: db-password
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /opt/private
+              name: overops-private
+            - mountPath: /opt/takipi-server/storage
+              name: overops-storage
+      volumes:
+        - name: overops-storage
+          persistentVolumeClaim:
+            claimName: {{ template "overops-server.fullname" . }}
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-server.fullname" . }}-config
+            items:
+            - key: my.server.properties 
+              path: my.server.properties
+          
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
