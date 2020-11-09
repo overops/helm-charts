@@ -1,0 +1,17 @@
+{{- if .Values.ambassador.enabled -}}
+{{- $fullName := include "overops-server.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  {{ $fullName }}-catch-all
+  labels:
+    {{- include "overops-server.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}    
+spec:
+  prefix: {{ .Values.ambassador.prefix }}
+  service: {{ $fullName }}.{{ .Release.Namespace }}:{{ $svcPort }}
+{{- end }}
