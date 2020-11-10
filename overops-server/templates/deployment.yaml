@@ -41,7 +41,7 @@ spec:
             - name: HOST_URL
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
-              value: {{ .Values.frontendURL | quote }}
+              value: {{ .Values.overops.frontendURL | quote }}
             - name: DB_TYPE
               value: {{ .Values.database.type | quote }}
             - name: DB_SSL
@@ -53,8 +53,10 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "overops-server.fullname" . }}
-                  key: db-password
+                  {{ if and .Values.mysql.enabled (not .Values.database.external) }}
+                  name: {{ printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" }}
+                  key: mysql-password
+                  {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:

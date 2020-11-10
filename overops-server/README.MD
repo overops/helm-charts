@@ -13,9 +13,8 @@ TBD
 
 ## Install Chart
 ```console
-
-# Helm 3
-$ helm install [RELEASE_NAME] ./overops-server --set mysql.mysqlPassword=[ENTER-PASSWORD] 
+# Helm 3 (Updating the fields)
+$ helm install -n=overops myoverops --set overops.defaultUserPass=[YOUR-PASSWORD] --set overops.defaultUserServiceKey=[YOUR-KEY] ./overops-server
 ```
 
 _See [configuration](#configuration) below._
@@ -59,14 +58,18 @@ The following table lists the configurable parameters of the OverOps chart and t
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `overops.defaultUser`                        | Default Username to be pre-populated. This should be an email address                        | `user@overops.com`                                   |
+| `overops.defaultUserFirst`                   | Default User first name to be pre-populated.                                                 | `Overops`                                            |
+| `overops.defaultUserLast`                    | Default User last name to be pre-populated.                                                  | `user`                                               |
+| `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
+| `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
-| `frontendURL`                                | `overops-server` frontend url ENV variable setting.                                          |  `http://overops.127.0.0.1.nip.io:8080/`             |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
 | `database.type`                              | Database type used by overops server                                                         | `mysql`                                              |
-| `mysql.enabled`                              | Enables the mysql dependency chart.                                                          | `true`                                               | 
+| `database.external`                          | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
+| `mysql.enabled`                              | Enables the mysql dependency chart. If using an external DB set this to false                | `true`                                               | 
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
-| `mysql.mysqlUser`                            | Username of new user to create.                                                              | `nil`                                                |
-| `mysql.mysqlPassword`                        | Password for the new user.                                                                   | `nil`                                                |
-| `mysqlPassword`                              | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
-| `configurationFiles.my.server.properties`    | Populates the my.server.properties configmap                                                 | see [values](values.yaml)                            |
+| `mysql.mysqlUser`                            | Username of new datbase user to create.                                                      | `overops`                                            |
+| `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
+| `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
