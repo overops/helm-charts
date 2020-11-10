@@ -1,0 +1,21 @@
+apiVersion: v1
+entries:
+  overops-server:
+  - apiVersion: v2
+    appVersion: 4.54.0
+    created: "2020-11-10T15:48:13.193657-05:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.helm.sh/stable
+      version: 1.6.7
+    description: A Helm chart for OverOps Backend Server
+    digest: 1d659cc57b7f476c5b820ea686ac7425347c5e82bb634242a5e199a8006b74bb
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-11-10T15:48:13.191497-05:00"
