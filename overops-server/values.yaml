@@ -2,6 +2,17 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# Overops Config settings
+overops:
+  defaultUser: "user@overops.com"
+  defaultUserFirst: "Overops"
+  defaultUserLast: "user"
+  defaultUserPass: ""
+  defaultUserServiceKey: ""
+
+  frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
+ 
+
 replicaCount: 1
 image:
   repository: overops/server
@@ -21,12 +32,13 @@ securityContext: {}
 ## Default use of mysql 
 database:
   type: "mysql"
+  external: false
 
 mysql:
   enabled: true
 
   mysqlUser: "overops"
-  mysqlPassword: 
+  mysqlPassword: ""
   mysqlRootPassword:
   service:
     port: 3306
@@ -43,8 +55,6 @@ mysql:
       CREATE DATABASE IF NOT EXISTS takipi;
 
 # Networking
-frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
-
 service:
   type: ClusterIP
   port: 8080
@@ -96,12 +106,23 @@ tolerations: []
 affinity: {}
 
 
-## Config:
-configurationFiles:
-  my.server.properties: |-
-    GRAFANA_DASHBOARD_ENABLED: true
-    LOCAL_DEFAULT_USER_JSON: 
-    LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY: 
+## Overops Extended Configuration section populates config files based on key values that will be part of
+#  overops server configMap. These will be mounted to the overops-private volume mount.
+config:
+  enableExtraConfig: false
+
+  # Additional properties to add to the my.server.properties file.
+  # myServerProperties: |-
+  #   GRAFANA_DASHBOARD_ENABLED: true
+
+  ## Additional files that can be added to the overops op server as shown below for an example
+  # extraConfigurationFiles:
+  #   smtp.properties: |-
+  #     SMTP_SERVER_USERNAME=
+  #     SMTP_SERVER_PASSWORD=
+  #     SMTP_FROM_ADDRESS=
+  #   smtpserver.properties: |-
+  #     mail.store.protocol=imap
 
 
 serviceAccount:

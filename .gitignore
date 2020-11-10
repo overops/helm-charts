@@ -5,6 +5,7 @@ bin/*
 .project
 /.bin
 /_test/secrets/*.json
+local.values.yaml
 
 # OSX leaves these everywhere on SMB shares
 ._*
@@ -33,5 +34,6 @@ Session.vim
 
 # Chart dependencies
 **/charts/*.tgz
+*.tgz
 
 .history
