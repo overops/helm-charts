@@ -6,6 +6,7 @@ bin/*
 /.bin
 /_test/secrets/*.json
 local.values.yaml
+DEMO.md
 
 # OSX leaves these everywhere on SMB shares
 ._*
