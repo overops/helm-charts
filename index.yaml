@@ -3,9 +3,9 @@ entries:
   overops-collector:
   - apiVersion: v2
     appVersion: 4.54.0
-    created: "2020-11-12T14:06:35.994525-05:00"
+    created: "2020-11-16T15:22:32.265249-05:00"
     description: A Helm chart for OverOps Collector
-    digest: 13f17e4d1878be575dea31008ef1488af36b5bc2ccc16fa4cca88c8bced1bcba
+    digest: e93d8126b814cbf12d77d6382ea32ab91b8eb30b4b86dfba5cf1b31634917b3b
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops-collector
@@ -16,14 +16,14 @@ entries:
   overops-server:
   - apiVersion: v2
     appVersion: 4.54.0
-    created: "2020-11-11T11:34:00.744769-05:00"
+    created: "2020-11-16T15:22:32.267-05:00"
     dependencies:
     - condition: mysql.enabled
       name: mysql
       repository: https://charts.helm.sh/stable
       version: 1.6.7
     description: A Helm chart for OverOps Backend Server
-    digest: 6205ef9a3671f6f63360a4f38656aef0c23fb400675ee3bcfdf921999a58070a
+    digest: cd2dbad1609194e33e8052a482920ffb3978cb431f9e4982082031f2a4628072
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops-server
@@ -31,4 +31,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
     version: 0.1.0
-generated: "2020-11-12T14:06:35.993886-05:00"
+generated: "2020-11-16T15:22:32.264003-05:00"
