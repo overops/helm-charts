@@ -9,12 +9,15 @@ Besides bootstrapping the Overops server it also includes deploying a database (
 * PV provisioner support in the underlying infrastructure
 
 ## Get Repo Info
-TBD
+```
+helm repo add overops https://overops.github.io/helm-charts
+helm repo update
+```
 
 ## Install Chart
 ```console
-# Helm 3 (Updating the fields)
-$ helm install -n=overops myoverops --set overops.defaultUserPass=[YOUR-PASSWORD] --set overops.defaultUserServiceKey=[YOUR-KEY] ./overops-server
+# Helm 3 (Updating the fields to install collector and server)
+$ helm install -n=overops --set overops.defaultUserPass=[YOUR-PASSWORD] --set overops.defaultUserServiceKey=[YOUR-KEY] myoverops overops/overops-server
 ```
 
 _See [configuration](#configuration) below._
@@ -61,6 +64,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUser`                        | Default Username to be pre-populated. This should be an email address                        | `user@overops.com`                                   |
 | `overops.defaultUserFirst`                   | Default User first name to be pre-populated.                                                 | `Overops`                                            |
 | `overops.defaultUserLast`                    | Default User last name to be pre-populated.                                                  | `user`                                               |
+| `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
@@ -70,6 +74,6 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `database.external`                          | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
 | `mysql.enabled`                              | Enables the mysql dependency chart. If using an external DB set this to false                | `true`                                               | 
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
-| `mysql.mysqlUser`                            | Username of new datbase user to create.                                                      | `overops`                                            |
+| `mysql.mysqlUser`                            | Username of new database user to create.                                                      | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
