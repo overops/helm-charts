@@ -1,0 +1,18 @@
+# Default values for overops.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+
+
+overops-server:
+  enabled: true
+  overops:
+    defaultUserPass: ""
+    defaultUserServiceKey: ""
+    frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
+
+overops-collector:
+  
+  enabled: true
+  overops:
+    serviceKey: ""

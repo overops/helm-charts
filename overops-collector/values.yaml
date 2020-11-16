@@ -10,7 +10,7 @@ overops:
   jvmHeapSize: "1G"
   serviceKey:
 
-  backendReleaseName: myoverops
+  backendReleaseName:
 
 
 replicaCount: 1

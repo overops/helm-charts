@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "overops-collector.name" -}}
+{{- define "overops.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "overops-collector.fullname" -}}
+{{- define "overops.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -24,29 +24,18 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-URL used for a server running in the same namespace.
-*/}}
-{{- define "overops-collector.hostedBackendURL" -}}
-{{- if .Values.overops.backendReleaseName }}
-{{- printf "http://%s-overops-server:8080" .Values.overops.backendReleaseName }}
-{{- else }}
-{{- printf "http://%s-overops-server:8080" .Release.Name }}
-{{- end }}
-{{- end }}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "overops-collector.chart" -}}
+{{- define "overops.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "overops-collector.labels" -}}
-helm.sh/chart: {{ include "overops-collector.chart" . }}
-{{ include "overops-collector.selectorLabels" . }}
+{{- define "overops.labels" -}}
+helm.sh/chart: {{ include "overops.chart" . }}
+{{ include "overops.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -56,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "overops-collector.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "overops-collector.name" . }}
+{{- define "overops.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "overops.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "overops-collector.serviceAccountName" -}}
+{{- define "overops.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "overops-collector.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "overops.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
