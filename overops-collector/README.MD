@@ -59,3 +59,9 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
 
 _*: Indicates parameters that need to be set._
+
+## Ingress Support
+
+The OverOps collector uses a TCP port (Defaults 6060) for communication with an agent, therefore if a collector requires connections external to a cluster
+configuration specific to an Ingress Controller is required or another method is needed (NodePort, LoadBalancer). TCP is not directly supported by 
+the networking.k8s.io Ingress spec.
