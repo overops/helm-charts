@@ -3,7 +3,7 @@ entries:
   overops:
   - apiVersion: v2
     appVersion: 4.54.0
-    created: "2020-11-16T15:33:46.834627-05:00"
+    created: "2020-11-18T13:32:23.666501-05:00"
     dependencies:
     - condition: overops-server.enabled
       name: overops-server
@@ -14,7 +14,7 @@ entries:
       repository: https://overops.github.io/helm-charts/
       version: 0.1.0
     description: A Helm chart for OverOps Stack.
-    digest: db65c7fc95f5bfa7ef849beafd85424021933cbbf12c389883ca7702baa6bb29
+    digest: 2b27419505b54a13513a3c42064bea2f998a08df257deedba09f4ff21656ca7d
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops
@@ -53,4 +53,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
     version: 0.1.0
-generated: "2020-11-18T13:09:27.588273-05:00"
+generated: "2020-11-18T13:32:23.664141-05:00"
