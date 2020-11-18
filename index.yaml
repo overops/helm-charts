@@ -25,9 +25,9 @@ entries:
   overops-collector:
   - apiVersion: v2
     appVersion: 4.54.0
-    created: "2020-11-16T15:22:32.265249-05:00"
+    created: "2020-11-18T13:09:27.588872-05:00"
     description: A Helm chart for OverOps Collector
-    digest: e93d8126b814cbf12d77d6382ea32ab91b8eb30b4b86dfba5cf1b31634917b3b
+    digest: 81e95a1b432b8c212c17814c9e823ad156ce875b269bd4fbee62e3c3fa7f4a71
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops-collector
@@ -53,4 +53,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
     version: 0.1.0
-generated: "2020-11-16T15:33:46.83208-05:00"
+generated: "2020-11-18T13:09:27.588273-05:00"
