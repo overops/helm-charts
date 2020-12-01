@@ -35,6 +35,19 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-collector-0.1.0.tgz
     version: 0.1.0
+  overops-event-generator:
+  - apiVersion: v2
+    appVersion: 4.54.0
+    created: "2020-12-01T10:31:37.167743-05:00"
+    description: A Helm chart for OverOps Event Generator
+    digest: 2e91ada542a1ea114a85de9018e3e8c6b0ecd6954e2e02dd5c9518ad5d0b7ff1
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-event-generator
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-event-generator-0.1.0.tgz
+    version: 0.1.0
   overops-server:
   - apiVersion: v2
     appVersion: 4.54.0
@@ -53,4 +66,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
     version: 0.1.0
-generated: "2020-11-18T13:32:23.664141-05:00"
+generated: "2020-12-01T10:31:37.165468-05:00"
