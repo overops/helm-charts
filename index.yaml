@@ -28,6 +28,18 @@ entries:
     version: 0.1.0
   overops-collector:
   - apiVersion: v2
+    appVersion: 4.55.0
+    created: "2020-12-03T17:09:39.916203-05:00"
+    description: A Helm chart for OverOps Collector
+    digest: 6367efa50e455e75148568343158eb9fe595096af49709862a10066bbbc5f28a
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-collector
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-collector-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 4.54.0
     created: "2020-11-18T13:09:27.588872-05:00"
     description: A Helm chart for OverOps Collector
@@ -41,6 +53,18 @@ entries:
     version: 0.1.0
   overops-event-generator:
   - apiVersion: v2
+    appVersion: 2.1.3-agent-4.55.0
+    created: "2020-12-03T17:09:39.916602-05:00"
+    description: A Helm chart for OverOps Event Generator
+    digest: 95375b0bcf97de0fce01ad44f8db1f542a49ad549950ee00116375cf51a9d702
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-event-generator
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-event-generator-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
     appVersion: 2.1.3-agent-4.54.0
     created: "2020-12-03T16:20:48.615105-05:00"
     description: A Helm chart for OverOps Event Generator
@@ -53,6 +77,23 @@ entries:
     - https://overops.github.io/helm-charts/overops-event-generator-0.1.0.tgz
     version: 0.1.0
   overops-server:
+  - apiVersion: v2
+    appVersion: 4.55.0
+    created: "2020-12-03T17:09:39.918204-05:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.helm.sh/stable
+      version: 1.6.7
+    description: A Helm chart for OverOps Backend Server
+    digest: 370946b61db8f86621918e1774950420a2711058bc5a541a56ef961d8f76745d
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-server-0.2.0.tgz
+    version: 0.2.0
   - apiVersion: v2
     appVersion: 4.54.0
     created: "2020-11-16T15:22:32.267-05:00"
@@ -70,4 +111,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-server-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-03T16:37:04.956989-05:00"
+generated: "2020-12-03T17:09:39.915583-05:00"
