@@ -34,10 +34,9 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: TAKIPI_MASTER_HOST
-              #value: {{ .Values.overops.collectorHost | quote }}
+            - name: TAKIPI_COLLECTOR_HOST
               value: {{ include "overops-event-generator.collectorEndpoint" . }}
-            - name: TAKIPI_MASTER_PORT
+            - name: TAKIPI_COLLECTOR_PORT
               value: {{ .Values.overops.collectorPort | quote }}
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}

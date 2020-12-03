@@ -18,3 +18,8 @@ dependencies:
     version: 0.1.0
     repository: https://overops.github.io/helm-charts/
     condition: overops-collector.enabled
+
+  - name: overops-event-generator
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-event-generator.enabled
