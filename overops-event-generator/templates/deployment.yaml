@@ -42,8 +42,6 @@ spec:
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLYOMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
-            - name: EG_PORT
-              value: "8888"
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 
