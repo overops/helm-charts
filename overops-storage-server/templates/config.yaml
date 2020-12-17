@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "overops-storage-server.fullname" . }}-config
+  labels:
+    {{- include "overops-storage-server.labels" . | nindent 4 }}
+data:
+  settings.yaml: |-
+    folderPath: /opt/takipi-storage/storage
+    maxUsedStoragePercentage: {{ .Values.overops.maxUsedStoragePercentage }}
+    retentionPeriodDays: {{ .Values.overops.retentionPeriodDays }}
+    cleanupJobEnabled: {{ .Values.overops.cleanupJobEnabled }}
+
+    enableCors: true
+    corsOrigins: "*"
+
+    server:
+      applicationConnectors:
+        - type: http
+          port: 8080
+      adminConnectors:
+        - type: http
+          port: 8081
+    jobs:
+      cleanup: {{ .Values.overops.cleanupJobInterval }}
+    logging:
+      level: INFO
+      loggers:
+        com.takipi: DEBUG
+      appenders:
+        - type: console

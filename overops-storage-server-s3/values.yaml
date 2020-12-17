@@ -1,26 +1,15 @@
-# Default values for overops-event-generator.
+# Default values for overops-storage-server-s3.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-# Overops Config settings
 overops:
-  collectorHost: ""
-  collectorPort: 6060
-  applicationName: ""
-  deploymentName: ""
-
-  # Use an agent-sidecard instead of an embedded agent.
-  agentSidecar:
-    enabled: false
-    useDebug: false
-    repository: overops/agent-sidecar
-    pullPolicy: IfNotPresent
-    tag: latest
+  bucket: ""
+  pathPrefix: ""
+  accessKey: ""
+  secretKey: ""
 
 replicaCount: 1
-
 image:
-  repository: overops/event-generator
+  repository: overops/storage-server-s3
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -39,13 +28,33 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
+podSecurityContext: {}
 securityContext: {}
 
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: overops.local
+      paths: []
+  tls: []
+  #  - secretName: overops-tls
+  #    hosts:
+  #      - overops.local
+
 resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
 autoscaling:
   enabled: false
