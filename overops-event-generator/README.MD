@@ -4,6 +4,8 @@ This is the helm chart for [OverOps](https://www.overops.com/) event generator. 
 The event generator is an test / demonstration tool as described [here](https://github.com/takipi-field/overops-event-generator) As part of the helm chart it can be configured to
 communicate with an overops collector in the same k8s cluster. 
 
+The event-generator can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar) 
+
 ## Prerequisites
 
 * Currently tested against Kubernetes v1.18+ using helm3. Other version combinations use at your own risk!
@@ -59,3 +61,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
 | `image.tag`                                  | `overops-event-generator` image tag.                                                         |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |
+| `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                           |
+| `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`           |
+| `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                    |
+| `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                          |
