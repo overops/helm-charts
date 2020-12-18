@@ -5,6 +5,9 @@ This chart pulls in each Overops component and can be configured to install indi
 
 * [Overops Collector](../overops-collector/README.MD)
 * [Overops Backend Server](../overops-server/README.MD) ( Including supporting database)
+* [Overops Event Generator](../overops-event-generator/README.MD)
+* [Overops Storage Server](../overops-storage-server/README.MD)
+* [Overops Storage Server S3](../overops-storage-server-s3/README.MD)
 
 ## Prerequisites
 
@@ -44,6 +47,9 @@ By default this chart installs additional, dependent charts:
 
 - overops/overops-server
 - overops/overops-collector
+- overops/overops-event-generator
+- overops/overops-storage-server
+- overops/overops-storage-server-s3
 
 To disable the dependency during installation, set `overops-server.enabled` to `false`. 
 
@@ -74,20 +80,39 @@ You may similarly use the above configuration commands on each chart [dependency
 
 The following table lists the configurable parameters of the OverOps chart and their default values. This is not a complete list, additional values can be found by inspecting the respected chart.
 
-| Parameter                                    | Description                                                                                  | Default                                              |
-| -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops-server.enabled`                     | Enables the deployment of the OverOps Backend server                                         | `true`                                               |
-| `overops-server.overops.defaultUser`         | Default Username to be pre-populated. This should be an email address                        | `user@overops.com`                                   |
-| `overops-server.overops.defaultUserFirst`    | Default User first name to be pre-populated.                                                 | `Overops`                                            |
-| `overops-server.overops.defaultUserLast`     | Default User last name to be pre-populated.                                                  | `user`                                               |
-| `overops-server.overops.defaultUserPass`     | Default User's Password to be pre-populated.  *                                              | `nil`                                                |
-| `overops-server.overops.defaultUserServiceKey` | Default Service Key for the pre-populated key *                                            | `nil`                                                |
-| `overops-server.overops.frontendURL`         | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
-| `overops-collector.enabled`                  | Enables the deployment of the OverOps Collector.                                             | `true`                                               |
-| `overops-collector.overops.serviceKey`       | Service Key for the collector *                                                              | `nil`                                                |
-| `overops-collector.overops.backendURL`       | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
-| `overops-collector.overops.storageTestURL`   | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
-| `overops-collector.overops.serverName`       | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
-| `overops-collector.overops.jvmHeapSize`      | Collector JVM Heap Size                                                                      | `1G`                                                 |
+| Parameter                                    | Description                                                                    | Default                                              |
+| -------------------------------------------- | -------------------------------------------------------------------------------| ---------------------------------------------------- |
+| `overops-server.enabled`                     | Enables the deployment of the OverOps Backend server                           | `true`                                               |
+| `overops-server.overops.defaultUser`         | Default Username to be pre-populated. This should be an email address          | `user@overops.com`                                   |
+| `overops-server.overops.defaultUserFirst`    | Default User first name to be pre-populated.                                   | `Overops`                                            |
+| `overops-server.overops.defaultUserLast`     | Default User last name to be pre-populated.                                    | `user`                                               |
+| `overops-server.overops.defaultUserPass`     | Default User's Password to be pre-populated.  *                                | `nil`                                                |
+| `overops-server.overops.defaultUserServiceKey` | Default Service Key for the pre-populated key *                              | `nil`                                                |
+| `overops-server.overops.frontendURL`         | `overops-server` frontend url ENV variable setting.                            | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops-collector.enabled`                  | Enables the deployment of the OverOps Collector.                               | `true`                                               |
+| `overops-collector.overops.serviceKey`       | Service Key for the collector *                                                | `nil`                                                |
+| `overops-collector.overops.backendURL`       | URL Address for the Backend Server.                                            | `Defaults to local deployed backend`                 |
+| `overops-collector.overops.storageTestURL`   | URL Address for the Storage Test endpoint.                                     | `Defaults to local deployed backend`                 |
+| `overops-collector.overops.serverName`       | Collector Name (Appears on backend server)                                     | `pod name`                                           |
+| `overops-collector.overops.jvmHeapSize`      | Collector JVM Heap Size                                                        | `1G`                                                 |
+| `overops-event-generator.enabled`            | Enables the deployment of the OverOps Event Generator (with Agent installed)   | `true`                                               |
+| `overops-event-generator.replicaCount`       | Number of Event Generators to deploy                                           | `1`                                                  |
+| `overops-storage-server.overops`             | Configuration for OverOps Storage Server                                       |  [See Chart Configuration Section]((../overops-storage-server/README.MD)) |
+| `overops-storage-server-s3.overops`          | Configuration for OverOps Storage Server S3                                    |  [See Chart Configuration Section]((../overops-storage-server-s3/README.MD)) |
+| `global.enableStorageServer`                 | Enables the deployment of the OverOps Storage server                           | `false`                                              |
+| `global.enableStorageServerS3`               | Enables the deployment of the OverOps Storage server S3                        | `false`                                              |
+
 
 _*: Indicates parameters that need to be set._
+
+## Deploying a Storage Server
+
+The OverOps Helm chart has the ability to deploy a storage or s3 storage server and can automate the configuration of the collector by enabling either of the global flags:
+
+```
+global.enableStorageServer: true 
+# OR for S3
+global.enableStorageServerS3: true
+```
+
+_ Note: This does not automate the configuration of a Backend Server or SaaS to use the Storage Server. This must be done by the user!_

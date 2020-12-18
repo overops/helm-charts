@@ -24,13 +24,38 @@ If release name contains chart name it will be used as a full name.
 {{- end }}
 
 {{/*
-URL used for a server running in the same namespace.
+URL used for a backend server running in the same namespace.
+Either use the current release name or one from the values.
 */}}
 {{- define "overops-collector.hostedBackendURL" -}}
 {{- if .Values.overops.backendReleaseName }}
 {{- printf "http://%s-overops-server:8080" .Values.overops.backendReleaseName }}
 {{- else }}
 {{- printf "http://%s-overops-server:8080" .Release.Name }}
+{{- end }}
+{{- end }}
+
+{{/*
+URL used for a storage server running in the same namespace. 
+Either use the current release name or one from the values.
+*/}}
+{{- define "overops-collector.hostedStorageURL" -}}
+{{- if .Values.overops.storageReleaseName }}
+{{- printf "http://%s-overops-storage-server:8080" .Values.overops.storageReleaseName }}
+{{- else }}
+{{- printf "http://%s-overops-storage-server:8080" .Release.Name }}
+{{- end }}
+{{- end }}
+
+{{/*
+URL used for a storage server s3 running in the same namespace.
+Either use the current release name or one from the values.
+*/}}
+{{- define "overops-collector.hostedStorageS3URL" -}}
+{{- if .Values.overops.storageReleaseName }}
+{{- printf "http://%s-overops-storage-server-s3:8080" .Values.overops.storageReleaseName }}
+{{- else }}
+{{- printf "http://%s-overops-storage-server-s3:8080" .Release.Name }}
 {{- end }}
 {{- end }}
 

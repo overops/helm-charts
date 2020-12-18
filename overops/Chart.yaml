@@ -23,3 +23,13 @@ dependencies:
     version: 0.2.0
     repository: https://overops.github.io/helm-charts/
     condition: overops-event-generator.enabled
+
+  - name: overops-storage-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: global.enableStorageServer
+
+  - name: overops-storage-server-s3
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: global.enableStorageServerS3

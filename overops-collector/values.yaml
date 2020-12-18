@@ -1,6 +1,10 @@
 # Default values for overops-collector.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+global:
+ # Used only when deploying with the overops/overops chart.
+ enableStorageServer: false
+ enableStorageServerS3: false
 
 # Overops Config settings
 overops:
@@ -10,8 +14,9 @@ overops:
   jvmHeapSize: "1G"
   serviceKey:
 
+  # Used only if the storage or backend server were installed in a seperate helm release
   backendReleaseName:
-
+  storageReleaseName:
 
 replicaCount: 1
 
