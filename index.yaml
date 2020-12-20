@@ -3,7 +3,7 @@ entries:
   overops:
   - apiVersion: v2
     appVersion: 4.55.0
-    created: "2020-12-07T18:21:36.597897-05:00"
+    created: "2020-12-20T11:26:17.790009-05:00"
     dependencies:
     - condition: overops-server.enabled
       name: overops-server
@@ -17,8 +17,16 @@ entries:
       name: overops-event-generator
       repository: https://overops.github.io/helm-charts/
       version: 0.2.0
+    - condition: global.enableStorageServer
+      name: overops-storage-server
+      repository: https://overops.github.io/helm-charts/
+      version: 0.1.0
+    - condition: global.enableStorageServerS3
+      name: overops-storage-server-s3
+      repository: https://overops.github.io/helm-charts/
+      version: 0.1.0
     description: A Helm chart for OverOps Stack.
-    digest: f344096cb58a9bfa4e28307c19bb55a116dc90697f4bf485d47e2dbfa1a8dee3
+    digest: c48ffac6f0143a30262bb7e00cb7040160fe73f36e792b8b370662977001de4c
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops
@@ -54,9 +62,9 @@ entries:
   overops-collector:
   - apiVersion: v2
     appVersion: 4.55.0
-    created: "2020-12-03T17:09:39.916203-05:00"
+    created: "2020-12-20T11:26:17.790495-05:00"
     description: A Helm chart for OverOps Collector
-    digest: 6367efa50e455e75148568343158eb9fe595096af49709862a10066bbbc5f28a
+    digest: 9b81a426913553693a45028744532b454ca87d8e9b353c5f1b1185f1624854e4
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops-collector
@@ -162,4 +170,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2020-12-18T10:29:18.493164-05:00"
+generated: "2020-12-20T11:26:17.786045-05:00"
