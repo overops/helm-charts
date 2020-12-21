@@ -1,7 +1,7 @@
 # Overops Server Backend
 This is the helm chart for [OverOps](https://www.overops.com/) backend server. It is based on the Overops Server docker release found [here](https://hub.docker.com/r/overops/server). 
 
-Besides bootstrapping the Overops server it also includes deploying a database (currently mysql 5.X) 
+Besides bootstrapping the Overops server it also includes deploying a database (As of Chart Version 2.1: Postgres Version 11.10.0 )
 
 ## Prerequisites
 
@@ -29,16 +29,21 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 By default this chart installs additional, dependent charts:
 
 - [stable/mysql](https://github.com/helm/charts/tree/master/stable/mysql)
+- [bitnami/postgres](https://github.com/bitnami/charts/tree/master/bitnami/postgresql/)  <--- Enabled by default
 
-To disable the dependency during installation, set `mysql.enabled` to `false`. 
+To disable the default dependency during installation, set `postgresql.enabled` to `false`. 
 
 _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command documentation._
 
 ## Uninstall Chart
 
 ```console
-# Helm 3
-$ helm uninstall [RELEASE_NAME]
+# Helm
+$ helm uninstall [RELEASE_NAME] 
+
+# To uninstall and delete postgres volume:
+$ helm uninstall -n [NAMESPACE] [RELEASE_NAME] ; kubectl delete -n [NAMESPACE] pvc -l app.kubernetes.io/name=postgresql
+
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
@@ -70,10 +75,16 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
-| `database.type`                              | Database type used by overops server                                                         | `mysql`                                              |
-| `database.external`                          | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
-| `mysql.enabled`                              | Enables the mysql dependency chart. If using an external DB set this to false                | `true`                                               | 
+| `externalDatabase.enabled`                   | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
+| `externalDatabase.type`                      | External Database type used by overops server                                                | `mysql`                                              |
+| `externalDatabase.url`                       | External Database URL used by overops server                                                 | `nil`                                                |
+| `externalDatabase.dbUser`                    | External Database User used by overops server                                                | `nil`                                                |
+| `externalDatabase.dbPassword`                | External Database Password used by overops server                                            | `nil`                                                |
+| `mysql.enabled`                              | Enables the mysql dependency chart.                                                          | `false`                                              |
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
-| `mysql.mysqlUser`                            | Username of new database user to create.                                                      | `overops`                                            |
+| `mysql.mysqlUser`                            | Username of new database user to create.                                                     | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
+| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                              | 
+| `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
+| `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |

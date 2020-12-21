@@ -58,8 +58,11 @@ _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command d
 ## Uninstall Chart
 
 ```console
-# Helm 3
+# Helm
 $ helm uninstall [RELEASE_NAME]
+
+# To uninstall and delete postgres volume:
+$ helm uninstall -n [NAMESPACE] [RELEASE_NAME] ; kubectl delete -n [NAMESPACE] pvc -l app.kubernetes.io/name=postgresql
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
