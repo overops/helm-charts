@@ -62,14 +62,15 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Determine the hostname to use for postgresql.
+*/}}
+{{- define "postgresql.hostname" -}}
+{{- printf "%s-%s" .Release.Name "postgresql" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{/*
 Determine the hostname to use for mysql.
 */}}
 {{- define "mysql.hostname" -}}
-{{- if eq .Values.database.type "mysql" -}}
-{{- if .Values.mysql.enabled -}}
 {{- printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" -}}
-{{- else -}}
-{{- printf "%s" .Values.mysql.mysqlServer -}}
-{{- end -}}
-{{- end -}}
 {{- end -}}

@@ -29,13 +29,15 @@ podSecurityContext: {}
 securityContext: {}
 
 # Database Section
-## Default use of mysql 
-database:
+externalDatabase:
+  enabled: false
   type: "mysql"
-  external: false
+  url: ""
+  dbUser: ""
+  dbPassword: ""
 
 mysql:
-  enabled: true
+  enabled: false
 
   mysqlUser: "overops"
   mysqlPassword: ""
@@ -53,6 +55,29 @@ mysql:
       CREATE DATABASE IF NOT EXISTS pds;
       CREATE DATABASE IF NOT EXISTS qsql;
       CREATE DATABASE IF NOT EXISTS takipi;
+  
+postgresql:
+  enabled: true
+  postgresqlUsername: overops
+  postgresqlPassword: ""
+  service:
+    port: 5432
+  initdbScripts:
+    initdb.sql: |-
+      CREATE DATABASE dynalite;
+      ALTER DATABASE dynalite OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE dynalite TO overops;
+      CREATE DATABASE pds;
+      ALTER DATABASE pds OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE pds TO overops;
+      
+      CREATE DATABASE qsql;
+      ALTER DATABASE qsql OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE qsql TO overops;
+      CREATE DATABASE takipi;
+      ALTER DATABASE takipi OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE takipi TO overops;
+
 
 # Networking
 service:

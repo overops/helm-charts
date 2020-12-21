@@ -42,8 +42,10 @@ spec:
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
               value: {{ .Values.overops.frontendURL | quote }}
+
+            {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
-              value: {{ .Values.database.type | quote }}
+              value: "mysql"
             - name: DB_SSL
               value: "--no-db-ssl"
             - name: DB_URL
@@ -53,10 +55,38 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  {{ if and .Values.mysql.enabled (not .Values.database.external) }}
-                  name: {{ printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" }}
+                  name: {{ template "mysql.hostname" . }}
                   key: mysql-password
-                  {{ end }}
+            {{ else if .Values.postgresql.enabled }}
+            - name: DB_TYPE
+              value: "postgresql"
+            - name: DB_SSL
+              value: "--no-db-ssl"
+            - name: DB_URL
+              value: "{{ template "postgresql.hostname" . }}:{{ .Values.postgresql.service.port }}"
+            - name: DB_USER
+              value: {{ .Values.postgresql.postgresqlUsername | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "postgresql.hostname" . }}
+                  key: postgresql-password
+            {{ else if .Values.externalDatabase.enabled }}
+            - name: DB_TYPE
+              value: {{ .Values.externalDatabase.type | quote }}
+            - name: DB_SSL
+              value: "--no-db-ssl"
+            - name: DB_URL
+              value: {{ .Values.externalDatabase.url | quote }}
+            - name: DB_USER
+              value: {{ .Values.externalDatabase.dbUser | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.fullname" . }}
+                  key: db-password             
+            {{ end }}
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
