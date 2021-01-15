@@ -11,5 +11,6 @@ spec:
       targetPort: 6060
       protocol: TCP
       name: collector
+  sessionAffinity: ClientIP      
   selector:
     {{- include "overops-collector.selectorLabels" . | nindent 4 }}
