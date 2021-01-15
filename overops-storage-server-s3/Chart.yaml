@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops-storage-server-s3
 description: A Helm chart for OverOps Storage Server S3
 type: application
-version: 0.1.0
-appVersion: 2.3
+version: 0.2.0
+appVersion: 2.3.1
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
