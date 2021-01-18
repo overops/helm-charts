@@ -65,6 +65,8 @@ postgresql:
   postgresqlPassword: ""
   service:
     port: 5432
+  image:
+    tag: 11.10.0-debian-10-r24
   initdbScripts:
     initdb.sql: |-
       CREATE DATABASE dynalite;
@@ -103,6 +105,22 @@ ingress:
 ambassador:
   enabled: false
   prefix: /
+
+livenessProbe:
+  enabled: true
+  periodSeconds: 10
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 1
+
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 25
+  periodSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+  timeoutSeconds: 1  
+
 
 resources: {}
 #  requests:

@@ -27,6 +27,13 @@ spec:
       serviceAccountName: {{ include "overops-server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+
+      {{- if .Values.postgresql.enabled }}
+      initContainers:  # check if DB is ready, and only continue when true
+        - name: check-db-ready
+          image: bitnami/postgresql:{{ .Values.postgresql.image.tag }}
+          command: ['sh', '-c',  'until pg_isready -U {{ .Values.postgresql.postgresqlUsername | quote }} -h {{ template "postgresql.hostname" . }} -p {{ .Values.postgresql.service.port }};  do echo waiting for database; sleep 2; done;']          
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -94,6 +101,30 @@ spec:
               name: overops-private
             - mountPath: /opt/takipi-server/storage
               name: overops-storage
+
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /service/png
+              port: http
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          {{- end }}
+
+         {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /service/png
+              port: http
+            initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+            successThreshold: {{ .Values.startupProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          {{- end }}
+
       volumes:
         - name: overops-storage
           persistentVolumeClaim:

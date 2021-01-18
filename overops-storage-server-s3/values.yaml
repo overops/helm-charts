@@ -38,6 +38,21 @@ service:
   type: ClusterIP
   port: 8080
 
+livenessProbe:
+  enabled: true
+  periodSeconds: 10
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 1
+
+startupProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 1
+  failureThreshold: 5
+  successThreshold: 1
+  timeoutSeconds: 1    
+
 ingress:
   enabled: false
   annotations: {}

@@ -37,6 +37,17 @@ spec:
             - name: collector
               containerPort: 6060
               protocol: TCP
+
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            tcpSocket:
+              port: collector
+            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+            successThreshold: {{ .Values.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          {{- end }}  
+
           volumeMounts:
             - mountPath: /opt/takipi/private
               name: overops-private-volume              
