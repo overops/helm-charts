@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops
 description: A Helm chart for OverOps Stack.
 type: application
-version: 0.3.0
+version: 0.3.1
 appVersion: 4.56.0
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
@@ -10,12 +10,12 @@ home: https://www.overops.com/
 
 dependencies:
   - name: overops-server
-    version: 0.3.0
+    version: 0.3.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-server.enabled
 
   - name: overops-collector
-    version: 0.3.0
+    version: 0.3.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-collector.enabled
 
@@ -25,11 +25,11 @@ dependencies:
     condition: overops-event-generator.enabled
 
   - name: overops-storage-server
-    version: 0.2.0
+    version: 0.2.1
     repository: https://overops.github.io/helm-charts/
     condition: global.enableStorageServer
 
   - name: overops-storage-server-s3
-    version: 0.2.0
+    version: 0.2.1
     repository: https://overops.github.io/helm-charts/
     condition: global.enableStorageServerS3
