@@ -128,6 +128,18 @@ entries:
   overops-collector:
   - apiVersion: v2
     appVersion: 4.56.0
+    created: "2021-01-19T10:06:38.462483-05:00"
+    description: A Helm chart for OverOps Collector
+    digest: a8a064f64dff7166f1643aaaf3ade4fefc00eae68b957defeba84ebe1849c132
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-collector
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-collector-0.3.1.tgz
+    version: 0.3.1
+  - apiVersion: v2
+    appVersion: 4.56.0
     created: "2021-01-15T12:52:09.220865-05:00"
     description: A Helm chart for OverOps Collector
     digest: caef33eda18f5359d3c431a46f546e42ea27397c4b02de82f9311bdd8c2970b0
@@ -200,6 +212,27 @@ entries:
     - https://overops.github.io/helm-charts/overops-event-generator-0.1.0.tgz
     version: 0.1.0
   overops-server:
+  - apiVersion: v2
+    appVersion: 4.56.0
+    created: "2021-01-19T10:06:38.469706-05:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.helm.sh/stable
+      version: 1.6.7
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.2.0
+    description: A Helm chart for OverOps Backend Server
+    digest: 49bd5768ff97014aabe8a98c15e6c7c9253c07b8309c63fa76cf28735560e688
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-server-0.3.1.tgz
+    version: 0.3.1
   - apiVersion: v2
     appVersion: 4.56.0
     created: "2021-01-15T12:52:09.227612-05:00"
@@ -279,6 +312,18 @@ entries:
   overops-storage-server:
   - apiVersion: v2
     appVersion: 2.3.1
+    created: "2021-01-19T10:06:38.470377-05:00"
+    description: A Helm chart for OverOps Storage Server
+    digest: 1d36f8c37f2000f029a8401e9b33e705bff9174191f041e209541929889a80f5
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-storage-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-storage-server-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 2.3.1
     created: "2021-01-15T12:52:09.228366-05:00"
     description: A Helm chart for OverOps Storage Server
     digest: 1e53ec654b675324bd4fb3eef32bfe0a285585837429004d7f8b295e8f514f43
@@ -304,6 +349,18 @@ entries:
   overops-storage-server-s3:
   - apiVersion: v2
     appVersion: 2.3.1
+    created: "2021-01-19T10:06:38.470987-05:00"
+    description: A Helm chart for OverOps Storage Server S3
+    digest: 8c503ec776175fa379fd1744977490e93a6301501495d5b11669475a0eec303c
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-storage-server-s3
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-storage-server-s3-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: 2.3.1
     created: "2021-01-15T12:52:09.228895-05:00"
     description: A Helm chart for OverOps Storage Server S3
     digest: 90951f210beb6a712554bdbc13c76701fb0c5bad2d234addf938f57cc44d9259
@@ -326,4 +383,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-01-15T13:25:53.119452-05:00"
+generated: "2021-01-19T10:06:38.461732-05:00"
