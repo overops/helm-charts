@@ -55,6 +55,10 @@ spec:
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLYOMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- if .Values.overops.serverName }}
+            - name: TAKIPI_SERVER_NAME
+              value: {{ .Values.overops.serverName | quote }}
+            {{- end -}}
             {{- if .Values.overops.agentSidecar.enabled }}
             - name: JAVA_TOOL_OPTIONS
               {{- if .Values.overops.agentSidecar.useDebug }}

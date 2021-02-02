@@ -8,6 +8,7 @@ overops:
   collectorPort: 6060
   applicationName: ""
   deploymentName: ""
+  serverName: ""
 
   # Use an agent-sidecard instead of an embedded agent.
   agentSidecar:

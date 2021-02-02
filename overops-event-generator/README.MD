@@ -68,6 +68,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.collectorPort`                      | Collector port                                                                               | `6060`                            |
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
+| `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
 | `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `50`                              |
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
