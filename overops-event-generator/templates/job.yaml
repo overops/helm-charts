@@ -35,6 +35,10 @@ spec:
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLYOMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- if .Values.overops.serverName }}
+            - name: TAKIPI_SERVER_NAME
+              value: {{ .Values.overops.serverName | quote }}
+            {{- end }}
             - name: IS_DAEMON
               value: "false"
             - name: NUM_OF_EVENTS

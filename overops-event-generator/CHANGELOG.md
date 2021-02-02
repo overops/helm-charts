@@ -3,6 +3,7 @@
 ## [0.4.0]
 - Updated App Release to Event Generator 2.2.0 and Agent 4.57.0
 - Added Support to run as a K8S Job as well as a deployment.
+- Added Server Name value.
 
 ## [0.3.0]
 - Updated App Release to OverOps 4.56.0 
