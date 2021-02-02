@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops-collector
 description: A Helm chart for OverOps Collector
 type: application
-version: 0.3.1
-appVersion: 4.56.0
+version: 0.4.0
+appVersion: 4.57.0
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/

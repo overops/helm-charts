@@ -17,6 +17,11 @@ overops:
     pullPolicy: IfNotPresent
     tag: latest
 
+  # Job Related settings
+  job:
+    enabled: false
+    numberOfEvents: 50
+
 replicaCount: 1
 
 image:

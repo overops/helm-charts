@@ -26,6 +26,16 @@ _See [configuration](#configuration) below._
 
 _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
 
+## Executing Event Generator as a Job
+By default the Event Generator will run indefinitely and must be scaled down or up to control execution. Alternatively, Event Generator supports running as a K8S Job.
+
+To execute this use the `overops.job.enabled` value to enable this feature:
+
+```console
+# Note that replicaCount is set to 0 to ensure that no deployment Pods are created only the Job.
+# Also can change the number of Events using --set overops.job.numberOfEvents
+$ helm upgrade --install -n overops --set overops.collectorHost=[YOUR-COLLECTOR-HOSTNAME]  --set overops.job.enabled=true --set replicaCount=0 myoverops overops/overops-event-generator
+```
 
 ## Uninstall Chart
 
@@ -58,6 +68,8 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.collectorPort`                      | Collector port                                                                               | `6060`                            |
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
+| `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
+| `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `50`                              |
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
 | `image.tag`                                  | `overops-event-generator` image tag.                                                         |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |

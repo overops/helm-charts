@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Server Chart
 
+## [0.4.0]
+- Updated App Release to OverOps 4.57.0
+
 ## [0.3.1]
 - Added Liveness and Startup Probes for respected services and added Init Container for overops-server to test database connection.
 

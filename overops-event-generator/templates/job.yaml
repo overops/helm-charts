@@ -1,0 +1,42 @@
+{{- if .Values.overops.job.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "overops-event-generator.fullname" . }}-job
+  labels:
+    {{- include "overops-event-generator.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+spec:
+  template:
+    metadata:
+      name: {{ include "overops-event-generator.fullname" . }}-job
+      labels:
+        {{- include "overops-event-generator.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "overops-event-generator.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}    
+      restartPolicy: Never
+      containers:
+        - name: {{ .Chart.Name }}-job
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: TAKIPI_COLLECTOR_HOST
+              value: {{ include "overops-event-generator.collectorEndpoint" . }}
+            - name: TAKIPI_COLLECTOR_PORT
+              value: {{ .Values.overops.collectorPort | quote }}
+            - name: TAKIPI_APPLICATION_NAME
+              value: {{ .Values.overops.applicationName | quote }}
+            - name: TAKIPI_DEPLYOMENT_NAME
+              value: {{ .Values.overops.deploymentName | quote }}
+            - name: IS_DAEMON
+              value: "false"
+            - name: NUM_OF_EVENTS
+              value: {{ .Values.overops.job.numberOfEvents | quote }}
+{{- end }}
