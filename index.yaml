@@ -255,6 +255,18 @@ entries:
   overops-event-generator:
   - apiVersion: v2
     appVersion: 2.2.0-agent-4.57.0
+    created: "2021-02-25T14:29:50.719078-05:00"
+    description: A Helm chart for OverOps Event Generator
+    digest: f4b6dc80e5d5d9e04e270fbd16dc3f64f07fa7c9ccf41542a515e754b813344b
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-event-generator
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-event-generator-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: 2.2.0-agent-4.57.0
     created: "2021-02-02T13:02:48.427381-05:00"
     description: A Helm chart for OverOps Event Generator
     digest: bd301686cc8472157f4ab9884492ed1e8335908cee6b948ff7414e3b2cf145b1
@@ -494,4 +506,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-02-02T13:02:48.419096-05:00"
+generated: "2021-02-25T14:29:50.718402-05:00"
