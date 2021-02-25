@@ -53,7 +53,7 @@ spec:
               value: {{ .Values.overops.collectorPort | quote }}
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
-            - name: TAKIPI_DEPLYOMENT_NAME
+            - name: TAKIPI_DEPLOYMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
             {{- if .Values.overops.serverName }}
             - name: TAKIPI_SERVER_NAME
