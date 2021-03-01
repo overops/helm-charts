@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Event Generator Chart
 
+## [0.5.0]
+- Updated App Release to OverOps 4.58.0
+
 ## [0.4.1]
 - Fixed Deployment env variable bug.
 
