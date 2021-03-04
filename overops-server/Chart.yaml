@@ -4,6 +4,7 @@ description: A Helm chart for OverOps Backend Server
 type: application
 version: 0.5.0
 appVersion: 5.0.0
+
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
 
