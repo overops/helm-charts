@@ -5,6 +5,7 @@
 # Overops Config settings
 overops:
   loglevel: INFO
+  type: RABBIT
 
   rabbitQueue:
     hit: true
