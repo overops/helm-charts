@@ -10,8 +10,17 @@ overops:
   defaultUserPass: ""
   defaultUserServiceKey: ""
 
+  loglevel: INFO
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
- 
+
+  rabbitQueue:
+    enabled: false
+    service: ""
+    port: 5672
+    username: overops
+    password: ""
+    exchange: overops
+
 
 replicaCount: 1
 image:
@@ -25,10 +34,10 @@ nameOverride: ""
 fullnameOverride: ""
 
 podAnnotations: {}
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
+podSecurityContext: {}
+  #runAsNonRoot: true
+  #runAsUser: 1000
+  #runAsGroup: 1000
 securityContext: {}
 
 # Database Section
@@ -40,9 +49,9 @@ externalDatabase:
   dbPassword: ""
 
 mysql:
-  enabled: false
+  enabled: true
 
-  mysqlUser: "overops"
+  mysqlUser: overops
   mysqlPassword: ""
   mysqlRootPassword:
   service:
@@ -58,9 +67,11 @@ mysql:
       CREATE DATABASE IF NOT EXISTS pds;
       CREATE DATABASE IF NOT EXISTS qsql;
       CREATE DATABASE IF NOT EXISTS takipi;
+      CREATE DATABASE IF NOT EXISTS overops;
+      CREATE DATABASE IF NOT EXISTS overops_next;
   
 postgresql:
-  enabled: true
+  enabled: false
   postgresqlUsername: overops
   postgresqlPassword: ""
   service:
@@ -82,6 +93,14 @@ postgresql:
       CREATE DATABASE takipi;
       ALTER DATABASE takipi OWNER to overops;
       GRANT ALL PRIVILEGES ON DATABASE takipi TO overops;
+
+      CREATE DATABASE overops;
+      ALTER DATABASE overops OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE overops TO overops;
+
+      CREATE DATABASE overops_next;
+      ALTER DATABASE overops_next OWNER to overops;
+      GRANT ALL PRIVILEGES ON DATABASE overops_next TO overops;      
 
 
 # Networking
@@ -107,14 +126,14 @@ ambassador:
   prefix: /
 
 livenessProbe:
-  enabled: true
+  enabled: false
   periodSeconds: 10
   failureThreshold: 3
   successThreshold: 1
   timeoutSeconds: 1
 
 startupProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 25
   periodSeconds: 5
   failureThreshold: 5
@@ -129,7 +148,7 @@ resources: {}
 
 ## Persist data to a persistent volume
 persistence:
-  enabled: true
+  enabled: false
   ## database data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
   ## If set to "-", storageClassName: "", which disables dynamic provisioning
