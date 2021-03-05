@@ -26,3 +26,6 @@ overops-storage-server-s3:
     pathPrefix: ""
     accessKey: ""
     secretKey: ""
+
+overops-receiver-server:
+    enabled: false

@@ -8,6 +8,7 @@ This chart pulls in each Overops component and can be configured to install indi
 * [Overops Event Generator](../overops-event-generator/README.MD)
 * [Overops Storage Server](../overops-storage-server/README.MD)
 * [Overops Storage Server S3](../overops-storage-server-s3/README.MD)
+* [Overops Receiver Server](../overops-receiver-server/README.MD) (V5 Only)
 
 ## Prerequisites
 
@@ -50,6 +51,7 @@ By default this chart installs additional, dependent charts:
 - overops/overops-event-generator
 - overops/overops-storage-server
 - overops/overops-storage-server-s3
+- overops/overops-receiver-server
 
 To disable the dependency during installation, set `overops-server.enabled` to `false`. 
 

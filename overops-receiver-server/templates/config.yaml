@@ -14,11 +14,14 @@ data:
     spring.datasource.username={{ .Values.overops.mysql.user }}
     spring.datasource.password={{ .Values.overops.mysql.password }}
 
-{{- if .Values.overops.rabbitQueue.hit }}
-    spring.profiles.active=mysql,msg_rabbit,hit
-{{- end }}
-{{- if .Values.overops.rabbitQueue.decompile }}
+{{- if eq .Values.overops.rabbitQueue.type "sql" }}
+    spring.profiles.active=mysql,msg_rabbit,sqli,sql_locinc,sql_metric
+{{- else if eq .Values.overops.rabbitQueue.type "decompile" }}
     spring.profiles.active=mysql,msg_rabbit,decompile
+{{- else if eq .Values.overops.rabbitQueue.type "custom" }}
+    spring.profiles.active={{ .Vaules.overops.rabbitQueue.customType }}
+{{- else }}
+    spring.profiles.active=mysql,msg_rabbit,hit
 {{- end }}
 
   application-mysql.properties: |-
