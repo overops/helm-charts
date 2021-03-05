@@ -24,6 +24,29 @@ dependencies:
     repository: https://overops.github.io/helm-charts/
     condition: overops-event-generator.enabled
 
+  - name: overops-receiver-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-receiver-server-hit.enabled
+    alias: overops-receiver-server-hit
+
+  - name: overops-receiver-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-receiver-server-decompile.enabled
+    alias: overops-receiver-server-decompile
+
+  - name: overops-receiver-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-receiver-server-sql.enabled
+    alias: overops-receiver-server-sql
+
+  - name: overops-receiver-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-receiver-server.enabled
+
   - name: overops-storage-server
     version: 0.2.1
     repository: https://overops.github.io/helm-charts/

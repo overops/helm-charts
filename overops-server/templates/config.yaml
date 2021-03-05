@@ -14,7 +14,7 @@ data:
     spring.datasource.username={{ .Values.mysql.mysqlUser }}
     spring.datasource.password=${DB_PASS}
 {{- if .Values.overops.rabbitQueue.enabled }}
-    spring.profiles.active=mysql,msg_rabbit,sqli,sql_locinc,sql_metric,service_stats
+    spring.profiles.active=mysql,msg_rabbit,service_stats,retry
 {{- end }}
   application-mysql.properties: |-
     spring.datasource.url=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true

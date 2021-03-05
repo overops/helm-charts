@@ -72,6 +72,12 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops.rabbitQueue.enabled`                | V5: Enables the OverOps to run with rabbit message queue                                     | `false`                                              |
+| `overops.rabbitQueue.service`                | V5: Service or external hostname of the Rabbit MQ server                                     | `nil`                                                |
+| `overops.rabbitQueue.port`                   | V5: Port of the Rabbit MQ server                                                             | `5672`                                               |
+| `overops.rabbitQueue.username`               | V5: Username to authenticate to the Rabbit MQ Exchange                                       | `overops`                                            |
+| `overops.rabbitQueue.password`               | V5: Password to authenticate to the Rabbit MQ Exchange                                       | `nil`                                                |
+| `overops.rabbitQueue.exchange`               | V5: Exchange to use on the Rabbit MQ Server                                                  | `overops`                                            |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |

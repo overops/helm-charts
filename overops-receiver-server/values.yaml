@@ -8,8 +8,10 @@ overops:
   type: RABBIT
 
   rabbitQueue:
-    hit: true
-    decompile: false
+    # Receiver type: hit,decompiler,sql, or custom. 
+    # Custom must set customSetting value (i.e: mysql,msg_rabbit,decompile,hit).
+    type: hit
+    customType: ""
     service: ""
     port: 5672
     username: overops
