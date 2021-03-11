@@ -8,7 +8,7 @@ overops:
   type: RABBIT
 
   rabbitQueue:
-    # Receiver type: hit,decompiler,sql, or custom. 
+    # Receiver type: agent,hit,decompiler,sql, or custom.
     # Custom must set customSetting value (i.e: mysql,msg_rabbit,decompile,hit).
     type: hit
     customType: ""

@@ -45,6 +45,8 @@ externalDatabase:
   enabled: false
   type: "mysql"
   url: ""
+  host: ""
+  port: ""
   dbUser: ""
   dbPassword: ""
 
