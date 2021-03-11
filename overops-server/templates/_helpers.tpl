@@ -72,5 +72,9 @@ Determine the hostname to use for postgresql.
 Determine the hostname to use for mysql.
 */}}
 {{- define "mysql.hostname" -}}
+{{- if .Values.externalDatabase.enabled }}
+{{- .Values.externalDatabase.host }}
+{{- else }}
 {{- printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" -}}
+{{- end }}
 {{- end -}}

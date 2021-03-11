@@ -27,6 +27,12 @@ dependencies:
   - name: overops-receiver-server
     version: 0.1.0
     repository: https://overops.github.io/helm-charts/
+    condition: overops-receiver-server-agent.enabled
+    alias: overops-receiver-server-agent
+
+  - name: overops-receiver-server
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server-hit.enabled
     alias: overops-receiver-server-hit
 
