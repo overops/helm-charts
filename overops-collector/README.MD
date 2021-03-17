@@ -57,11 +57,20 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
+| `service.loadBalancerType`                   | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
 
 _*: Indicates parameters that need to be set._
 
-## Ingress Support
+## Ingress / Service Support
 
 The OverOps collector uses a TCP port (Defaults 6060) for communication with an agent, therefore if a collector requires connections external to a cluster
 configuration specific to an Ingress Controller is required or another method is needed (NodePort, LoadBalancer). TCP is not directly supported by 
 the networking.k8s.io Ingress spec.
+
+For exposing the service on AWS the recommended method is using type `LoadBalancer` and use the AWS Network Load Balancer to do this use the follow values:
+
+```
+service:
+  loadBalancerType: nlb
+  type: LoadBalancer
+```

@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: {{ include "overops-receiver-server.fullname" . }}
   labels:
+    {{- if eq .Values.overops.target "fargate" }}
+    target: fargate
+    {{- end }}
     {{- include "overops-receiver-server.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
@@ -10,6 +13,9 @@ spec:
   {{- end }}
   selector:
     matchLabels:
+      {{- if eq .Values.overops.target "fargate" }}
+      target: fargate
+      {{- end }}
       {{- include "overops-receiver-server.selectorLabels" . | nindent 6 }}
   template:
     metadata:
@@ -18,6 +24,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
+        {{- if eq .Values.overops.target "fargate" }}
+        target: fargate
+        {{- end }}
         {{- include "overops-receiver-server.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -37,7 +46,21 @@ spec:
             - name: OVEROPS_RECEIVER_TYPE
               value: {{ .Values.overops.type | quote }}
           resources:
+            {{- if and (eq .Values.overops.target "fargate") (eq .Values.overops.rabbitQueue.type "decompile") }}
+            requests:
+              cpu: 1
+              memory: "1024Mi"
+            limits:
+              memory: "2048Mi"
+            {{- else if eq .Values.overops.target "fargate" }}
+            requests:
+              cpu: "500m"
+              memory: "512Mi"
+            limits:
+              memory: "1024Mi"
+            {{- else }}
             {{- toYaml .Values.resources | nindent 12 }}
+            {{- end }}
           volumeMounts:
             - mountPath: /opt/overops/private
               name: overops-private

@@ -47,6 +47,7 @@ podSecurityContext:
 securityContext: {}
 
 service:
+  loadBalancerType: ""
   type: ClusterIP
   port: 6060
 
