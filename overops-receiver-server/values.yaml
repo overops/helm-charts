@@ -7,6 +7,9 @@ overops:
   loglevel: INFO
   type: RABBIT
 
+  # To add Fargate Label enable this setting.
+  #target: fargate 
+
   rabbitQueue:
     # Receiver type: agent,hit,decompiler,sql, or custom.
     # Custom must set customSetting value (i.e: mysql,msg_rabbit,decompile,hit).
