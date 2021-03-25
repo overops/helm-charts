@@ -69,3 +69,9 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
+| `autoscaling.enabled`                        | Enable Autoscaling with KEDA                                                                 | `false`                                              |
+| `autoscaling.pollingInterval`                | KEDA Setting see: https://keda.sh/                                                           | `5`                                                  |
+| `autoscaling.cooldownPeriod`                 | KEDA Setting see: https://keda.sh/                                                           | `30`                                                 |
+| `autoscaling.minReplicaCount`                | KEDA Setting see: https://keda.sh/                                                           | `0`                                                  |
+| `autoscaling.maxReplicaCount`                | KEDA Setting see: https://keda.sh/                                                           | `10`                                                 |
+| `autoscaling.targetQueueLength`              | KEDA RabbitMQ Scaler Setting for target Queue Length                                         | `5`                                                  |
