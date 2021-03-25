@@ -106,7 +106,11 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops-storage-server-s3.overops`          | Configuration for OverOps Storage Server S3                                    |  [See Chart Configuration Section]((../overops-storage-server-s3/README.MD)) |
 | `global.enableStorageServer`                 | Enables the deployment of the OverOps Storage server                           | `false`                                              |
 | `global.enableStorageServerS3`               | Enables the deployment of the OverOps Storage server S3                        | `false`                                              |
-
+| `global.enableKedaAuth`                      | Enables the use of a shared KEDA Autoscaler Authentication and Secret.         | `false`                                              |
+| `keda.rabbitQueue.service`                   | V5: Service or external hostname of the Rabbit MQ server                       | `nil`                                                |
+| `keda.rabbitQueue.port`                      | V5: Port of the Rabbit MQ server                                               | `5672`                                               |
+| `keda.rabbitQueue.username`                  | V5: Username to authenticate to the Rabbit MQ Exchange                         | `overops`                                            |
+| `keda.rabbitQueue.password`                  | V5: Password to authenticate to the Rabbit MQ Exchange                         | `nil`                                                |
 
 _*: Indicates parameters that need to be set._
 
@@ -121,3 +125,8 @@ global.enableStorageServerS3: true
 ```
 
 _ Note: This does not automate the configuration of a Backend Server or SaaS to use the Storage Server. This must be done by the user!_
+
+## Enabling OverOps Receiver Autoscaling
+
+The OverOps Helm chart can enable KEDA scaling across multiple overops-receiver instances using the `enableKedaAuth` flag. This allows creating a single
+secret and TriggerAuthentication rather than creating an instance for every receiver.

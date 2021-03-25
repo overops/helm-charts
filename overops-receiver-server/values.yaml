@@ -2,8 +2,14 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+global:
+ # Used only when deploying with the overops/overops chart.
+ # This setting will share auth object across deployments.
+ enableKedaAuth: false
+
 # Overops Config settings
 overops:
+  target: ""
   loglevel: INFO
   type: RABBIT
 
@@ -68,13 +74,14 @@ service:
 
 resources: {}
 
-
+# Enable Autoscaling with KEDA
 autoscaling:
   enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
+  pollingInterval: 5
+  cooldownPeriod: 30
+  minReplicaCount: 0
+  maxReplicaCount: 10
+  targetQueueLength: 5
 
 nodeSelector: {}
 

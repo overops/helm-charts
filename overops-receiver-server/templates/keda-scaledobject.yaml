@@ -1,0 +1,74 @@
+
+{{- if .Values.autoscaling.enabled -}}
+{{/* Include Auth if not handled globally */}}
+{{- if not .Values.global.enableKedaAuth -}}
+kind: Secret
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-secret
+  labels:  
+    {{- include "overops-receiver-server.labels" . | nindent 4 }}  
+data:
+  host: {{ (printf "amqp://%s:%s@%s:%s/" .Values.overops.rabbitQueue.username ( .Values.overops.rabbitQueue.password | urlquery ) .Values.overops.rabbitQueue.service ( .Values.overops.rabbitQueue.port | toString )) | b64enc }}
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: {{ include "overops-receiver-server.kedaAuthName" . }}
+  labels:  
+    {{- include "overops-receiver-server.labels" . | nindent 4 }}
+spec:
+  secretTargetRef:
+    - parameter: host
+      name: {{ .Release.Name }}-secret
+      key: host
+---
+{{- end }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "overops-receiver-server.fullname" . }}
+  labels:  
+    {{- include "overops-receiver-server.labels" . | nindent 4 }}
+spec:
+  scaleTargetRef:
+    name: {{ include "overops-receiver-server.fullname" . }}
+  pollingInterval: {{ .Values.autoscaling.pollingInterval }}
+  cooldownPeriod: {{ .Values.autoscaling.cooldownPeriod }}
+  minReplicaCount: {{ .Values.autoscaling.minReplicaCount }}
+  maxReplicaCount: {{ .Values.autoscaling.maxReplicaCount }}
+  triggers:
+  {{- if eq .Values.overops.rabbitQueue.type "sql" }}
+    - type: rabbitmq
+      metadata:
+        protocol: amqp
+        queueName: SQL_Insertion
+        mode: QueueLength
+        value: {{ .Values.autoscaling.targetQueueLength | quote }}
+      authenticationRef:
+        name: {{ include "overops-receiver-server.kedaAuthName" . }}
+    - type: rabbitmq
+      metadata:
+        protocol: amqp
+        queueName: SQL_MetricInsertion
+        mode: QueueLength
+        value: {{ .Values.autoscaling.targetQueueLength | quote }}
+      authenticationRef:
+        name: {{ include "overops-receiver-server.kedaAuthName" . }}    
+  {{- else }}
+    - type: rabbitmq
+      metadata:
+        protocol: amqp
+        {{- if eq .Values.overops.rabbitQueue.type "agent" }}
+        queueName: AgentStats
+        {{- else if eq .Values.overops.rabbitQueue.type "decompile" }}
+        queueName: Decompile
+        {{- else }}
+        queueName: AddHit
+        {{- end }}
+        mode: QueueLength
+        value: {{ .Values.autoscaling.targetQueueLength | quote }}
+      authenticationRef:
+        name: {{ include "overops-receiver-server.kedaAuthName" . }}
+  {{- end }}
+{{- end }}

@@ -4,6 +4,14 @@
 global:
  enableStorageServer: false
  enableStorageServerS3: false
+ enableKedaAuth: false
+
+keda:
+  rabbitQueue:
+    service: ""
+    port: 5672
+    username: overops
+    password: ""
 
 overops-server:
   enabled: true
@@ -29,3 +37,4 @@ overops-storage-server-s3:
 
 overops-receiver-server:
     enabled: false
+

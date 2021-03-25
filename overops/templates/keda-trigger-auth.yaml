@@ -1,0 +1,23 @@
+{{- if .Values.global.enableKedaAuth -}}
+kind: Secret
+apiVersion: v1
+metadata:
+  name: {{ .Release.Name }}-secret
+  labels:  
+    {{- include "overops.labels" . | nindent 4 }}  
+data:
+  host: {{ (printf "amqp://%s:%s@%s:%s/" .Values.keda.rabbitQueue.username ( .Values.keda.rabbitQueue.password | urlquery ) .Values.keda.rabbitQueue.service ( .Values.keda.rabbitQueue.port | toString )) | b64enc }}
+---
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: "keda-auth-overops"
+  labels:  
+    {{- include "overops.labels" . | nindent 4 }}
+spec:
+  secretTargetRef:
+    - parameter: host
+      name: {{ .Release.Name }}-secret
+      key: host
+---
+{{- end}}
