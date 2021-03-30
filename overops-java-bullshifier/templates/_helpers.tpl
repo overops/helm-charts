@@ -60,14 +60,3 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
-
-{{/*
-Hostname used for a server running in the same namespace.
-*/}}
-{{- define "overops-event-generator.collectorEndpoint" -}}
-{{- if .Values.overops.collectorHost }}
-{{- .Values.overops.collectorHost | quote }}
-{{- else }}
-{{- printf "%s-overops-collector" .Release.Name }}
-{{- end }}
-{{- end }}
