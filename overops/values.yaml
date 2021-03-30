@@ -20,6 +20,9 @@ overops-collector:
 overops-event-generator:
   enabled: true
 
+overops-java-bullshifier:
+  enabled: true
+
 overops-storage-server-s3:
   overops:
     bucket: ""

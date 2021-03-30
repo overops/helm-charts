@@ -24,6 +24,11 @@ dependencies:
     repository: https://overops.github.io/helm-charts/
     condition: overops-event-generator.enabled
 
+  - name: overops-java-bullshifier
+    version: 0.1.0
+    repository: https://overops.github.io/helm-charts/
+    condition: overops-java-bullshifier.enabled
+
   - name: overops-storage-server
     version: 0.2.1
     repository: https://overops.github.io/helm-charts/
