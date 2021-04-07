@@ -60,6 +60,18 @@ spec:
           - name: TAKIPI_SERVER_NAME
             value: {{ .Values.overops.serverName | quote }}
           {{- end -}}
+          {{- if .Values.overops.color }}
+          - name: COLOR
+            value: {{ .Values.overops.color | quote }}
+          {{- end -}}
+          {{- if .Values.overops.runnindDurationHours }}
+          - name: RUNNING_DURATION_HOURS
+            value: {{ .Values.overops.runnindDurationHours | quote }}
+          {{- end -}}
+          {{- if .Values.overops.runnindDurationMinutes }}
+          - name: RUNNING_DURATION_MINUTE
+            value: {{ .Values.overops.runnindDurationMinutes | quote }}
+          {{- end -}}
           {{- if .Values.overops.agentSidecar.enabled }}
           - name: JAVA_TOOL_OPTIONS
             {{- if .Values.overops.agentSidecar.useDebug }}

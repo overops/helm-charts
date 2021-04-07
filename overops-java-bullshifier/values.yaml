@@ -9,6 +9,9 @@ overops:
   applicationName: ""
   deploymentName: ""
   serverName: ""
+  color: "white"
+  runnindDurationHours: 0
+  runnindDurationMinutes: 1
 
   # Use an agent-sidecard instead of an embedded v4 agent (https://github.com/takipi-field/kubernetes/tree/master/agent/sidecar).
   agentSidecar:
