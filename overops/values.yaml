@@ -21,7 +21,7 @@ overops-event-generator:
   enabled: true
 
 overops-java-bullshifier:
-  enabled: true
+  enabled: false
 
 overops-storage-server-s3:
   overops:

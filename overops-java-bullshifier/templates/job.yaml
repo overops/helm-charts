@@ -39,20 +39,20 @@ spec:
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
             {{- end }}
+            {{- if .Values.overops.noAgent }}
+            - name: JAVA_TOOL_OPTIONS
+              value: ""
+            {{- end }}
             {{- if .Values.overops.color }}
             - name: COLOR
             value: {{ .Values.overops.color | quote }}
-            {{- end -}}
+            {{- end }}
             {{- if .Values.overops.runnindDurationHours }}
             - name: RUNNING_DURATION_HOURS
               value: {{ .Values.overops.runnindDurationHours | quote }}
-            {{- end -}}
+            {{- end }}
             {{- if .Values.overops.runnindDurationMinutes }}
             - name: RUNNING_DURATION_MINUTE
               value: {{ .Values.overops.runnindDurationMinutes | quote }}
-            {{- end -}}
-            - name: IS_DAEMON
-              value: "false"
-            - name: NUM_OF_EVENTS
-              value: {{ .Values.overops.job.numberOfEvents | quote }}
+            {{- end }}
 {{- end }}

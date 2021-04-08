@@ -59,19 +59,19 @@ spec:
           {{- if .Values.overops.serverName }}
           - name: TAKIPI_SERVER_NAME
             value: {{ .Values.overops.serverName | quote }}
-          {{- end -}}
+          {{- end }}
           {{- if .Values.overops.color }}
           - name: COLOR
             value: {{ .Values.overops.color | quote }}
-          {{- end -}}
+          {{- end }}
           {{- if .Values.overops.runnindDurationHours }}
           - name: RUNNING_DURATION_HOURS
             value: {{ .Values.overops.runnindDurationHours | quote }}
-          {{- end -}}
+          {{- end }}
           {{- if .Values.overops.runnindDurationMinutes }}
           - name: RUNNING_DURATION_MINUTE
             value: {{ .Values.overops.runnindDurationMinutes | quote }}
-          {{- end -}}
+          {{- end }}
           {{- if .Values.overops.agentSidecar.enabled }}
           - name: JAVA_TOOL_OPTIONS
             {{- if .Values.overops.agentSidecar.useDebug }}
@@ -80,7 +80,11 @@ spec:
             value: "-agentpath:/takipi/lib/libTakipiAgent.so=takipi.debug.logconsole"
             {{- end }}
           {{- end }}
-  
+          {{- if .Values.overops.noAgent }}
+          - name: JAVA_TOOL_OPTIONS
+            value: ""
+          {{- end }}
+ 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.nodeSelector }}
