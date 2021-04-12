@@ -23,8 +23,8 @@ overops:
   # Job Related settings
   job:
     enabled: false
-    runnindDurationHours: 0
-    runnindDurationMinutes: 15
+    runningDurationHours: 0
+    runningDurationMinutes: 5
 
 replicaCount: 1
 

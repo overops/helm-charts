@@ -64,13 +64,13 @@ spec:
           - name: COLOR
             value: {{ .Values.overops.color | quote }}
           {{- end }}
-          {{- if .Values.overops.runnindDurationHours }}
+          {{- if .Values.overops.runningDurationHours }}
           - name: RUNNING_DURATION_HOURS
-            value: {{ .Values.overops.runnindDurationHours | quote }}
+            value: {{ .Values.overops.runningDurationHours | quote }}
           {{- end }}
-          {{- if .Values.overops.runnindDurationMinutes }}
-          - name: RUNNING_DURATION_MINUTE
-            value: {{ .Values.overops.runnindDurationMinutes | quote }}
+          {{- if .Values.overops.job.runningDurationMinutes }}
+          - name: RUNNING_DURATION_MINUTES
+            value: {{ .Values.overops.job.runningDurationMinutes | quote }}
           {{- end }}
           {{- if .Values.overops.agentSidecar.enabled }}
           - name: JAVA_TOOL_OPTIONS
