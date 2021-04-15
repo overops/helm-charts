@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "overops-java-bullshifier.fullname" . }}
+  labels:
+    {{- include "overops-java-bullshifier.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "overops-java-bullshifier.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "overops-java-bullshifier.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "overops-java-bullshifier.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      
+      {{- if .Values.overops.agentSidecar.enabled }}
+      volumes:
+      - name: overops-agent
+        emptyDir: {}
+      initContainers:    
+        - name: overops-agent-sidecar
+          image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
+          volumeMounts:
+          - name: overops-agent
+            mountPath: /takipi
+      {{- end }}
+
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+          - name: TAKIPI_COLLECTOR_HOST
+            value: {{ .Values.overops.collectorHost | quote }}
+          - name: TAKIPI_COLLECTOR_PORT
+            value: {{ .Values.overops.collectorPort | quote }}
+          - name: TAKIPI_APPLICATION_NAME
+            value: {{ .Values.overops.applicationName | quote }}
+          - name: TAKIPI_DEPLOYMENT_NAME
+            value: {{ .Values.overops.deploymentName | quote }}
+          {{- if .Values.overops.serverName }}
+          - name: TAKIPI_SERVER_NAME
+            value: {{ .Values.overops.serverName | quote }}
+          {{- end }}
+          {{- if .Values.overops.color }}
+          - name: COLOR
+            value: {{ .Values.overops.color | quote }}
+          {{- end }}
+          {{- if .Values.overops.agentSidecar.enabled }}
+          - name: JAVA_TOOL_OPTIONS
+            {{- if .Values.overops.agentSidecar.useDebug }}
+            value: "-agentpath:/takipi/lib/libTakipiAgent.so"
+            {{- else }}
+            value: "-agentpath:/takipi/lib/libTakipiAgent.so=takipi.debug.logconsole"
+            {{- end }}
+          {{- end }}
+          {{- if .Values.overops.noAgent }}
+          - name: JAVA_TOOL_OPTIONS
+            value: ""
+          {{- end }}
+ 
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.nodeSelector }}
+          {{- if .Values.overops.agentSidecar.enabled }}
+            volumeMounts:
+            - name: overops-agent
+              mountPath: /takipi
+          {{- end }}
+
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

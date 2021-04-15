@@ -1,0 +1,58 @@
+{{- if .Values.overops.job.enabled -}}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "overops-java-bullshifier.fullname" . }}-job
+  labels:
+    {{- include "overops-java-bullshifier.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+spec:
+  template:
+    metadata:
+      name: {{ include "overops-java-bullshifier.fullname" . }}-job
+      labels:
+        {{- include "overops-java-bullshifier.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "overops-java-bullshifier.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}    
+      restartPolicy: Never
+      containers:
+        - name: {{ .Chart.Name }}-job
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: TAKIPI_COLLECTOR_HOST
+              value: {{ .Values.overops.collectorHost | quote }}
+            - name: TAKIPI_COLLECTOR_PORT
+              value: {{ .Values.overops.collectorPort | quote }}
+            - name: TAKIPI_APPLICATION_NAME
+              value: {{ .Values.overops.applicationName | quote }}
+            - name: TAKIPI_DEPLOYMENT_NAME
+              value: {{ .Values.overops.deploymentName | quote }}
+            {{- if .Values.overops.serverName }}
+            - name: TAKIPI_SERVER_NAME
+              value: {{ .Values.overops.serverName | quote }}
+            {{- end }}
+            {{- if .Values.overops.noAgent }}
+            - name: JAVA_TOOL_OPTIONS
+              value: ""
+            {{- end }}
+            {{- if .Values.overops.color }}
+            - name: COLOR
+              value: {{ .Values.overops.color | quote }}
+            {{- end }}
+            {{- if .Values.overops.job.runningDurationHours  }}
+            - name: RUNNING_DURATION_HOURS
+              value: {{ .Values.overops.job.runningDurationHours  | quote }}
+            {{- end }}
+            {{- if .Values.overops.job.runningDurationMinutes }}
+            - name: RUNNING_DURATION_MINUTES
+              value: {{ .Values.overops.job.runningDurationMinutes | quote }}
+            {{- end }}
+{{- end }}

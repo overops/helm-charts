@@ -18,7 +18,10 @@ overops-collector:
     serviceKey: ""
 
 overops-event-generator:
-  enabled: true
+  enabled: false
+
+overops-java-bullshifier:
+  enabled: false
 
 overops-storage-server-s3:
   overops:

@@ -6,6 +6,7 @@ This chart pulls in each Overops component and can be configured to install indi
 * [Overops Collector](../overops-collector/README.MD)
 * [Overops Backend Server](../overops-server/README.MD) ( Including supporting database)
 * [Overops Event Generator](../overops-event-generator/README.MD)
+* [Overops Java Bullshifier](../overops-java-bullshifier/README.MD)
 * [Overops Storage Server](../overops-storage-server/README.MD)
 * [Overops Storage Server S3](../overops-storage-server-s3/README.MD)
 
@@ -48,6 +49,7 @@ By default this chart installs additional, dependent charts:
 - overops/overops-server
 - overops/overops-collector
 - overops/overops-event-generator
+- overops/overops-java-bullshifier
 - overops/overops-storage-server
 - overops/overops-storage-server-s3
 
