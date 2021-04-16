@@ -226,6 +226,18 @@ entries:
     version: 0.1.0
   overops-collector:
   - apiVersion: v2
+    appVersion: 4.59.1
+    created: "2021-04-16T12:26:08.219315-04:00"
+    description: A Helm chart for OverOps Collector
+    digest: 745e54fe2ee64966c368eee984eb311ff2336112765b23a5447bcb501db91d1a
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-collector
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-collector-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
     appVersion: 4.58.0
     created: "2021-03-01T12:15:19.514831-05:00"
     description: A Helm chart for OverOps Collector
@@ -299,6 +311,18 @@ entries:
     version: 0.1.0
   overops-event-generator:
   - apiVersion: v2
+    appVersion: 2.2.0-agent-4.59.1
+    created: "2021-04-16T12:26:08.219911-04:00"
+    description: A Helm chart for OverOps Event Generator
+    digest: 62a3088e81a09d835cd15909f33f833c71f247a866720f49e431ddf7f4d5039d
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-event-generator
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-event-generator-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
     appVersion: 2.2.0-agent-4.58.0
     created: "2021-03-01T12:15:19.515342-05:00"
     description: A Helm chart for OverOps Event Generator
@@ -370,7 +394,41 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-event-generator-0.1.0.tgz
     version: 0.1.0
+  overops-java-bullshifier:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-04-16T12:26:08.220544-04:00"
+    description: A Helm chart for OverOps Java Bullshifier
+    digest: 160f377c3059074c29e5ba1f705055f3c5925795c4fc7f347fc93778aada7846
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-java-bullshifier
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-java-bullshifier-0.1.0.tgz
+    version: 0.1.0
   overops-server:
+  - apiVersion: v2
+    appVersion: 4.59.1
+    created: "2021-04-16T12:26:08.226331-04:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.helm.sh/stable
+      version: 1.6.7
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.2.0
+    description: A Helm chart for OverOps Backend Server
+    digest: ee4faedb084bbf999820b314b1cca8707d3df9b67cb7f5746cd53aaf40ab6b90
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-server-0.6.0.tgz
+    version: 0.6.0
   - apiVersion: v2
     appVersion: 4.58.0
     created: "2021-03-01T12:15:19.521029-05:00"
@@ -584,4 +642,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-03-01T12:23:48.788612-05:00"
+generated: "2021-04-16T12:26:08.218525-04:00"
