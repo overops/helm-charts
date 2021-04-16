@@ -19,8 +19,10 @@ helm repo update
 ## Install Chart
 ```console
 # Helm 3 (Updating the fields to install collector and server)
-$ helm install -n=overops --set overops.collectorHost=[YOUR-COLLECTOR-HOSTNAME] myoverops overops/overops-event-generator
+$ helm install -n=overops --set overops.collectorHost=[YOUR-COLLECTOR-HOSTNAME] --set image.repository=[YOUR-REPOSITORY] [RELEASE_NAME] overops/overops-java-bullshifier
 ```
+
+_Note: Currently java-bullshifier is not hosted on dockerhub but can built from source and published to a local repository. Therefore must set the image.repository value_
 
 _See [configuration](#configuration) below._
 
@@ -65,8 +67,8 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Java Bullshifier                                          | `false`                           |
 | `overops.job.runningDurationHours`           | The number of hours java-bullshifier app should be running                                   | `0`                               |
 | `overops.job.runningDurationMinutes`         | The number of minutes java-bullshifier app should be running                                 | `5`                               |
-| `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
-| `image.tag`                                  | `overops-event-generator` image tag.                                                         |  Pulled from chart.yaml           |
+| `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                            |
+| `image.tag`                                  | `overops-java-bullshifier` image tag.                                                        |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |
 | `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                           |
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`           |
