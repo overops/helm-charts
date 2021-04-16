@@ -1,5 +1,6 @@
 # CHANGELOG: Overops Server Chart
-
+## [0.6.0]
+- Updated App Release to OverOps 4.59.1
 ## [0.5.0]
 - Updated App Release to OverOps 4.58.0
 
