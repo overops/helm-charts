@@ -1,4 +1,7 @@
-# CHANGELOG: Overops Chart
+# CHANGELOG: Overops v5 Chart
+
+## [5.0.0]
+- v5 Branch of the chart.
 
 ## [0.5.0]
 - Updated App Release to OverOps 4.58.0
