@@ -1,7 +1,7 @@
-# Overops Server Backend
+# Overops Server Backend V5
 This is the helm chart for [OverOps](https://www.overops.com/) backend server. It is based on the Overops Server docker release found [here](https://hub.docker.com/r/overops/server). 
 
-Besides bootstrapping the Overops server it also includes deploying a database (As of Chart Version 2.1: Postgres Version 11.10.0 )
+This is the V5 Version of the Chart.
 
 ## Prerequisites
 
