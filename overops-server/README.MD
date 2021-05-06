@@ -72,6 +72,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops.auth.existingSecret`                | Name of an existing secret rather than creating a one.                                       | `nil`                                                |
 | `overops.rabbitQueue.enabled`                | V5: Enables the OverOps to run with rabbit message queue                                     | `false`                                              |
 | `overops.rabbitQueue.service`                | V5: Service or external hostname of the Rabbit MQ server                                     | `nil`                                                |
 | `overops.rabbitQueue.port`                   | V5: Port of the Rabbit MQ server                                                             | `5672`                                               |

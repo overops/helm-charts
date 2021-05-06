@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops
 description: A Helm chart for OverOps V5 Stack.
 type: application
-version: 5.0.0
+version: 5.0.1
 appVersion: 5.0.0
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
@@ -10,35 +10,35 @@ home: https://www.overops.com/
 
 dependencies:
   - name: overops-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-server.enabled
 
   - name: overops-receiver-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server-agent.enabled
     alias: overops-receiver-server-agent
 
   - name: overops-receiver-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server-hit.enabled
     alias: overops-receiver-server-hit
 
   - name: overops-receiver-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server-decompile.enabled
     alias: overops-receiver-server-decompile
 
   - name: overops-receiver-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server-sql.enabled
     alias: overops-receiver-server-sql
 
   - name: overops-receiver-server
-    version: 5.0.0
+    version: 5.0.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-receiver-server.enabled

@@ -86,6 +86,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `global.enableStorageServer`                 | Enables the deployment of the OverOps Storage server                           | `false`                                              |
 | `global.enableStorageServerS3`               | Enables the deployment of the OverOps Storage server S3                        | `false`                                              |
 | `global.enableKedaAuth`                      | Enables the use of a shared KEDA Autoscaler Authentication and Secret.         | `false`                                              |
+| `auth.existingSecret`                        | Name of an existing secret rather than creating a one.                         | `nil`                                                |
 | `keda.rabbitQueue.service`                   | V5: Service or external hostname of the Rabbit MQ server                       | `nil`                                                |
 | `keda.rabbitQueue.port`                      | V5: Port of the Rabbit MQ server                                               | `5672`                                               |
 | `keda.rabbitQueue.username`                  | V5: Username to authenticate to the Rabbit MQ Exchange                         | `overops`                                            |

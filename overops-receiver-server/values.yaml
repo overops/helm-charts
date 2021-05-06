@@ -14,7 +14,10 @@ overops:
   type: RABBIT
 
   # To add Fargate Label enable this setting.
-  #target: fargate 
+  #target: fargate
+
+  auth:
+    existingSecret: ""
 
   rabbitQueue:
     # Receiver type: agent,hit,decompiler,sql, or custom.

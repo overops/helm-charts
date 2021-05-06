@@ -4,6 +4,9 @@
 global:
  enableKedaAuth: false
 
+auth:
+  existingSecret: ""
+
 keda:
   rabbitQueue:
     service: ""

@@ -45,6 +45,17 @@ spec:
           env:
             - name: OVEROPS_RECEIVER_TYPE
               value: {{ .Values.overops.type | quote }}
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-receiver-server.secretName" . }}
+                  key: db-password
+            - name: RMQ_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-receiver-server.secretName" . }}
+                  key: rmq-password                   
+
           resources:
             {{- if and (eq .Values.overops.target "fargate") (eq .Values.overops.rabbitQueue.type "decompile") }}
             requests:
