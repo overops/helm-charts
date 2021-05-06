@@ -49,6 +49,11 @@ spec:
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
               value: {{ .Values.overops.frontendURL | quote }}
+            - name: DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: default-user-password
 
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
@@ -90,8 +95,15 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "overops-server.fullname" . }}
+                  name: {{ include "overops-server.secretName" . }}
                   key: db-password             
+            {{ end }}
+            {{ if .Values.overops.rabbitQueue.enabled }}
+            - name: RMQ_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: rmq-password               
             {{ end }}
 
           resources:

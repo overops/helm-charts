@@ -12,7 +12,7 @@ data:
 
     spring.datasource.url=jdbc:mysql://{{ .Values.overops.mysql.url }}:{{ .Values.overops.mysql.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true
     spring.datasource.username={{ .Values.overops.mysql.user }}
-    spring.datasource.password={{ .Values.overops.mysql.password }}
+    spring.datasource.password=${DB_PASS}
 
 {{- if eq .Values.overops.rabbitQueue.type "sql" }}
     spring.profiles.active=mysql,msg_rabbit,sqli,sql_locinv,sql_metric
@@ -29,14 +29,14 @@ data:
   application-mysql.properties: |-
     spring.datasource.url=jdbc:mysql://{{ .Values.overops.mysql.url }}:{{ .Values.overops.mysql.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true
     spring.datasource.username={{ .Values.overops.mysql.user}}
-    spring.datasource.password={{ .Values.overops.mysql.password }}
+    spring.datasource.password=${DB_PASS}
 
 
   application-msg_rabbit.properties: |-
     spring.rabbitmq.host={{ .Values.overops.rabbitQueue.service }}
     spring.rabbitmq.port={{ .Values.overops.rabbitQueue.port }}
     spring.rabbitmq.username={{ .Values.overops.rabbitQueue.username }}
-    spring.rabbitmq.password={{ .Values.overops.rabbitQueue.password }}
+    spring.rabbitmq.password=${RMQ_PASS}
 
     overops.exchange.name={{ .Values.overops.rabbitQueue.exchange }}
 

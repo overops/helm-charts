@@ -68,3 +68,14 @@ Create the name of the service account to use
 {{- printf "keda-auth-%s" .Release.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
+
+{{/*
+Returns the Name which contains Auth Secret
+*/}}
+{{- define "overops-receiver-server.secretName" -}}
+    {{- if .Values.overops.auth.existingSecret -}}
+        {{- printf "%s" .Values.overops.auth.existingSecret -}}
+    {{- else -}}
+        {{- printf "%s" (include "overops-receiver-server.fullname" .) -}}
+    {{- end -}}
+{{- end -}}

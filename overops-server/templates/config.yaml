@@ -27,7 +27,7 @@ data:
     spring.rabbitmq.host={{ .Values.overops.rabbitQueue.service }}
     spring.rabbitmq.port={{ .Values.overops.rabbitQueue.port }}
     spring.rabbitmq.username={{ .Values.overops.rabbitQueue.username }}
-    spring.rabbitmq.password={{ .Values.overops.rabbitQueue.password }}
+    spring.rabbitmq.password=${RMQ_PASS}
 
     overops.exchange.name={{ .Values.overops.rabbitQueue.exchange }}
 {{- end }}
@@ -36,7 +36,7 @@ data:
   my.server.properties: |-
     FRONTEND_HOST={{ .Values.overops.frontendURL }}
     
-    LOCAL_DEFAULT_USER_JSON:  {"email": {{ .Values.overops.defaultUser | quote }}, "password": {{ .Values.overops.defaultUserPass | quote }}, "first_name": {{ .Values.overops.defaultUserFirst | quote }}, "last_name": {{ .Values.overops.defaultUserLast | quote }}}
+    LOCAL_DEFAULT_USER_JSON:  {"email": {{ .Values.overops.defaultUser | quote }}, "password": "${DEFAULT_PASS}", "first_name": {{ .Values.overops.defaultUserFirst | quote }}, "last_name": {{ .Values.overops.defaultUserLast | quote }}}
     LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY: {{ .Values.overops.defaultUserServiceKey }}
     LOCAL_GENERATE_FIRST_USER_SERVICE_AND_LABELS=true
     LOCAL_GENERATE_DEFAULT_PRESETS=true
