@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Server Chart
 
+## [0.7.1]
+- Added the support for an Existing Secret.
+
 ## [0.7.0]
 - Updated App Release to OverOps 4.60.0
 
@@ -16,7 +19,7 @@
 - Added Liveness and Startup Probes for respected services and added Init Container for overops-server to test database connection.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.1]
 - Added support for Postgres Database as default backend database.

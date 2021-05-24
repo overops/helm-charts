@@ -4,6 +4,7 @@
 
 # Overops Config settings
 overops:
+  defaultUserEnabled: true
   defaultUser: "user@overops.com"
   defaultUserFirst: "Overops"
   defaultUserLast: "user"
@@ -12,6 +13,13 @@ overops:
 
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
  
+auth:
+  # Name of an existing secret which holds the following sensitive key/values:
+  #  dbPassword   (external-db-password)
+  #  defaultUserPass
+  #  defaultUserServiceKey
+  # Note: If not set a secret is created by the helm chart.
+  existingSecret: ""
 
 replicaCount: 1
 image:
@@ -101,10 +109,6 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
-
-ambassador:
-  enabled: false
-  prefix: /
 
 livenessProbe:
   enabled: true
