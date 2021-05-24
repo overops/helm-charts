@@ -49,7 +49,18 @@ spec:
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
               value: {{ .Values.overops.frontendURL | quote }}
-
+            {{- if .Values.overops.defaultUserEnabled }}
+            - name: DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: defaultUserPass
+            - name: DEFAULT_SERVICE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: defaultUserServiceKey
+            {{- end }}
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
               value: "mysql"
@@ -90,8 +101,8 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "overops-server.fullname" . }}
-                  key: db-password             
+                  name: {{ include "overops-server.secretName" . }}
+                  key: dbPassword
             {{ end }}
 
           resources:

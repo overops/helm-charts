@@ -66,6 +66,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `overops.defaultUserEnabled`                 | Enables a Default User to be created at deployment                                           | `true`                                               |
 | `overops.defaultUser`                        | Default Username to be pre-populated. This should be an email address                        | `user@overops.com`                                   |
 | `overops.defaultUserFirst`                   | Default User first name to be pre-populated.                                                 | `Overops`                                            |
 | `overops.defaultUserLast`                    | Default User last name to be pre-populated.                                                  | `user`                                               |
@@ -75,6 +76,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
+| `auth.existingSecret`                        | Name of an existing K8S Secret that contains Sensitive Values                                | `nil`                                                |
 | `externalDatabase.enabled`                   | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
 | `externalDatabase.type`                      | External Database type used by overops server                                                | `mysql`                                              |
 | `externalDatabase.url`                       | External Database URL used by overops server                                                 | `nil`                                                |
@@ -84,7 +86,22 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
 | `mysql.mysqlUser`                            | Username of new database user to create.                                                     | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
-| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                              | 
+| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                               |
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
+
+## Advanced
+
+### Existing Secret
+
+Rather than passing passwords / keys using the helm values an existing secret can also be used by setting the `auth.existingSecret` value. This must be set to existing name of k8s secret installed
+in the same namespace. If not set, a secret will be created by the helm chart containing the values.
+
+The following key value's will be used:
+
+```yaml
+dbPassword: # Database Password
+defaultUserPass: # Default User Password
+defaultUserServiceKey: # Default Service Key
+```

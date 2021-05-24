@@ -74,3 +74,14 @@ Determine the hostname to use for mysql.
 {{- define "mysql.hostname" -}}
 {{- printf "%s-%s" .Release.Name "mysql" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{/*
+Returns the Name which contains Auth Secret
+*/}}
+{{- define "overops-server.secretName" -}}
+    {{- if .Values.auth.existingSecret -}}
+        {{- printf "%s" .Values.auth.existingSecret -}}
+    {{- else -}}
+        {{- printf "%s" (include "overops-server.fullname" .) -}}
+    {{- end -}}
+{{- end -}}
