@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Chart
 
+## [0.7.1]
+- Added the support for an Existing Secret to overops-server.
+
 ## [0.7.0]
 - Updated App Release to OverOps 4.60.0
 
