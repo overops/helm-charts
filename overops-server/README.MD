@@ -79,6 +79,12 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.rabbitQueue.username`               | V5: Username to authenticate to the Rabbit MQ Exchange                                       | `overops`                                            |
 | `overops.rabbitQueue.password`               | V5: Password to authenticate to the Rabbit MQ Exchange                                       | `nil`                                                |
 | `overops.rabbitQueue.exchange`               | V5: Exchange to use on the Rabbit MQ Server                                                  | `overops`                                            |
+| `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                                              |
+| `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`                              |
+| `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
+| `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
+| `overops.agentSidecar.collectorHost`         | Agent Sidecar Collector hostname or K8s Service Name                                         | `nil`                                                |
+| `overops.agentSidecar.collectorPort`         | Agent Sidecar Collector  Collector port                                                      | `6060`                                               |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |

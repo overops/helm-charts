@@ -28,12 +28,24 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
 
+      {{- if or (.Values.postgresql.enabled) (.Values.overops.agentSidecar.enabled)  }}
+      initContainers:
       {{- if .Values.postgresql.enabled }}
-      initContainers:  # check if DB is ready, and only continue when true
+        # Check if DB is ready, and only continue when true
         - name: check-db-ready
           image: bitnami/postgresql:{{ .Values.postgresql.image.tag }}
-          command: ['sh', '-c',  'until pg_isready -U {{ .Values.postgresql.postgresqlUsername | quote }} -h {{ template "postgresql.hostname" . }} -p {{ .Values.postgresql.service.port }};  do echo waiting for database; sleep 2; done;']          
+          command: ['sh', '-c',  'until pg_isready -U {{ .Values.postgresql.postgresqlUsername | quote }} -h {{ template "postgresql.hostname" . }} -p {{ .Values.postgresql.service.port }};  do echo waiting for database; sleep 2; done;']
       {{- end }}
+      {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent-sidecar
+          image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
+          volumeMounts:
+          - name: overops-agent
+            mountPath: /opt/overops-agent
+      {{- end }}
+      {{- end }}
+
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -96,21 +108,43 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "overops-server.secretName" . }}
-                  key: db-password             
+                  key: db-password
             {{ end }}
             {{ if .Values.overops.rabbitQueue.enabled }}
             - name: RMQ_PASS
               valueFrom:
                 secretKeyRef:
                   name: {{ include "overops-server.secretName" . }}
-                  key: rmq-password               
+                  key: rmq-password
             {{ end }}
+            {{- if .Values.overops.agentSidecar.enabled }}
+            - name: TAKIPI_COLLECTOR_HOST
+              value: {{ .Values.overops.agentSidecar.collectorHost | quote }}
+            - name: TAKIPI_COLLECTOR_PORT
+              value: {{ .Values.overops.agentSidecar.collectorPort | quote }}
+            - name: TAKIPI_APPLICATION_NAME
+              value: {{ .Values.overops.agentSidecar.applicationName | quote }}
+            - name: TAKIPI_DEPLOYMENT_NAME
+              value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
+            - name: TAKIPI_SERVER_NAME
+              value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: JAVA_TOOL_OPTIONS
+              {{- if .Values.overops.agentSidecar.useDebug }}
+              value: "-agentpath:/opt/overops-agent/takipi/lib/libTakipiAgent.so=takipi.debug.logconsole"
+              {{- else }}
+              value: "-agentpath:/opt/overops-agent/takipi/lib/libTakipiAgent.so"
+              {{- end }}
+            {{- end }}
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - mountPath: /opt/overops/private
               name: overops-private
+            {{- if .Values.overops.agentSidecar.enabled }}
+            - name: overops-agent
+              mountPath: /opt/overops-agent
+            {{- end }}
 
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
@@ -143,13 +177,17 @@ spec:
             - key: application.properties
               path: application.properties
             - key: application-mysql.properties
-              path: application-mysql.properties                    
-            - key: my.server.properties 
+              path: application-mysql.properties
+            - key: my.server.properties
               path: my.server.properties
             {{- if .Values.overops.rabbitQueue.enabled }}
             - key: application-msg_rabbit.properties
               path: application-msg_rabbit.properties
             {{- end }}
+        {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent
+          emptyDir: {}
+        {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
