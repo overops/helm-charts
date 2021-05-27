@@ -16,6 +16,19 @@ overops:
   # To add Fargate Label enable this setting.
   #target: fargate
 
+  # Enable Overops Agent to run Overops on Overops
+  agentSidecar:
+    enabled: false
+    useDebug: false
+    repository: overops/agent-sidecar
+    pullPolicy: IfNotPresent
+    tag: latest
+    collectorHost: ""
+    collectorPort: 6060
+    applicationName: ""
+    deploymentName: ""
+    serverName: ""  
+
   auth:
     existingSecret: ""
 
