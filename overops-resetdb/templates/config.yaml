@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "overops-resetdb.fullname" . }}-config
+  labels:
+    {{- include "overops-resetdb.labels" . | nindent 4 }}
+data:
+  reset.sql: |-
+    DROP DATABASE IF EXISTS dynalite;
+    DROP DATABASE IF EXISTS pds;
+    DROP DATABASE IF EXISTS qsql;
+    DROP DATABASE IF EXISTS takipi;
+    DROP DATABASE IF EXISTS overops;
+    DROP DATABASE IF EXISTS overops_next;
+
+    CREATE DATABASE IF NOT EXISTS dynalite;
+    CREATE DATABASE IF NOT EXISTS pds;
+    CREATE DATABASE IF NOT EXISTS qsql;
+    CREATE DATABASE IF NOT EXISTS takipi;
+    CREATE DATABASE IF NOT EXISTS overops;
+    CREATE DATABASE IF NOT EXISTS overops_next;
