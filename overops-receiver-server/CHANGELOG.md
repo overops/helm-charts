@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Receiver Server Chart
 
+## [5.0.3]
+- v5 Added extended config section for edits to application.properties.
+
 ## [5.0.2]
 - v5 Added Overops Agent Support
 

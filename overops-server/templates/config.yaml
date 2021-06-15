@@ -9,13 +9,15 @@ data:
     logging.level.root = {{ .Values.overops.loglevel }}
 
     spring.jpa.hibernate.ddl-auto=update
-
-    spring.datasource.url=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true
-    spring.datasource.username={{ .Values.mysql.mysqlUser }}
-    spring.datasource.password=${DB_PASS}
 {{- if .Values.overops.rabbitQueue.enabled }}
     spring.profiles.active=mysql,msg_rabbit,service_stats,retry
 {{- end }}
+{{- if .Values.config.enableExtraAppConfig }}
+{{- range $key, $val := .Values.config.applicationProperties }}
+{{ $val | indent 4}}
+{{- end }}
+{{- end }}
+
   application-mysql.properties: |-
     spring.datasource.url=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true
     spring.datasource.username={{ .Values.mysql.mysqlUser }}
@@ -45,33 +47,6 @@ data:
     WORKERS_EXECUTOR_CPU_THREAD_POOL_SIZE=3
     WORKERS_EXECUTOR_IO_THREAD_POOL_SIZE=6
     WORKERS_EXECUTOR_SQL_THREAD_POOL_SIZE=6 
-    
-    DYNA_VENDOR_TYPE=RDS
-    DYNA_JDBC_VENDOR_TYPE=MYSQL
-    DYNA_JDBC_USERNAME={{ .Values.mysql.mysqlUser }}
-    DYNA_JDBC_PASSWORD=${DB_PASS}
-    DYNA_JDBC_CONNECTION_STRING=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/dynalite?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-
-    JDBC_VENDOR_TYPE=MYSQL
-    JDBC_USERNAME={{ .Values.mysql.mysqlUser }}
-    JDBC_PASSWORD=${DB_PASS}
-    JDBC_CONNECTION_STRING=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/takipi?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-
-    PDS_JDBC_VENDOR_TYPE=MYSQL
-    PDS_JDBC_USERNAME={{ .Values.mysql.mysqlUser }}
-    PDS_JDBC_PASSWORD=${DB_PASS}
-    PDS_JDBC_CONNECTION_STRING=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/pds?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-    QUEUE_PROVIDER_TYPE=QSQL
-
-    QSQL_JDBC_VENDOR_TYPE=MYSQL
-    QSQL_JDBC_USERNAME={{ .Values.mysql.mysqlUser }}
-    QSQL_JDBC_PASSWORD=${DB_PASS}
-    QSQL_JDBC_CONNECTION_STRING=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/qsql?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
-
-    AUDIT_JDBC_VENDOR_TYPE=MYSQL
-    AUDIT_JDBC_USERNAME={{ .Values.mysql.mysqlUser }}
-    AUDIT_JDBC_PASSWORD=${DB_PASS}
-    AUDIT_JDBC_CONNECTION_STRING=jdbc:mysql://{{ template "mysql.hostname" . }}:{{ .Values.mysql.service.port }}/audit?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
 
 {{- if .Values.config.enableExtraConfig }}
 {{- range $key, $val := .Values.config.myServerProperties }}

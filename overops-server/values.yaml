@@ -189,9 +189,15 @@ tolerations: []
 affinity: {}
 
 
-## Overops Extended Configuration section populates config files based on key values that will be part of
+## Overops Extended Configuration section populates config files that will be part of
 #  overops server configMap. These will be mounted to the overops-private volume mount.
 config:
+  enableExtraAppConfig: true
+  applicationProperties: []
+    # Example tuning hikari settings.
+    #- "spring.datasource.hikari.maximumPoolSize=50"
+    #- "spring.datasource.hikari.connectionTimeout=60000"
+
   enableExtraConfig: false
 
   # Additional properties to add to the my.server.properties file.
