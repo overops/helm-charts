@@ -10,10 +10,6 @@ data:
 
     spring.jpa.hibernate.ddl-auto=update
 
-    spring.datasource.url=jdbc:mysql://{{ .Values.overops.mysql.url }}:{{ .Values.overops.mysql.port }}/overops?useLegacyDatetimeCode=false&rewriteBatchedStatements=true
-    spring.datasource.username={{ .Values.overops.mysql.user }}
-    spring.datasource.password=${DB_PASS}
-
 {{- if eq .Values.overops.rabbitQueue.type "sql" }}
     spring.profiles.active=mysql,msg_rabbit,sqli,sql_locinv,sql_metric
 {{- else if eq .Values.overops.rabbitQueue.type "agent" }}
@@ -24,6 +20,11 @@ data:
     spring.profiles.active={{ .Vaules.overops.rabbitQueue.customType }}
 {{- else }}
     spring.profiles.active=mysql,msg_rabbit,hit
+{{- end }}
+{{- if .Values.config.enableExtraAppConfig }}
+{{- range $key, $val := .Values.config.applicationProperties }}
+{{ $val | indent 4}}
+{{- end }}
 {{- end }}
 
   application-mysql.properties: |-
