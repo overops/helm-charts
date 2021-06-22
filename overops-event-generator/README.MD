@@ -69,8 +69,10 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
+| `overops.randomSeed`                         | Seed value to use when randomizing the events for K8s Deployment                             | `nil`                             |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
-| `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `50`                              |
+| `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `100`                             |
+| `overops.job.randomSeed`                     | Seed value to use when randomizing the events for K8s Job.                                   | `123`                             |
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
 | `image.tag`                                  | `overops-event-generator` image tag.                                                         |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |

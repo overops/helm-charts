@@ -39,8 +39,10 @@ spec:
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
             {{- end }}
-            - name: IS_DAEMON
-              value: "false"
-            - name: NUM_OF_EVENTS
+            - name: EXIT_ON_MAX_NUM_EVENTS
+              value: "true"
+            - name: RANDOM_SEED
+              value: {{ .Values.overops.job.randomSeed | quote }}
+            - name: MAX_NUM_EVENTS
               value: {{ .Values.overops.job.numberOfEvents | quote }}
 {{- end }}

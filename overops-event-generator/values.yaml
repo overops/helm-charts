@@ -9,6 +9,7 @@ overops:
   applicationName: ""
   deploymentName: ""
   serverName: ""
+  randomSeed: ""
 
   # Use an agent-sidecard instead of an embedded agent.
   agentSidecar:
@@ -21,7 +22,8 @@ overops:
   # Job Related settings
   job:
     enabled: false
-    numberOfEvents: 50
+    numberOfEvents: 100
+    randomSeed: 123
 
 replicaCount: 1
 
