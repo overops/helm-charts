@@ -59,6 +59,10 @@ spec:
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
             {{- end -}}
+            {{- if .Values.overops.randomSeed }}
+            - name: RANDOM_SEED
+              value: {{ .Values.overops.randomSeed | quote }}
+            {{- end -}}
             {{- if .Values.overops.agentSidecar.enabled }}
             - name: JAVA_TOOL_OPTIONS
               {{- if .Values.overops.agentSidecar.useDebug }}
