@@ -1,4 +1,6 @@
 # CHANGELOG: Overops Server Chart
+## [5.0.4]
+- v5 Added Redis Configuration Support.
 ## [5.0.3]
 - v5 Added extended config section for edits to application.properties.
 

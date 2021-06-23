@@ -56,6 +56,9 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.type`                               | Type of OverOps receiver to run as (rabbit, kafka)                                           | `RABBIT`                                             |
 | `overops.loglevel`                           | Log Level for the deployment                                                                 | `INFO`                                               |
 | `overops.auth.existingSecret`                | Name of an existing secret rather than creating a one.                                       | `nil`                                                |
+| `overops.redis.enabled`                      | V5: Enables the OverOps to run with an external Redis Cache                                  | `false`                                              |
+| `overops.redis.host`                         | V5: Hostname of the Redis server                                                             | `nil`                                                |
+| `overops.redis.port`                         | V5: Port of the Redis server                                                                 | `6379`                                               |
 | `overops.rabbitQueue.type`                   | Rabbit Queue configuration type (hit,decompiler,sql or custom)                               | `hit`                                                |
 | `overops.rabbitQueue.customType`             | Overwrites the profile with a custom string                                                  | `nil`                                                |
 | `overops.rabbitQueue.service`                | V5: Service or external hostname of the Rabbit MQ server                                     | `nil`                                                |
