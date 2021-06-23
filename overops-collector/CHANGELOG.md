@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector Chart
 
+## [0.8.0]
+- Updated App Release to OverOps 4.61.0
+
 ## [0.7.0]
 - Updated App Release to OverOps 4.60.0 adding support Loadbalancer annotation type.
 
