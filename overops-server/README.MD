@@ -73,6 +73,9 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
 | `overops.auth.existingSecret`                | Name of an existing secret rather than creating a one.                                       | `nil`                                                |
+| `overops.redis.enabled`                      | V5: Enables the OverOps to run with an external Redis Cache                                  | `false`                                              |
+| `overops.redis.host`                         | V5: Hostname of the Redis server                                                             | `nil`                                                |
+| `overops.redis.port`                         | V5: Port of the Redis server                                                                 | `6379`                                               |
 | `overops.rabbitQueue.enabled`                | V5: Enables the OverOps to run with rabbit message queue                                     | `false`                                              |
 | `overops.rabbitQueue.service`                | V5: Service or external hostname of the Rabbit MQ server                                     | `nil`                                                |
 | `overops.rabbitQueue.port`                   | V5: Port of the Rabbit MQ server                                                             | `5672`                                               |
@@ -97,7 +100,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
 | `mysql.mysqlUser`                            | Username of new database user to create.                                                     | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
-| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                              | 
+| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                               | 
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |

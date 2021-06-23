@@ -21,6 +21,13 @@ data:
 {{- else }}
     spring.profiles.active=mysql,msg_rabbit,hit
 {{- end }}
+{{- if .Values.overops.redis.enabled }}
+    spring.cache.type=redis
+    spring.cache.redis.enable-statistics=true
+    spring.redis.host={{ .Values.overops.redis.host }}
+    spring.redis.port={{ .Values.overops.redis.port }}
+    management.health.redis.enabled=true
+{{- end }}
 {{- if .Values.config.enableExtraAppConfig }}
 {{- range $key, $val := .Values.config.applicationProperties }}
 {{ $val | indent 4}}
