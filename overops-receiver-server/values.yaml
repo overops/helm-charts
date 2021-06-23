@@ -35,7 +35,7 @@ overops:
   redis:
     enabled: false
     host: ''
-    port: 637    
+    port: 6379
 
   rabbitQueue:
     # Receiver type: agent,hit,decompiler,sql, or custom.
