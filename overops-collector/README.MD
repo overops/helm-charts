@@ -9,14 +9,14 @@ The collector can be deployed into the same namespace as an Overops Backend Serv
 
 ## Get Repo Info
 ```
-helm repo add overops https://overops.github.io/helm-charts
+helm repo add overops helm repo add overops-v5 s3://overops-v5-helm/v5/
 helm repo update
 ```
 
 ## Install Chart
 ```console
 # Helm 3 (Updating the fields)
-$ helm install -n=overops --set overops.serviceKey=[YOUR-KEY] --set overops.backendURL=[YOUR-BACKEND-URL]  myoverops overops/overops-collector
+$ helm install -n=overops --set overops.serviceKey=[YOUR-KEY] --set overops.backendURL=[YOUR-BACKEND-URL]  myoverops overops-v5/overops-collector
 ```
 
 _See [configuration](#configuration) below._
@@ -42,7 +42,7 @@ See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_h
 ```console
 
 # Helm 3
-$ helm show values overops/overops-collector
+$ helm show values overops-v5/overops-collector
 ```
 
 The following table lists the configurable parameters of the OverOps Collector chart and their default values. This is not a complete list, additional values can be found by inspecting the respected chart.

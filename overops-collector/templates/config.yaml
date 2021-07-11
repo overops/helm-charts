@@ -9,9 +9,6 @@ data:
   installation.key:  {{ .Values.overops.serviceKey }}
   {{- end }}
   collector.properties: |-
-     jvmPath=${JAVA_HOME}/lib/amd64/server/libjvm.so
-     libraryPath=/opt/takipi/lib
-
      takipi.listen.port=6060
      {{- if .Values.overops.backendURL }}
      takipi.backend.url={{ .Values.overops.backendURL }}
