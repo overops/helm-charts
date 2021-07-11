@@ -1,0 +1,85 @@
+# Default values for overops-collector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+global:
+ # Used only when deploying with the overops/overops chart.
+ enableStorageServer: false
+ enableStorageServerS3: false
+
+# Overops Config settings
+overops:
+  backendURL: 
+  storageTestURL:
+  serverName:
+  jvmHeapSize: "1G"
+  serviceKey:
+
+  # Used only if the storage or backend server were installed in a seperate helm release
+  backendReleaseName:
+  storageReleaseName:
+
+replicaCount: 1
+
+image:
+  repository: overops/collector
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+securityContext: {}
+
+service:
+  loadBalancerType: ""
+  type: ClusterIP
+  port: 6060
+
+livenessProbe:
+  enabled: true
+  periodSeconds: 10
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 1
+ 
+
+# The OverOps collector does not use HTTP/HTTPs but TCP therefore K8S Ingress is not directly supported
+# many Ingress Controller support TCP but is spefific to the Controller. Please refer to your
+# Ingress Controller for more info.
+# ingress:
+#  enabled: false
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
