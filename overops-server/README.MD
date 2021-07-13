@@ -90,6 +90,10 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
+| `persistence.enabled`                        | Enables Persistence Storage for the Backend Storage                                          | `true`                                               |
+| `persistence.size`                           | Persistence Storage Size                                                                     | `20Gi`                                               |
+| `persistence.privateMountPath`               | Sets the mount path for the config directory                                                 | `/opt/private`                                       |
+| `persistence.storageMountPath`               | Sets the mount path for the storage directory                                                | `/opt/takipi-server/storage`                         |
 
 ## Advanced
 
@@ -105,3 +109,30 @@ dbPassword: # Database Password
 defaultUserPass: # Default User Password
 defaultUserServiceKey: # Default Service Key
 ```
+
+### Extra Configuration
+The helm chart allows for extra configuration changes to overops-server's configMap, this includes `my.server.properties` and additional configuration files such as the `smtpserver.properties`. 
+Set `config.enableExtraConfig: true` for additional config entries to the `my.server.properties` update the yaml as follows:
+
+```yaml
+myServerProperties: |-
+  MY_PROPERTY1=A
+  MY_PROPERTY2=B
+  MY_PROPERTY3=C
+```
+To add additional config files use the `extraConfigurationFiles` option adding an entry each filename to be added to the configMap as follows:
+
+```yaml
+extraConfigurationFiles: 
+    smtp.properties: |-
+       SMTP_SERVER_USERNAME=
+       SMTP_SERVER_PASSWORD=
+       SMTP_FROM_ADDRESS=
+    smtpserver.properties: |-
+       mail.transport.protocol=smtp
+```
+### Persistence Storage
+By default persistence storage is enabled using the default for the backend `storage` path. This will use the default storage class on the cluster. Additionally, you can modify the mount path
+of the `storage` and `private` mounts but are default to match the overop-server docker image https://hub.docker.com/r/overops/server. 
+
+Only update the `MountPath` values if you are using a custom image and require different paths!

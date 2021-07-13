@@ -108,9 +108,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /opt/private
+            - mountPath: {{ .Values.persistence.privateMountPath }}
               name: overops-private
-            - mountPath: /opt/takipi-server/storage
+            - mountPath: {{ .Values.persistence.storageMountPath }}
               name: overops-storage
 
           {{- if .Values.livenessProbe.enabled }}
@@ -146,7 +146,12 @@ spec:
             items:
             - key: my.server.properties 
               path: my.server.properties
-          
+            {{- if and .Values.config.enableExtraConfig  .Values.config.extraConfigurationFiles }}
+            {{- range $key, $val := .Values.config.extraConfigurationFiles }}
+            - key: {{ $key }}
+              path: {{ $key }}
+            {{- end }}
+            {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
