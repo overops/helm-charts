@@ -11,14 +11,13 @@ data:
     LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY= ${DEFAULT_SERVICE_KEY}
     LOCAL_GENERATE_FIRST_USER_SERVICE_AND_LABELS=true
   {{- end }}
+  {{- if and .Values.config.enableExtraConfig  .Values.config.myServerProperties }}
+  {{ .Values.config.myServerProperties | nindent 4 }}
+  {{- end }}
 
-{{- if .Values.config.enableExtraConfig }}
-{{- range $key, $val := .Values.config.myServerProperties }}
-{{ $val | indent 4}}
-{{- end }}
-
+{{- if and .Values.config.enableExtraConfig  .Values.config.extraConfigurationFiles }}
 {{- range $key, $val := .Values.config.extraConfigurationFiles }}
   {{ $key }}: |-
 {{ $val | indent 4}}
 {{- end }}
-{{- end -}}
+{{- end }}

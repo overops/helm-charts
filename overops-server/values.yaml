@@ -146,6 +146,12 @@ persistence:
   size: 20Gi
   annotations: {}
 
+  # Mount Paths used by the overops image. 
+  # Note: Do not change unless using a custom Docker Image and 
+  # require a different path!
+  privateMountPath: /opt/private
+  storageMountPath: /opt/takipi-server/storage
+
 autoscaling:
   enabled: false
 
@@ -162,17 +168,18 @@ config:
   enableExtraConfig: false
 
   # Additional properties to add to the my.server.properties file.
-  # myServerProperties: |-
-  #   GRAFANA_DASHBOARD_ENABLED: true
+  myServerProperties: ''
+  #myServerProperties: |- 
+   #GRAFANA_DASHBOARD_ENABLED=true
 
   ## Additional files that can be added to the overops op server as shown below for an example
-  # extraConfigurationFiles:
-  #   smtp.properties: |-
-  #     SMTP_SERVER_USERNAME=
-  #     SMTP_SERVER_PASSWORD=
-  #     SMTP_FROM_ADDRESS=
-  #   smtpserver.properties: |-
-  #     mail.store.protocol=imap
+  extraConfigurationFiles: {}
+    #smtp.properties: |-
+       #SMTP_SERVER_USERNAME=
+       #SMTP_SERVER_PASSWORD=
+       #SMTP_FROM_ADDRESS=
+    #smtpserver.properties: |-
+       #mail.transport.protocol=smtp
 
 
 serviceAccount:

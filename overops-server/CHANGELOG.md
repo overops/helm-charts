@@ -1,4 +1,7 @@
 # CHANGELOG: Overops Server Chart
+## [0.8.1]
+- Added Mount Path variables
+- Fixed Extra Configuration Section
 
 ## [0.8.0]
 - Updated App Release to OverOps 4.61.0
