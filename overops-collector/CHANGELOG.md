@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector Chart
 
+## [0.8.1]
+- Adding support for persistence storage using a stateful set.
+
 ## [0.8.0]
 - Updated App Release to OverOps 4.61.0
 
