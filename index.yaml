@@ -606,6 +606,27 @@ entries:
   overops-server:
   - apiVersion: v2
     appVersion: 4.61.0
+    created: "2021-07-13T17:29:09.463465-04:00"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.helm.sh/stable
+      version: 1.6.7
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.2.0
+    description: A Helm chart for OverOps Backend Server
+    digest: c14c48e298ba264ac8542e68dd4af6e504eef4a9bff0f393f155b6494cec393e
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-server
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-server-0.8.1.tgz
+    version: 0.8.1
+  - apiVersion: v2
+    appVersion: 4.61.0
     created: "2021-06-23T11:52:32.709128-04:00"
     dependencies:
     - condition: mysql.enabled
@@ -901,4 +922,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-06-23T13:20:13.412008-04:00"
+generated: "2021-07-13T17:29:09.457632-04:00"
