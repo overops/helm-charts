@@ -58,6 +58,9 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
 | `service.loadBalancerType`                   | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
+| `persistence.enabled`                        | Enables persistence storage for the collectors "work" directory                              | `false`                                              |
+| `persistence.accessModes`                    | Persistence storage Access Mode                                                              | `- ReadWriteOnce`                                    |
+| `persistence.size`                           | Persistence storage Size                                                                     | `1Gi`                                                |
 
 _*: Indicates parameters that need to be set._
 
@@ -74,3 +77,7 @@ service:
   loadBalancerType: nlb
   type: LoadBalancer
 ```
+
+## Storage
+By default the collector helm chart deploys the collector as a Deployment without storage, to enable storage use the `persistence` section 
+of the values.yaml. This will deploy the collector as a Stateful Set persisting the "work" directory used by the collector.
