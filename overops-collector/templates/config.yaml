@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "overops-collector.fullname" . }}
+  labels:
+    {{- include "overops-collector.labels" . | nindent 4 }}
+data:
+  collector.properties: |-
+    takipi.listen.port=6060
+    takipi.installation.key={{ .Values.overops.installationKey }}
+    {{- if .Values.overops.backendURL }}
+    takipi.backend.url={{ .Values.overops.backendURL }}
+    {{- else }}
+    takipi.backend.url={{ include "overops-collector.hostedBackendURL" . }}
+    {{- end }}
+    {{- if .Values.overops.storageTestURL }}
+    takipi.storage.test.url={{ .Values.overops.storageTestURL }}
+    {{- else }}        
+    takipi.storage.test.url={{ include "overops-collector.hostedBackendURL" . }}/service/png
+    {{- end }}
+    {{- if .Values.overops.serverName }}
+    takipi.server.name={{ .Values.overops.serverName }}
+    {{- end }}
+    {{- if .Values.overops.extraCollectorProperties }}
+    {{ .Values.overops.extraCollectorProperties | nindent 4 }}
+    {{- end }}
+     
