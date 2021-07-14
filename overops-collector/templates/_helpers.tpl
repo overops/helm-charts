@@ -36,30 +36,6 @@ Either use the current release name or one from the values.
 {{- end }}
 
 {{/*
-URL used for a storage server running in the same namespace. 
-Either use the current release name or one from the values.
-*/}}
-{{- define "overops-collector.hostedStorageURL" -}}
-{{- if .Values.overops.storageReleaseName }}
-{{- printf "http://%s-overops-storage-server:8080" .Values.overops.storageReleaseName }}
-{{- else }}
-{{- printf "http://%s-overops-storage-server:8080" .Release.Name }}
-{{- end }}
-{{- end }}
-
-{{/*
-URL used for a storage server s3 running in the same namespace.
-Either use the current release name or one from the values.
-*/}}
-{{- define "overops-collector.hostedStorageS3URL" -}}
-{{- if .Values.overops.storageReleaseName }}
-{{- printf "http://%s-overops-storage-server-s3:8080" .Values.overops.storageReleaseName }}
-{{- else }}
-{{- printf "http://%s-overops-storage-server-s3:8080" .Release.Name }}
-{{- end }}
-{{- end }}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "overops-collector.chart" -}}

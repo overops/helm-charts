@@ -1,4 +1,6 @@
 # CHANGELOG: Overops Collector Chart
+## [5.0.0]
+- v5 Branch of the chart.
 
 ## [0.8.0]
 - Updated App Release to OverOps 4.61.0

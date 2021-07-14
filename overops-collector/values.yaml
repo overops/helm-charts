@@ -1,22 +1,22 @@
 # Default values for overops-collector.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-global:
- # Used only when deploying with the overops/overops chart.
- enableStorageServer: false
- enableStorageServerS3: false
 
 # Overops Config settings
 overops:
   backendURL: 
   storageTestURL:
   serverName:
-  jvmHeapSize: "1G"
-  serviceKey:
+  installationKey:
 
-  # Used only if the storage or backend server were installed in a seperate helm release
+  # Used only if the storage or backend server were installed in a separate helm release
   backendReleaseName:
-  storageReleaseName:
+
+  # Additional collector.properties
+  extraCollectorProperties: ''
+  #extraCollectorProperties: |- 
+   #MY_PROP1=A
+   #MY_PROP2=B
 
 replicaCount: 1
 
@@ -40,10 +40,7 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
-podSecurityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  runAsGroup: 1000
+podSecurityContext: {}
 securityContext: {}
 
 service:

@@ -5,25 +5,23 @@ metadata:
   labels:
     {{- include "overops-collector.labels" . | nindent 4 }}
 data:
-  {{- if .Values.overops.serviceKey  }}
-  installation.key:  {{ .Values.overops.serviceKey }}
-  {{- end }}
   collector.properties: |-
-     takipi.listen.port=6060
-     {{- if .Values.overops.backendURL }}
-     takipi.backend.url={{ .Values.overops.backendURL }}
-     {{- else }}
-     takipi.backend.url={{ include "overops-collector.hostedBackendURL" . }}
-     {{- end }}
-     {{- if .Values.overops.storageTestURL }}
-     takipi.storage.test.url={{ .Values.overops.storageTestURL }}
-     {{- else if .Values.global.enableStorageServer }}
-     takipi.storage.test.url={{ include "overops-collector.hostedStorageURL" . }}/storage/v1/diag/ping
-     {{- else if .Values.global.enableStorageServerS3 }}
-     takipi.storage.test.url={{ include "overops-collector.hostedStorageS3URL" . }}/storage/v1/diag/ping
-     {{- else }}        
-     takipi.storage.test.url={{ include "overops-collector.hostedBackendURL" . }}/service/png
-     {{- end }}
-     {{- if .Values.overops.serverName }}
-     takipi.server.name={{ .Values.overops.serverName }}
-     {{- end }}
+    takipi.listen.port=6060
+    takipi.installation.key={{ .Values.overops.installationKey }}
+    {{- if .Values.overops.backendURL }}
+    takipi.backend.url={{ .Values.overops.backendURL }}
+    {{- else }}
+    takipi.backend.url={{ include "overops-collector.hostedBackendURL" . }}
+    {{- end }}
+    {{- if .Values.overops.storageTestURL }}
+    takipi.storage.test.url={{ .Values.overops.storageTestURL }}
+    {{- else }}        
+    takipi.storage.test.url={{ include "overops-collector.hostedBackendURL" . }}/service/png
+    {{- end }}
+    {{- if .Values.overops.serverName }}
+    takipi.server.name={{ .Values.overops.serverName }}
+    {{- end }}
+    {{- if .Values.overops.extraCollectorProperties }}
+    {{ .Values.overops.extraCollectorProperties | nindent 4 }}
+    {{- end }}
+     

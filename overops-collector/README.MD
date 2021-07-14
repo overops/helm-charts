@@ -49,11 +49,11 @@ The following table lists the configurable parameters of the OverOps Collector c
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops.serviceKey`                         | Service Key for the collector *                                                              | `nil`                                                |
+| `overops.installationKey`                    | Installation Key for the collector *                                                         | `nil`                                                |
 | `overops.backendURL`                         | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                     | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
 | `overops.serverName`                         | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
-| `overops.jvmHeapSize`                        | Collector JVM Heap Size                                                                      | `1G`                                                 |
+| `overops.extraCollectorProperties`           | Additional Configuration (See Section)                                                       | `nil`                                                |
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
@@ -73,4 +73,15 @@ For exposing the service on AWS the recommended method is using type `LoadBalanc
 service:
   loadBalancerType: nlb
   type: LoadBalancer
+```
+
+## Extra Configuration
+The helm chart allows for extra configuration changes to overops-collector's configMap, for the file `collector.properties`.
+For additional config entries to the `collector.properties` update the yaml as follows:
+
+```yaml
+overops.extraCollectorProperties: |-
+  MY_PROPERTY1=A
+  MY_PROPERTY2=B
+  MY_PROPERTY3=C
 ```
