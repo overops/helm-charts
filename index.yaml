@@ -375,6 +375,18 @@ entries:
   overops-collector:
   - apiVersion: v2
     appVersion: 4.61.0
+    created: "2021-07-15T13:19:28.509146-04:00"
+    description: A Helm chart for OverOps Collector
+    digest: 3c9a4eebe7e2d14760acdef728b2442bb2fa6006e3b8ce4575f93c424a6655f7
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops-collector
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-collector-0.8.1.tgz
+    version: 0.8.1
+  - apiVersion: v2
+    appVersion: 4.61.0
     created: "2021-06-23T11:52:32.703072-04:00"
     description: A Helm chart for OverOps Collector
     digest: f3d006b8b518ae5ae5d5e2c4dd61b63806a4670f1a76b370d70058f06ed1cfc8
@@ -922,4 +934,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-07-13T17:29:09.457632-04:00"
+generated: "2021-07-15T13:19:28.508482-04:00"
