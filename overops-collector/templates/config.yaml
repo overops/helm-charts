@@ -30,3 +30,6 @@ data:
      {{- if .Values.overops.serverName }}
      takipi.server.name={{ .Values.overops.serverName }}
      {{- end }}
+     {{- if .Values.overops.extraCollectorProperties }}
+     {{ .Values.overops.extraCollectorProperties | nindent 5 }}
+     {{- end }}
