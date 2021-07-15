@@ -1,0 +1,16 @@
+
+.  ____                  ____
+  / __ \_   _____  _____/ __ \____  _____
+ / / / / | / / _ \/ ___/ / / / __ \/ ___/
+/ /_/ /| |/ /  __/ /  / /_/ / /_/ (__  )
+\____/ |___/\___/_/   \____/ .___/____/
+                          /_/            
+###
+Check your Backend Server connected to collector: {{ .Values.overops.collectorURL }}
+
+To Scale the amount of java bullshifier run the following command (Defaults 1):
+kubectl scale -n {{ .Release.Namespace }} deployment {{ include "overops-java-bullshifier.fullname" . }} --replicas=2
+
+To Stop java bullshifier scale to zero run the following command:
+kubectl scale -n {{ .Release.Namespace }} deployment {{ include "overops-java-bullshifier.fullname" . }} --replicas=0
+
