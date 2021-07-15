@@ -87,7 +87,8 @@ The helm chart allows for extra advanced configuration changes to overops-collec
 For additional config entries to the `collector.properties` update the yaml as follows:
 
 ```yaml
-overops.extraCollectorProperties: |-
-  takipi.http.proxy=http://myproxy.com
-  takipi.https.proxy=https://myproxy.com
+overops:
+  extraCollectorProperties: |-
+    takipi.http.proxy=http://myproxy.com
+    takipi.https.proxy=https://myproxy.com
 ```
