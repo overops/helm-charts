@@ -81,3 +81,13 @@ service:
 ## Storage
 By default the collector helm chart deploys the collector as a Deployment without storage, to enable storage use the `persistence` section 
 of the values.yaml. This will deploy the collector as a Stateful Set persisting the "work" directory used by the collector.
+
+## Extra Configuration
+The helm chart allows for extra advanced configuration changes to overops-collector's configMap, for the file `collector.properties`.
+For additional config entries to the `collector.properties` update the yaml as follows:
+
+```yaml
+overops.extraCollectorProperties: |-
+  takipi.http.proxy=http://myproxy.com
+  takipi.https.proxy=https://myproxy.com
+```
