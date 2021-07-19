@@ -65,10 +65,8 @@ spec:
                   name: {{ include "overops-receiver-server.secretName" . }}
                   key: rmq-password
             {{- if .Values.overops.agentSidecar.enabled }}
-            - name: TAKIPI_COLLECTOR_HOST
-              value: {{ .Values.overops.agentSidecar.collectorHost | quote }}
-            - name: TAKIPI_COLLECTOR_PORT
-              value: {{ .Values.overops.agentSidecar.collectorPort | quote }}
+            - name: TAKIPI_COLLECTOR_URL
+              value: {{ .Values.overops.agentSidecar.collectorURL | quote }}
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.agentSidecar.applicationName | quote }}
             - name: TAKIPI_DEPLOYMENT_NAME

@@ -70,8 +70,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`                              |
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
-| `overops.agentSidecar.collectorHost`         | Agent Sidecar Collector hostname or K8s Service Name                                         | `nil`                                                |
-| `overops.agentSidecar.collectorPort`         | Agent Sidecar Collector  Collector port                                                      | `6060`                                               |
+| `overops.agentSidecar.collectorURL`          | Agent Sidecar Collector URL                                                                  | `nil`                                                |
 | `overops.mysql.url`                          | mysql database url                                                                           | `nil`                                                |
 | `overops.mysql.port`                         | mysql database port                                                                          | `3306`                                               |
 | `overops.mysql.user`                         | Username of mysql database.                                                                  | `overops`                                            |

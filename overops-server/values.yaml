@@ -36,8 +36,7 @@ overops:
     repository: overops/agent-sidecar
     pullPolicy: IfNotPresent
     tag: latest
-    collectorHost: ""
-    collectorPort: 6060
+    collectorURL: ""
     applicationName: ""
     deploymentName: ""
     serverName: ""
