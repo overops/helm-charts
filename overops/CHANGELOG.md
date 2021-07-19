@@ -1,4 +1,6 @@
 # CHANGELOG: Overops v5 Chart
+## [5.0.5]
+- v5 Update Agent Sidecar settings to match new TAKIPI_COLLECTOR_URL Variable
 
 ## [5.0.4]
 - v5 Added Redis Configuration Support.
