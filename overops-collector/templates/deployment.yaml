@@ -27,6 +27,15 @@ spec:
       serviceAccountName: {{ include "overops-collector.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- if .Values.overops.agentSidecar.enabled }}      
+      initContainers:
+        - name: overops-agent-sidecar
+          image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
+          volumeMounts:
+          - name: overops-agent
+            mountPath: /opt/overops-agent      
+      {{- end }}        
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -37,6 +46,24 @@ spec:
             - name: collector
               containerPort: 6060
               protocol: TCP
+
+          {{- if .Values.overops.agentSidecar.enabled }}
+          env:
+            - name: TAKIPI_COLLECTOR_URL
+              value: {{ .Values.overops.agentSidecar.collectorURL | quote }}
+            - name: TAKIPI_APPLICATION_NAME
+              value: {{ .Values.overops.agentSidecar.applicationName | quote }}
+            - name: TAKIPI_DEPLOYMENT_NAME
+              value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
+            - name: TAKIPI_SERVER_NAME
+              value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: JAVA_TOOL_OPTIONS
+              {{- if .Values.overops.agentSidecar.useDebug }}
+              value: "-agentpath:/opt/overops-agent/takipi/lib/libTakipiAgent.so=takipi.debug.logconsole"
+              {{- else }}
+              value: "-agentpath:/opt/overops-agent/takipi/lib/libTakipiAgent.so"
+              {{- end }}
+          {{- end }}          
 
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
@@ -50,7 +77,11 @@ spec:
 
           volumeMounts:
             - mountPath: /opt/overops/private
-              name: overops-private-volume              
+              name: overops-private-volume
+            {{- if .Values.overops.agentSidecar.enabled }}
+            - name: overops-agent
+              mountPath: /opt/overops-agent
+            {{- end }}              
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 
@@ -61,6 +92,10 @@ spec:
             items:
             - key: collector.properties
               path: collector.properties
+        {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent
+          emptyDir: {}
+        {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
