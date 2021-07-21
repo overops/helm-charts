@@ -1,4 +1,7 @@
-# CHANGELOG: Overops Collector Chart
+# CHANGELOG: Overops Collector V5 Chart
+## [5.0.1]
+- v5: Added Overops Agent Sidecar Support
+
 ## [5.0.0]
 - v5 Branch of the chart.
 
