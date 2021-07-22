@@ -196,18 +196,20 @@ affinity: {}
 ## Overops Extended Configuration section populates config files that will be part of
 #  overops server configMap. These will be mounted to the overops-private volume mount.
 config:
-  enableExtraAppConfig: true
-  applicationProperties: []
-    # Example tuning hikari settings.
-    #- "spring.datasource.hikari.maximumPoolSize=50"
-    #- "spring.datasource.hikari.connectionTimeout=60000"
+  enableExtraAppConfig: false
+  applicationProperties: ""
+  # Example tuning hikari settings.
+  # applicationProperties: |-
+  #   spring.datasource.hikari.maximumPoolSize=50
+  #   spring.datasource.hikari.connectionTimeout=60000
 
   enableExtraConfig: false
-
+  myServerProperties: ""
   # Additional properties to add to the my.server.properties file.
   # myServerProperties: |-
   #   GRAFANA_DASHBOARD_ENABLED: true
 
+  extraConfigurationFiles: ""
   ## Additional files that can be added to the overops op server as shown below for an example
   # extraConfigurationFiles:
   #   smtp.properties: |-

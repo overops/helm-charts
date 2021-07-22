@@ -1,4 +1,7 @@
 # CHANGELOG: Overops Server Chart
+## [5.0.6]
+- v5 Cleanup Extra Config settings.
+
 ## [5.0.5]
 - v5 Update Agent Sidecar settings to match new TAKIPI_COLLECTOR_URL Variable
 

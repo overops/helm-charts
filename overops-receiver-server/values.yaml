@@ -57,10 +57,11 @@ overops:
 #  overops receiver server configMap. These will be mounted to the overops-private volume mount.    
 config:
   enableExtraAppConfig: false
-  applicationProperties: []
-    # Example tuning hikari settings.
-    #- "spring.datasource.hikari.maximumPoolSize=50"
-    #- "spring.datasource.hikari.connectionTimeout=60000"
+  applicationProperties: ""
+  # Example tuning hikari settings.
+  # applicationProperties: |-
+  #   spring.datasource.hikari.maximumPoolSize=50
+  #   spring.datasource.hikari.connectionTimeout=60000
 
 replicaCount: 1
 
