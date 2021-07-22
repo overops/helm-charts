@@ -19,10 +19,8 @@ data:
     spring.redis.port={{ .Values.overops.redis.port }}
     management.health.redis.enabled=true
 {{- end }}
-{{- if .Values.config.enableExtraAppConfig }}
-{{- range $key, $val := .Values.config.applicationProperties }}
-{{ $val | indent 4}}
-{{- end }}
+{{- if and .Values.config.enableExtraAppConfig .Values.config.applicationProperties }}
+  {{ .Values.config.applicationProperties | nindent 4 }}
 {{- end }}
 
   application-mysql.properties: |-
@@ -41,7 +39,6 @@ data:
     overops.exchange.name={{ .Values.overops.rabbitQueue.exchange }}
 {{- end }}
 
-
   my.server.properties: |-
     FRONTEND_HOST={{ .Values.overops.frontendURL }}
     
@@ -54,14 +51,13 @@ data:
     WORKERS_EXECUTOR_CPU_THREAD_POOL_SIZE=3
     WORKERS_EXECUTOR_IO_THREAD_POOL_SIZE=6
     WORKERS_EXECUTOR_SQL_THREAD_POOL_SIZE=6 
+  {{- if and .Values.config.enableExtraConfig .Values.config.myServerProperties  }}
+  {{ .Values.config.myServerProperties | nindent 4 }}
+  {{- end }}
 
-{{- if .Values.config.enableExtraConfig }}
-{{- range $key, $val := .Values.config.myServerProperties }}
-{{ $val | indent 4}}
-{{- end }}
-
+{{- if and .Values.config.enableExtraConfig .Values.config.extraConfigurationFiles }}
 {{- range $key, $val := .Values.config.extraConfigurationFiles }}
   {{ $key }}: |-
 {{ $val | indent 4}}
 {{- end }}
-{{- end -}}
+{{- end }}

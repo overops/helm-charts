@@ -28,10 +28,8 @@ data:
     spring.redis.port={{ .Values.overops.redis.port }}
     management.health.redis.enabled=true
 {{- end }}
-{{- if .Values.config.enableExtraAppConfig }}
-{{- range $key, $val := .Values.config.applicationProperties }}
-{{ $val | indent 4}}
-{{- end }}
+{{- if and .Values.config.enableExtraAppConfig .Values.config.applicationProperties }}
+  {{ .Values.config.applicationProperties | nindent 4 }}
 {{- end }}
 
   application-mysql.properties: |-
