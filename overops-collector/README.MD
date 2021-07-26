@@ -52,7 +52,7 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.installationKey`                    | Installation Key for the collector *                                                         | `nil`                                                |
 | `overops.backendURL`                         | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                     | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
-| `overops.serverName`                         | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
+| `overops.collectorName`                      | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
 | `overops.extraCollectorProperties`           | Additional Configuration (See Section)                                                       | `nil`                                                |
 | `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                                              |
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`                              |

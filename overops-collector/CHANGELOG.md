@@ -1,4 +1,7 @@
 # CHANGELOG: Overops Collector V5 Chart
+## [5.0.2]
+- v5: Update "Server Name" to "Collector Name" Configuration value.
+
 ## [5.0.1]
 - v5: Added Overops Agent Sidecar Support
 
