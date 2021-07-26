@@ -18,8 +18,8 @@ data:
     {{- else }}        
     takipi.storage.test.url={{ include "overops-collector.hostedBackendURL" . }}/service/png
     {{- end }}
-    {{- if .Values.overops.serverName }}
-    takipi.server.name={{ .Values.overops.serverName }}
+    {{- if .Values.overops.collectorName }}
+    takipi.collector.name={{ .Values.overops.collectorName }}
     {{- end }}
     {{- if .Values.overops.extraCollectorProperties }}
     {{ .Values.overops.extraCollectorProperties | nindent 4 }}

@@ -6,7 +6,7 @@
 overops:
   backendURL: 
   storageTestURL:
-  serverName:
+  collectorName:
   installationKey:
 
   # Used only if the storage or backend server were installed in a separate helm release
