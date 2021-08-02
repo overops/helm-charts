@@ -1,4 +1,8 @@
 # CHANGELOG: Overops Server Chart
+
+## [5.0.7]
+- Added the ability to use agent environment property
+
 ## [5.0.6]
 - v5 Cleanup Extra Config settings.
 

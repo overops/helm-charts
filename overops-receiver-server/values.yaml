@@ -26,7 +26,8 @@ overops:
     collectorURL: ""
     applicationName: ""
     deploymentName: ""
-    serverName: ""  
+    serverName: ""
+    environmentName: ""
 
   auth:
     existingSecret: ""
