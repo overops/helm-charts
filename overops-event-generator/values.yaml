@@ -8,6 +8,7 @@ overops:
   applicationName: ""
   deploymentName: ""
   serverName: ""
+  environmentName: ""
   randomSeed: ""
 
   # Use an agent-sidecard instead of an embedded agent.
