@@ -58,6 +58,10 @@ spec:
           - name: TAKIPI_SERVER_NAME
             value: {{ .Values.overops.serverName | quote }}
           {{- end }}
+          {{- if .Values.overops.environmentName }}
+          - name: TAKIPI_ENV_ID
+            value: {{ .Values.overops.environmentName | quote }}
+          {{- end }}
           {{- if .Values.overops.color }}
           - name: COLOR
             value: {{ .Values.overops.color | quote }}

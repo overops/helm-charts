@@ -8,6 +8,7 @@ overops:
   applicationName: ""
   deploymentName: ""
   serverName: ""
+  environmentName: ""
   color: "white"
   noAgent: false # Use for tests
 

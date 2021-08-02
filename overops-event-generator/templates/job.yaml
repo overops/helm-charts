@@ -37,6 +37,10 @@ spec:
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
             {{- end }}
+            {{- if .Values.overops.environmentName }}
+            - name: TAKIPI_ENV_ID
+              value: {{ .Values.overops.environmentName | quote }}
+            {{- end }}
             - name: EXIT_ON_MAX_NUM_EVENTS
               value: "true"
             - name: RANDOM_SEED
