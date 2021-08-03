@@ -1,4 +1,8 @@
 # CHANGELOG: Overops Collector V5 Chart
+
+## [5.0.3]
+- Added the ability to use agent environment property
+
 ## [5.0.2]
 - v5: Update "Server Name" to "Collector Name" Configuration value.
 

@@ -29,6 +29,7 @@ overops:
     applicationName: ""
     deploymentName: ""
     serverName: ""
+    environmentName: ""
 
 replicaCount: 1
 

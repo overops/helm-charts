@@ -73,6 +73,8 @@ spec:
               value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: TAKIPI_ENV_ID
+              value: {{ .Values.overops.agentSidecar.environmentName | quote }}
             - name: JAVA_TOOL_OPTIONS
               {{- if .Values.overops.agentSidecar.useDebug }}
               value: "-agentpath:/opt/overops-agent/takipi/lib/libTakipiAgent.so=takipi.debug.logconsole"

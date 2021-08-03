@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops-server
 description: A Helm chart for OverOps Backend Server v5
 type: application
-version: 5.0.6
+version: 5.0.7
 appVersion: 5.0.0
 
 icon: https://files.readme.io/7d44ac2-o-logo.ico

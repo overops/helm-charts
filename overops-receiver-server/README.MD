@@ -71,6 +71,10 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
 | `overops.agentSidecar.collectorURL`          | Agent Sidecar Collector URL                                                                  | `nil`                                                |
+| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
+| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
+| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)               | `nil`                             |
+| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.mysql.url`                          | mysql database url                                                                           | `nil`                                                |
 | `overops.mysql.port`                         | mysql database port                                                                          | `3306`                                               |
 | `overops.mysql.user`                         | Username of mysql database.                                                                  | `overops`                                            |
