@@ -136,3 +136,13 @@ By default persistence storage is enabled using the default for the backend `sto
 of the `storage` and `private` mounts but are default to match the overop-server docker image https://hub.docker.com/r/overops/server. 
 
 Only update the `MountPath` values if you are using a custom image and require different paths!
+
+### Update the Certificate Authority
+
+In cases where additional certificates need to be added to the Overops server pod, it is recommended to use a certificate injector. For example, in order to configure the overops server to
+communicate with a private LDAP server using SSL a private Certificate Authority needs to be added to Java's install cacerts keystore. More info LDAP configuration can be found [here](https://doc.overops.com/docs/configuring-ldap-for-on-premises-deployments)
+
+A certificate Injector can solve this issue by updating the target pod's ca bundle to include your CA certificate. One solution is [cloudbees-sidecar-injector](https://github.com/joostvdg/jenkins-examples/tree/master/cloudbees/gke/charts/cloudbees-core/charts/cloudbees-sidecar-injector)
+
+To use this with the overops-server docker hub image, ensure that the java cacert path is included in the helm values during install. The path is `/usr/local/openjdk-8/lib/security/cacerts` and can be added to the `injectionJavaKeystore` 
+parameter in the values.yaml as you follow the linked instructions. This will result in the updated java cacerts file mounted into the pod.
