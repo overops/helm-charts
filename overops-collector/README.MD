@@ -49,7 +49,8 @@ The following table lists the configurable parameters of the OverOps Collector c
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops.serviceKey`                         | Service Key for the collector *                                                              | `nil`                                                |
+| `overops.serviceKey`                         | Service Key for the collector                                                                | `nil`                                                |
+| `overops.installToken`                       | Install Token used with MEC                                                                  | `nil`                                                |
 | `overops.backendURL`                         | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                     | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
 | `overops.serverName`                         | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
@@ -62,7 +63,12 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `persistence.accessModes`                    | Persistence storage Access Mode                                                              | `- ReadWriteOnce`                                    |
 | `persistence.size`                           | Persistence storage Size                                                                     | `1Gi`                                                |
 
-_*: Indicates parameters that need to be set._
+## Single Environment vs Multi-Environment Collectors
+
+In a typical single collector environment, a `overops.serviceKey` is provided to the collector to identify which environment will be used on the backend. Collector also supports multi-environment
+configuration by using the `overops.installToken`. This is described, in detail on the [Overops Doc page](https://doc.overops.com/docs/multi-environment-collector)
+
+When using the helm chart, use either a `serviceKey` or `installToken` based on your desired configuration. If both are given, the collector will use the `installToken`.
 
 ## Ingress / Service Support
 

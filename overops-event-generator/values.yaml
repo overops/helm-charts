@@ -10,8 +10,9 @@ overops:
   deploymentName: ""
   serverName: ""
   randomSeed: ""
+  environmentId: ""  # Used for MEC Configuration
 
-  # Use an agent-sidecard instead of an embedded agent.
+  # Use an agent-sidecar instead of an embedded agent.
   agentSidecar:
     enabled: false
     useDebug: false

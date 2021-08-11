@@ -60,8 +60,14 @@ spec:
           configMap:
             name: {{ template "overops-collector.fullname" . }}
             items:
+            {{- if .Values.overops.serviceKey  }}
             - key: installation.key
               path: installation.key
+            {{- end }}
+            {{- if .Values.overops.installToken  }}
+            - key: installation.token
+              path: installation.token
+            {{- end }}
             - key: collector.properties
               path: collector.properties
 

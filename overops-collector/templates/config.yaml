@@ -8,6 +8,9 @@ data:
   {{- if .Values.overops.serviceKey  }}
   installation.key:  {{ .Values.overops.serviceKey }}
   {{- end }}
+  {{- if .Values.overops.installToken  }}
+  installation.token:  {{ .Values.overops.installToken }}
+  {{- end }}
   collector.properties: |-
      jvmPath=${JAVA_HOME}/lib/amd64/server/libjvm.so
      libraryPath=/opt/takipi/lib
