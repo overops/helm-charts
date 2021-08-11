@@ -1,5 +1,9 @@
 # CHANGELOG: Overops Collector Chart
 
+## [0.9.0]
+- Updated App Release to OverOps 4.62.0
+- Added Support for MEC
+
 ## [0.8.1]
 - Adding support for persistence storage using a stateful set, extra config section.
 
