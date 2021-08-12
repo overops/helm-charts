@@ -73,6 +73,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops.takipiHost`                         | `overops-server` TAKIPI_HOST property (Used for external collectors)                         | `nil`                                                |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
@@ -109,6 +110,12 @@ dbPassword: # Database Password
 defaultUserPass: # Default User Password
 defaultUserServiceKey: # Default Service Key
 ```
+
+### External Collectors
+
+In cases where collectors are running external to cluster, it's required to set the `overops.takipiHost` to an external reachable hostname or url (Likely the same as the frontend). By default,
+the k8s service name is used which allows for communications within the cluster but will fail to resolve if the collector is external to the cluster. This is not required when running collectors
+within the same namespace or cluster as the overops backend server.
 
 ### Extra Configuration
 The helm chart allows for extra configuration changes to overops-server's configMap, this includes `my.server.properties` and additional configuration files such as the `smtpserver.properties`. 
