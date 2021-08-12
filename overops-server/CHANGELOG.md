@@ -1,4 +1,8 @@
 # CHANGELOG: Overops Server Chart
+## [0.9.0]
+- Updated App Release to OverOps 4.62.0
+- Added takipiHost setting, default fsGroup setting.
+
 ## [0.8.1]
 - Added Mount Path variables
 - Fixed Extra Configuration Section

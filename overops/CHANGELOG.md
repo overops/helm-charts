@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Chart
 
+## [0.9.0]
+- Updated App Release to OverOps 4.62.0
+
 ## [0.8.0]
 - Updated App Release to OverOps 4.61.0 and Event Generator 3.0.0
 

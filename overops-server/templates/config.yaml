@@ -11,6 +11,9 @@ data:
     LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY= ${DEFAULT_SERVICE_KEY}
     LOCAL_GENERATE_FIRST_USER_SERVICE_AND_LABELS=true
   {{- end }}
+  {{- if .Values.overops.takipiHost }}
+    TAKIPI_HOST={{ .Values.overops.takipiHost }}
+  {{- end }}
   {{- if and .Values.config.enableExtraConfig  .Values.config.myServerProperties }}
   {{ .Values.config.myServerProperties | nindent 4 }}
   {{- end }}
