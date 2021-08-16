@@ -27,12 +27,12 @@ spec:
       serviceAccountName: {{ include "overops-java-bullshifier.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      
+
       {{- if .Values.overops.agentSidecar.enabled }}
       volumes:
       - name: overops-agent
         emptyDir: {}
-      initContainers:    
+      initContainers:
         - name: overops-agent-sidecar
           image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
@@ -62,6 +62,10 @@ spec:
           - name: TAKIPI_ENV_ID
             value: {{ .Values.overops.environmentName | quote }}
           {{- end }}
+          {{- if .Values.overops.collectorKeyID }}
+          - name: TAKIPI_KEY_ID
+            value: {{ .Values.overops.collectorKeyID | quote }}
+          {{- end }}
           {{- if .Values.overops.color }}
           - name: COLOR
             value: {{ .Values.overops.color | quote }}
@@ -78,7 +82,7 @@ spec:
           - name: JAVA_TOOL_OPTIONS
             value: ""
           {{- end }}
- 
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.nodeSelector }}

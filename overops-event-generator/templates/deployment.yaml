@@ -61,6 +61,10 @@ spec:
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.environmentName | quote }}
             {{- end -}}
+            {{- if .Values.overops.collectorKeyID }}
+            - name: TAKIPI_KEY_ID
+              value: {{ .Values.overops.collectorKeyID | quote }}
+            {{- end -}}
             {{- if .Values.overops.randomSeed }}
             - name: RANDOM_SEED
               value: {{ .Values.overops.randomSeed | quote }}

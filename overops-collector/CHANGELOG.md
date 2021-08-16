@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector V5 Chart
 
+## [5.0.4]
+- Added MEC support.
+
 ## [5.0.3]
 - Added the ability to use agent environment property
 

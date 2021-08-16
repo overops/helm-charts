@@ -49,7 +49,8 @@ The following table lists the configurable parameters of the OverOps Collector c
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops.installationKey`                    | Installation Key for the collector *                                                         | `nil`                                                |
+| `overops.installationKey`                    | Installation Key for the collector                                                           | `nil`                                                |
+| `overops.installationToken`                  | Installation Token used with MEC                                                             | `nil`                                                |
 | `overops.backendURL`                         | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                     | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
 | `overops.collectorName`                      | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
@@ -59,17 +60,21 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
 | `overops.agentSidecar.collectorURL`          | Agent Sidecar Collector URL                                                                  | `nil`                                                |
-| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)               | `nil`                             |
-| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
+| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)      | `nil`                                                |
+| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)          | `nil`                                                |
+| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
 | `service.loadBalancerType`                   | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
 
-_*: Indicates parameters that need to be set._
+## Single Environment vs Multi-Environment Collectors
 
+In a typical single collector environment, a `overops.installationKey` is provided to the collector to identify which environment will be used on the backend. Collector also supports multi-environment
+configuration by using the `overops.installationToken`. This is described, in detail on the [Overops Doc page](https://doc.overops.com/docs/multi-environment-collector)
+
+When using the helm chart, use either a `installationKey` or `installationToken` based on your desired configuration. If both are given, the collector will use the `installationToken`.
 ## Ingress / Service Support
 
 The OverOps collector uses a TCP port (Defaults 6060) for communication with an agent, therefore if a collector requires connections external to a cluster

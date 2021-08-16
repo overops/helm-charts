@@ -5,6 +5,9 @@ metadata:
   labels:
     {{- include "overops-collector.labels" . | nindent 4 }}
 data:
+  {{- if .Values.overops.installationToken  }}
+  installation.token:  {{ .Values.overops.installationToken }}
+  {{- end }}
   collector.properties: |-
     takipi.listen.port=6060
     takipi.installation.key={{ .Values.overops.installationKey }}
