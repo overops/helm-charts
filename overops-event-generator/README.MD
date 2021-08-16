@@ -1,10 +1,10 @@
 # Overops Event Generator
-This is the helm chart for [OverOps](https://www.overops.com/) event generator. It is based on the Overops Event Generator docker release found [here](https://hub.docker.com/r/overops/event-generator). 
+This is the helm chart for [OverOps](https://www.overops.com/) event generator. It is based on the Overops Event Generator docker release found [here](https://hub.docker.com/r/overops/event-generator).
 
 The event generator is an test / demonstration tool as described [here](https://github.com/takipi-field/overops-event-generator) As part of the helm chart it can be configured to
-communicate with an overops collector in the same k8s cluster. 
+communicate with an overops collector in the same k8s cluster.
 
-The event-generator can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar) 
+The event-generator can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar)
 
 ## Prerequisites
 
@@ -65,10 +65,11 @@ The following table lists the configurable parameters of the OverOps chart and t
 | Parameter                                    | Description                                                                                  | Default                           |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------|
 | `overops.collectorURL`                       | Collector URL i.e. http://overops-collector:6060                                             | `nil`                             |
+| `overops.collectorKeyID`                     | Collector Key ID used with MEC                                                               | `nil`                             |
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
-| `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
+| `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.randomSeed`                         | Seed value to use when randomizing the events for K8s Deployment                             | `nil`                             |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
 | `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `100`                             |

@@ -1,10 +1,10 @@
 # Overops Java Bullshifier
-This is the helm chart for [OverOps](https://www.overops.com/) java bullshifier. It is based on the Overops Java Bullshifier dockerfile found [here](https://github.com/takipi/java-bullshifier/blob/master/Dockerfile). 
+This is the helm chart for [OverOps](https://www.overops.com/) java bullshifier. It is based on the Overops Java Bullshifier dockerfile found [here](https://github.com/takipi/java-bullshifier/blob/master/Dockerfile).
 
 The java bullshifier is an test / demonstration tool you can find source code [here](https://github.com/takipi/java-bullshifier) As part of the helm chart it can be configured to
-communicate with an overops collector in the same k8s cluster. 
+communicate with an overops collector in the same k8s cluster.
 
-The java-bullshifier can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar) 
+The java-bullshifier can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar)
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ _See [configuration](#configuration) below._
 _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
 
 ## Executing Java Bullshifier as a Job
-TBD 
+TBD
 
 ## Uninstall Chart
 
@@ -59,15 +59,16 @@ The following table lists the configurable parameters of the OverOps chart and t
 | Parameter                                    | Description                                                                                  | Default                           |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------|
 | `overops.collectorURL`                       | Collector URL i.e. http://overops-collector:6060                                             | `nil`                             |
+| `overops.collectorKeyID`                     | Collector Key ID used with MEC                                                               | `nil`                             |
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
-| `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
-| `overops.color`                              | The plan of the Bulshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .     | `white`                              |
+| `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
+| `overops.color`                              | The plan of the Bullshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .     | `white`                              |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Java Bullshifier                                          | `false`                           |
 | `overops.job.runningDurationHours`           | The number of hours java-bullshifier app should be running                                   | `0`                               |
 | `overops.job.runningDurationMinutes`         | The number of minutes java-bullshifier app should be running                                 | `5`                               |
-| `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                            |
+| `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                             |
 | `image.tag`                                  | `overops-java-bullshifier` image tag.                                                        |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |
 | `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                           |

@@ -5,6 +5,7 @@
 # Overops Config settings
 overops:
   collectorURL: ""
+  collectorKeyID: "" # Used for MEC Configurations
   applicationName: ""
   deploymentName: ""
   serverName: ""
