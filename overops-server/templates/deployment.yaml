@@ -49,6 +49,11 @@ spec:
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
               value: {{ .Values.overops.frontendURL | quote }}
+            
+            {{- if .Values.overops.catalinaOpts }}
+            - name: CATALINA_OPTS
+              value: {{ .Values.overops.catalinaOpts | quote }}
+            {{- end }}          
 
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
