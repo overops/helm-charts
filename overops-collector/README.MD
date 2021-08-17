@@ -47,19 +47,24 @@ $ helm show values overops/overops-collector
 
 The following table lists the configurable parameters of the OverOps Collector chart and their default values. This is not a complete list, additional values can be found by inspecting the respected chart.
 
-| Parameter                                    | Description                                                                                  | Default                                              |
-| -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops.serviceKey`                         | Service Key for the collector *                                                              | `nil`                                                |
-| `overops.backendURL`                         | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
-| `overops.storageTestURL`                     | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
-| `overops.serverName`                         | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
-| `overops.jvmHeapSize`                        | Collector JVM Heap Size                                                                      | `1G`                                                 |
-| `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
-| `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
-| `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
-| `service.loadBalancerType`                   | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
+| Parameter                                      | Description                                                                                  | Default                                              |
+| -----------------------------------------------| -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `overops.serviceKey`                           | Service Key for the collector *                                                              | `nil`                                                |
+| `overops.backendURL`                           | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
+| `overops.storageTestURL`                       | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
+| `overops.serverName`                           | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
+| `overops.jvmHeapSize`                          | Collector JVM Heap Size                                                                      | `1G`                                                 |
+| `image.repository`                             | `overops-collector` image repository.                                                        | `overops/collector`                                  |
+| `image.tag`                                    | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
+| `image.pullPolicy`                             | Image pull policy                                                                            | `IfNotPresent`                                       |
+| `service.loadBalancerType`                     | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
+| `autoscaling.enabled`                          | Enable Horizontal Pod Autoscaling                                                            | `false`                                              |
+| `autoscaling.minReplicas`                      | The minimum allowed replicas      	                                                          | `1`                                                  |
+| `autoscaling.maxReplicas`                      | The maximum allowed replicas                                                                 | `false`                                              |
+| `autoscaling.targetCPUUtilizationPercentage`   | CPU utilization target                                                                       | `70`                                                 |
+| `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                  | `70`                                                 |
 
-_*: Indicates parameters that need to be set._
+_*: Indicates parameters that need to be set.
 
 ## Ingress / Service Support
 
