@@ -60,7 +60,7 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `service.loadBalancerType`                     | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
 | `autoscaling.enabled`                          | Enable Horizontal Pod Autoscaling                                                            | `false`                                              |
 | `autoscaling.minReplicas`                      | The minimum allowed replicas                                                                 | `1`                                                  |
-| `autoscaling.maxReplicas`                      | The maximum allowed replicas                                                                 | `false`                                              |
+| `autoscaling.maxReplicas`                      | The maximum allowed replicas                                                                 | `10`                                                 |
 | `autoscaling.targetCPUUtilizationPercentage`   | CPU utilization target                                                                       | `70`                                                 |
 | `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                    | `70`                                                 |
 
