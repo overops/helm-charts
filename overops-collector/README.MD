@@ -53,18 +53,35 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.backendURL`                           | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                       | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
 | `overops.serverName`                           | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
-| `overops.jvmHeapSize`                          | Collector JVM Heap Size                                                                      | `1G`                                                 |
+| `overops.jvmHeapSize`                          | Collector JVM Heap Size (Overops collector requires 4G)                                      | `1G`		                                           |
 | `image.repository`                             | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                    | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                             | Image pull policy                                                                            | `IfNotPresent`                                       |
 | `service.loadBalancerType`                     | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
 | `autoscaling.enabled`                          | Enable Horizontal Pod Autoscaling                                                            | `false`                                              |
-| `autoscaling.minReplicas`                      | The minimum allowed replicas      	                                                          | `1`                                                  |
+| `autoscaling.minReplicas`                      | The minimum allowed replicas                                                                 | `1`                                                  |
 | `autoscaling.maxReplicas`                      | The maximum allowed replicas                                                                 | `false`                                              |
 | `autoscaling.targetCPUUtilizationPercentage`   | CPU utilization target                                                                       | `70`                                                 |
-| `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                  | `70`                                                 |
+| `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                    | `70`                                                 |
+
 
 _*: Indicates parameters that need to be set.
+
+# Overops Collector resources
+ We usually recommend not to specify default resources and to leave this as a conscious
+ choice for the user. This also increases chances charts run on environments with little
+ resources, such as Minikube. 
+ If you do want to specify resources, adjust them to Overops collector pre requirements, as described [here](https://doc.overops.com/docs/overops-installation-requirements#section-collector-system-requirements) .
+
+ ```
+ resources:
+   requests:
+     memory: "4G"
+     cpu: "2"
+   limits:
+     cpu: "4"
+     memory: "8G"
+ ```
 
 ## Ingress / Service Support
 
