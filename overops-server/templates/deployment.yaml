@@ -49,12 +49,21 @@ spec:
               value: {{ include "overops-server.fullname" . }}
             - name: FRONTEND_URL
               value: {{ .Values.overops.frontendURL | quote }}
-            
             {{- if .Values.overops.catalinaOpts }}
             - name: CATALINA_OPTS
               value: {{ .Values.overops.catalinaOpts | quote }}
-            {{- end }}          
-
+            {{- end }}
+            {{- if .Values.overops.defaultUserEnabled }}
+            - name: DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: defaultUserPass
+            - name: DEFAULT_SERVICE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "overops-server.secretName" . }}
+                  key: defaultUserServiceKey
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
               value: "mysql"
@@ -95,16 +104,16 @@ spec:
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "overops-server.fullname" . }}
-                  key: db-password             
+                  name: {{ include "overops-server.secretName" . }}
+                  key: dbPassword
             {{ end }}
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: /opt/private
+            - mountPath: {{ .Values.persistence.privateMountPath }}
               name: overops-private
-            - mountPath: /opt/takipi-server/storage
+            - mountPath: {{ .Values.persistence.storageMountPath }}
               name: overops-storage
 
           {{- if .Values.livenessProbe.enabled }}
@@ -140,7 +149,12 @@ spec:
             items:
             - key: my.server.properties 
               path: my.server.properties
-          
+            {{- if and .Values.config.enableExtraConfig  .Values.config.extraConfigurationFiles }}
+            {{- range $key, $val := .Values.config.extraConfigurationFiles }}
+            - key: {{ $key }}
+              path: {{ $key }}
+            {{- end }}
+            {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

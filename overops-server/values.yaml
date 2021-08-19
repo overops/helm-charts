@@ -4,6 +4,7 @@
 
 # Overops Config settings
 overops:
+  defaultUserEnabled: true
   defaultUser: "user@overops.com"
   defaultUserFirst: "Overops"
   defaultUserLast: "user"
@@ -12,6 +13,15 @@ overops:
 
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
   catalinaOpts: 
+  takipiHost: ""
+ 
+auth:
+  # Name of an existing secret which holds the following sensitive key/values:
+  #  dbPassword   (external-db-password)
+  #  defaultUserPass
+  #  defaultUserServiceKey
+  # Note: If not set a secret is created by the helm chart.
+  existingSecret: ""
 
 replicaCount: 1
 image:
@@ -29,6 +39,7 @@ podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
   runAsGroup: 1000
+  fsGroup: 1000
 securityContext: {}
 
 # Database Section
@@ -102,10 +113,6 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-ambassador:
-  enabled: false
-  prefix: /
-
 livenessProbe:
   enabled: true
   periodSeconds: 10
@@ -142,6 +149,12 @@ persistence:
   size: 20Gi
   annotations: {}
 
+  # Mount Paths used by the overops image. 
+  # Note: Do not change unless using a custom Docker Image and 
+  # require a different path!
+  privateMountPath: /opt/private
+  storageMountPath: /opt/takipi-server/storage
+
 autoscaling:
   enabled: false
 
@@ -158,17 +171,18 @@ config:
   enableExtraConfig: false
 
   # Additional properties to add to the my.server.properties file.
-  # myServerProperties: |-
-  #   GRAFANA_DASHBOARD_ENABLED: true
+  myServerProperties: ''
+  #myServerProperties: |- 
+   #GRAFANA_DASHBOARD_ENABLED=true
 
   ## Additional files that can be added to the overops op server as shown below for an example
-  # extraConfigurationFiles:
-  #   smtp.properties: |-
-  #     SMTP_SERVER_USERNAME=
-  #     SMTP_SERVER_PASSWORD=
-  #     SMTP_FROM_ADDRESS=
-  #   smtpserver.properties: |-
-  #     mail.store.protocol=imap
+  extraConfigurationFiles: {}
+    #smtp.properties: |-
+       #SMTP_SERVER_USERNAME=
+       #SMTP_SERVER_PASSWORD=
+       #SMTP_FROM_ADDRESS=
+    #smtpserver.properties: |-
+       #mail.transport.protocol=smtp
 
 
 serviceAccount:

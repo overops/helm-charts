@@ -9,6 +9,7 @@ overops:
   applicationName: ""
   deploymentName: ""
   serverName: ""
+  environmentId: ""  # Used for MEC Configuration
   color: "white"
   noAgent: false # Use for tests
 

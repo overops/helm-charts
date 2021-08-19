@@ -1,17 +1,21 @@
-{{- if not .Values.persistence.enabled }}
+{{- if  .Values.persistence.enabled }}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "overops-collector.fullname" . }}
   labels:
     {{- include "overops-collector.labels" . | nindent 4 }}
 spec:
+  serviceName: {{ include "overops-collector.fullname" . }}-headless
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
       {{- include "overops-collector.selectorLabels" . | nindent 6 }}
+  podManagementPolicy: {{ .Values.podManagementPolicy }}
+  updateStrategy:
+    type: {{ .Values.updateStrategy }}  
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -25,6 +29,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       serviceAccountName: {{ include "overops-collector.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -51,7 +56,11 @@ spec:
 
           volumeMounts:
             - mountPath: /opt/takipi/private
-              name: overops-private-volume              
+              name: overops-private-volume
+            {{- if .Values.persistence.enabled }}
+            - mountPath: /opt/takipi/work
+              name: data
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
 
@@ -83,4 +92,28 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-{{- end }}      
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      {{- with .Values.persistence.annotations  }}
+        annotations:
+          {{ toYaml . | indent 10 }}
+      {{- end }}
+        labels:
+          {{- include "overops-collector.labels" . | nindent 10 }}
+      spec:
+        accessModes:
+        {{- range .Values.persistence.accessModes }}
+          - {{ . | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.persistence.size | quote }}
+      {{- if .Values.persistence.storageClass }}
+      {{- if (eq "-" .Values.persistence.storageClass) }}
+        storageClassName: ""
+      {{- else }}
+        storageClassName: "{{ .Values.persistence.storageClass }}"
+      {{- end }}
+      {{- end }}
+{{- end }}
