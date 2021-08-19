@@ -64,8 +64,9 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
-| `overops.color`                              | The plan of the Bullshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .     | `white`                              |
+| `overops.color`                              | The plan of the Bullshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .    | `white`                              |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Java Bullshifier                                          | `false`                           |
+| `overops.job.activeDeadlineSeconds`          | Job Deadline to force completion of the Job.                                                 | `600`                             |
 | `overops.job.runningDurationHours`           | The number of hours java-bullshifier app should be running                                   | `0`                               |
 | `overops.job.runningDurationMinutes`         | The number of minutes java-bullshifier app should be running                                 | `5`                               |
 | `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                             |

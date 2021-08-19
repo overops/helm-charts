@@ -23,6 +23,7 @@ overops:
   # Job Related settings
   job:
     enabled: false
+    activeDeadlineSeconds: 600
     numberOfEvents: 100
     randomSeed: 123
 
