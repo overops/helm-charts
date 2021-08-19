@@ -24,6 +24,7 @@ overops:
   # Job Related settings
   job:
     enabled: false
+    activeDeadlineSeconds: 600
     runningDurationHours: 0
     runningDurationMinutes: 5
 

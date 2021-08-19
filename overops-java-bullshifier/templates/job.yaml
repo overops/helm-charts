@@ -8,6 +8,7 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
 spec:
+  activeDeadlineSeconds: {{ .Values.overops.job.activeDeadlineSeconds }}
   template:
     metadata:
       name: {{ include "overops-java-bullshifier.fullname" . }}-job

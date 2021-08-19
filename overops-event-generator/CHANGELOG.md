@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Event Generator Chart
 
+## [5.0.3]
+- Added Job Deadline Setting.
+
 ## [5.0.2]
 - Added MEC support.
 
@@ -31,7 +34,7 @@
 - Added Server Name value.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.0]
 - Updated App Release to OverOps 4.55.0

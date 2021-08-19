@@ -72,6 +72,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.randomSeed`                         | Seed value to use when randomizing the events for K8s Deployment                             | `nil`                             |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
+| `overops.job.activeDeadlineSeconds`          | Job Deadline to force completion of the Job.                                                 | `600`                             |
 | `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `100`                             |
 | `overops.job.randomSeed`                     | Seed value to use when randomizing the events for K8s Job.                                   | `123`                             |
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |

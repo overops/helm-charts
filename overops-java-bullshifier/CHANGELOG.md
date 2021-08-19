@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Java Bullshifier Chart
 
+## [5.0.3]
+- Added Job Deadline Setting.
+
 ## [5.0.2]
 - Added MEC support.
 
