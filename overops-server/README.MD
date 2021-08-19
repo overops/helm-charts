@@ -73,6 +73,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops.catalinaOpts`                       | `CATALINA_OPTS` ENV variable setting for tomcat server.                                      | `nil`                                                |
 | `overops.takipiHost`                         | `overops-server` TAKIPI_HOST property (Used for external collectors)                         | `nil`                                                |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |

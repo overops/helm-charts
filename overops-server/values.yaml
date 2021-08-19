@@ -12,6 +12,7 @@ overops:
   defaultUserServiceKey: ""
 
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
+  catalinaOpts: 
   takipiHost: ""
  
 auth:

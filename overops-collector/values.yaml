@@ -11,7 +11,7 @@ overops:
   backendURL: 
   storageTestURL:
   serverName:
-  jvmHeapSize: "1G"
+  jvmHeapSize: "1G" # Overops collector requires 4G heap size .
   serviceKey:
   installToken: '' # Used for MEC Configurations
 
@@ -77,17 +77,24 @@ livenessProbe:
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+  # resources, such as Minikube. 
+  # If you do want to specify resources, adjust them to Overops collector pre requirements,
+  # as described in https://doc.overops.com/docs/overops-installation-requirements#section-collector-system-requirements .
+  # or simply uncomment the following lines :
+  #   resources:
+  #     requests:
+  #       memory: "4G"
+  #       cpu: "2"
+  #     limits:
+  #       cpu: "4"
+  #       memory: "8G"
 
 autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
 
 nodeSelector: {}
 tolerations: []
