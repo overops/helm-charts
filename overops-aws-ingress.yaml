@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: overops-backend
+  namespace: hpa-test
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/tags: Environment=dev,Team=test
+spec:
+  rules:
+    - http:
+        paths:
+          - path: "/*"
+            backend:
+              serviceName: myoverops-overops-server
+              servicePort: 8080
