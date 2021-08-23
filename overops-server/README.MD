@@ -66,16 +66,19 @@ The following table lists the configurable parameters of the OverOps chart and t
 
 | Parameter                                    | Description                                                                                  | Default                                              |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `overops.defaultUserEnabled`                 | Enables a Default User to be created at deployment                                           | `true`                                               |
 | `overops.defaultUser`                        | Default Username to be pre-populated. This should be an email address                        | `user@overops.com`                                   |
 | `overops.defaultUserFirst`                   | Default User first name to be pre-populated.                                                 | `Overops`                                            |
 | `overops.defaultUserLast`                    | Default User last name to be pre-populated.                                                  | `user`                                               |
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
 | `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
-| `overops.catalinaOpts`                       | `CATALINA_OPTS` ENV variable setting for tomcat server.                                        | `nil`              |
+| `overops.catalinaOpts`                       | `CATALINA_OPTS` ENV variable setting for tomcat server.                                      | `nil`                                                |
+| `overops.takipiHost`                         | `overops-server` TAKIPI_HOST property (Used for external collectors)                         | `nil`                                                |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
+| `auth.existingSecret`                        | Name of an existing K8S Secret that contains Sensitive Values                                | `nil`                                                |
 | `externalDatabase.enabled`                   | Flag to use an external database and not one deployed by helm.                               | `false`                                              |
 | `externalDatabase.type`                      | External Database type used by overops server                                                | `mysql`                                              |
 | `externalDatabase.url`                       | External Database URL used by overops server                                                 | `nil`                                                |
@@ -85,7 +88,69 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
 | `mysql.mysqlUser`                            | Username of new database user to create.                                                     | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
-| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                              | 
+| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                               |
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
+| `persistence.enabled`                        | Enables Persistence Storage for the Backend Storage                                          | `true`                                               |
+| `persistence.size`                           | Persistence Storage Size                                                                     | `20Gi`                                               |
+| `persistence.privateMountPath`               | Sets the mount path for the config directory                                                 | `/opt/private`                                       |
+| `persistence.storageMountPath`               | Sets the mount path for the storage directory                                                | `/opt/takipi-server/storage`                         |
+
+## Advanced
+
+### Existing Secret
+
+Rather than passing passwords / keys using the helm values an existing secret can also be used by setting the `auth.existingSecret` value. This must be set to existing name of k8s secret installed
+in the same namespace. If not set, a secret will be created by the helm chart containing the values.
+
+The following key value's will be used:
+
+```yaml
+dbPassword: # Database Password
+defaultUserPass: # Default User Password
+defaultUserServiceKey: # Default Service Key
+```
+
+### External Collectors
+
+In cases where collectors are running external to cluster, it's required to set the `overops.takipiHost` to an external reachable hostname or url (Likely the same as the frontend). By default,
+the k8s service name is used which allows for communications within the cluster but will fail to resolve if the collector is external to the cluster. This is not required when running collectors
+within the same namespace or cluster as the overops backend server.
+
+### Extra Configuration
+The helm chart allows for extra configuration changes to overops-server's configMap, this includes `my.server.properties` and additional configuration files such as the `smtpserver.properties`. 
+Set `config.enableExtraConfig: true` for additional config entries to the `my.server.properties` update the yaml as follows:
+
+```yaml
+myServerProperties: |-
+  MY_PROPERTY1=A
+  MY_PROPERTY2=B
+  MY_PROPERTY3=C
+```
+To add additional config files use the `extraConfigurationFiles` option adding an entry each filename to be added to the configMap as follows:
+
+```yaml
+extraConfigurationFiles: 
+    smtp.properties: |-
+       SMTP_SERVER_USERNAME=
+       SMTP_SERVER_PASSWORD=
+       SMTP_FROM_ADDRESS=
+    smtpserver.properties: |-
+       mail.transport.protocol=smtp
+```
+### Persistence Storage
+By default persistence storage is enabled using the default for the backend `storage` path. This will use the default storage class on the cluster. Additionally, you can modify the mount path
+of the `storage` and `private` mounts but are default to match the overop-server docker image https://hub.docker.com/r/overops/server. 
+
+Only update the `MountPath` values if you are using a custom image and require different paths!
+
+### Update the Certificate Authority
+
+In cases where additional certificates need to be added to the Overops server pod, it is recommended to use a certificate injector. For example, in order to configure the overops server to
+communicate with a private LDAP server using SSL a private Certificate Authority needs to be added to Java's install cacerts keystore. More info LDAP configuration can be found [here](https://doc.overops.com/docs/configuring-ldap-for-on-premises-deployments)
+
+A certificate Injector can solve this issue by updating the target pod's ca bundle to include your CA certificate. One solution is [cloudbees-sidecar-injector](https://github.com/joostvdg/jenkins-examples/tree/master/cloudbees/gke/charts/cloudbees-core/charts/cloudbees-sidecar-injector)
+
+To use this with the overops-server docker hub image, ensure that the java cacert path is included in the helm values during install. The path is `/usr/local/openjdk-8/lib/security/cacerts` and can be added to the `injectionJavaKeystore` 
+parameter in the values.yaml as you follow the linked instructions. This will result in the updated java cacerts file mounted into the pod.

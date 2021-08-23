@@ -47,25 +47,34 @@ $ helm show values overops/overops-collector
 
 The following table lists the configurable parameters of the OverOps Collector chart and their default values. This is not a complete list, additional values can be found by inspecting the respected chart.
 
+=======
 | Parameter                                      | Description                                                                                  | Default                                              |
-| -----------------------------------------------| -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `overops.serviceKey`                           | Service Key for the collector *                                                              | `nil`                                                |
+| --------------------------------------------   | -------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `overops.serviceKey`                           | Service Key for the collector                                                                | `nil`                                                |
+| `overops.installToken`                         | Install Token used with MEC                                                                  | `nil`                                                |
 | `overops.backendURL`                           | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                       | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
 | `overops.serverName`                           | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
-| `overops.jvmHeapSize`                          | Collector JVM Heap Size (Overops collector requires 4G)                                      | `1G`		                                           |
+| `overops.jvmHeapSize`                          | Collector JVM Heap Size (Overops collector requires 4G)                                      | `1G`		                                             |
 | `image.repository`                             | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                    | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                             | Image pull policy                                                                            | `IfNotPresent`                                       |
 | `service.loadBalancerType`                     | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
+| `persistence.enabled`                          | Enables persistence storage for the collectors "work" directory                              | `false`                                              |
+| `persistence.accessModes`                      | Persistence storage Access Mode                                                              | `- ReadWriteOnce`                                    |
+| `persistence.size`                             | Persistence storage Size                                                                     | `1Gi`                                                |
 | `autoscaling.enabled`                          | Enable Horizontal Pod Autoscaling                                                            | `false`                                              |
 | `autoscaling.minReplicas`                      | The minimum allowed replicas                                                                 | `1`                                                  |
 | `autoscaling.maxReplicas`                      | The maximum allowed replicas                                                                 | `10`                                                 |
 | `autoscaling.targetCPUUtilizationPercentage`   | CPU utilization target                                                                       | `70`                                                 |
 | `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                    | `70`                                                 |
 
+## Single Environment vs Multi-Environment Collectors
 
-_*: Indicates parameters that need to be set.
+In a typical single collector environment, a `overops.serviceKey` is provided to the collector to identify which environment will be used on the backend. Collector also supports multi-environment
+configuration by using the `overops.installToken`. This is described, in detail on the [Overops Doc page](https://doc.overops.com/docs/multi-environment-collector)
+
+When using the helm chart, use either a `serviceKey` or `installToken` based on your desired configuration. If both are given, the collector will use the `installToken`.
 
 # Overops Collector resources
  We usually recommend not to specify default resources and to leave this as a conscious
@@ -95,4 +104,19 @@ For exposing the service on AWS the recommended method is using type `LoadBalanc
 service:
   loadBalancerType: nlb
   type: LoadBalancer
+```
+
+## Storage
+By default the collector helm chart deploys the collector as a Deployment without storage, to enable storage use the `persistence` section 
+of the values.yaml. This will deploy the collector as a Stateful Set persisting the "work" directory used by the collector.
+
+## Extra Configuration
+The helm chart allows for extra advanced configuration changes to overops-collector's configMap, for the file `collector.properties`.
+For additional config entries to the `collector.properties` update the yaml as follows:
+
+```yaml
+overops:
+  extraCollectorProperties: |-
+    takipi.http.proxy=http://myproxy.com
+    takipi.https.proxy=https://myproxy.com
 ```

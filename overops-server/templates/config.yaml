@@ -6,15 +6,21 @@ metadata:
     {{- include "overops-server.labels" . | nindent 4 }}
 data:
   my.server.properties: |-
-    LOCAL_DEFAULT_USER_JSON:  {"email": {{ .Values.overops.defaultUser | quote }}, "password": {{ .Values.overops.defaultUserPass | quote }}, "first_name": {{ .Values.overops.defaultUserFirst | quote }}, "last_name": {{ .Values.overops.defaultUserLast | quote }}}
-    LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY: {{ .Values.overops.defaultUserServiceKey }}
-{{- if .Values.config.enableExtraConfig }}
-{{- range $key, $val := .Values.config.myServerProperties }}
-{{ $val | indent 4}}
-{{- end }}
+  {{- if .Values.overops.defaultUserEnabled }}
+    LOCAL_DEFAULT_USER_JSON=  {"email": {{ .Values.overops.defaultUser | quote }}, "password": "${DEFAULT_PASS}", "first_name": {{ .Values.overops.defaultUserFirst | quote }}, "last_name": {{ .Values.overops.defaultUserLast | quote }}}
+    LOCAL_DEFAULT_USER_SERVICE_SECRET_KEY= ${DEFAULT_SERVICE_KEY}
+    LOCAL_GENERATE_FIRST_USER_SERVICE_AND_LABELS=true
+  {{- end }}
+  {{- if .Values.overops.takipiHost }}
+    TAKIPI_HOST={{ .Values.overops.takipiHost }}
+  {{- end }}
+  {{- if and .Values.config.enableExtraConfig  .Values.config.myServerProperties }}
+  {{ .Values.config.myServerProperties | nindent 4 }}
+  {{- end }}
 
+{{- if and .Values.config.enableExtraConfig  .Values.config.extraConfigurationFiles }}
 {{- range $key, $val := .Values.config.extraConfigurationFiles }}
   {{ $key }}: |-
 {{ $val | indent 4}}
 {{- end }}
-{{- end -}}
+{{- end }}

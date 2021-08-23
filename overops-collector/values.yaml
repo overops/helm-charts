@@ -13,10 +13,18 @@ overops:
   serverName:
   jvmHeapSize: "1G" # Overops collector requires 4G heap size .
   serviceKey:
+  installToken: '' # Used for MEC Configurations
 
-  # Used only if the storage or backend server were installed in a seperate helm release
+  # Used only if the storage or backend server were installed in a separate helm release
   backendReleaseName:
   storageReleaseName:
+
+  # Additional collector.properties
+  extraCollectorProperties: ''
+  # Example:
+  #extraCollectorProperties: |-
+  #  takipi.http.proxy=http://myproxy.com
+  #  takipi.https.proxy=https://myproxy.com
 
 replicaCount: 1
 
@@ -44,6 +52,7 @@ podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
   runAsGroup: 1000
+  fsGroup: 1000
 securityContext: {}
 
 service:
@@ -90,3 +99,24 @@ autoscaling:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+updateStrategy: RollingUpdate
+podManagementPolicy: OrderedReady
+terminationGracePeriodSeconds: 30
+
+## Persist data to a persistent volume
+## Enabling storage the collector will use a Stateful Set rather than a Deployment.
+persistence:
+  enabled: false
+  ## database data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  # storageClass: "-"  
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+  annotations: {}  
