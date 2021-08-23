@@ -67,6 +67,11 @@ spec:
                   name: {{ include "overops-server.secretName" . }}
                   key: default-user-password
 
+            {{- if .Values.overops.catalinaOpts }}
+            - name: CATALINA_OPTS
+              value: {{ .Values.overops.catalinaOpts | quote }}
+            {{- end }}
+
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
               value: "mysql"

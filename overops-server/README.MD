@@ -107,3 +107,4 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
+| `overops.catalinaOpts`                       | `CATALINA_OPTS` ENV variable setting for tomcat server.                                      | `nil`                                                |

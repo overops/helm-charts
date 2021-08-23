@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Server Chart
 
+## [5.0.8]
+- Added Catalina Options
+
 ## [5.0.7]
 - Added the ability to use agent environment property
 
