@@ -1,5 +1,7 @@
 # CHANGELOG: Overops Collector V5 Chart
 
+## [5.0.5]
+- Added HPA support to Overops collector.
 ## [5.0.4]
 - Added MEC support.
 
