@@ -30,6 +30,8 @@ spec:
           env:
             - name: TAKIPI_COLLECTOR_URL
               value: {{ include "overops-event-generator.collectorEndpoint" . }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/takipi/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLOYMENT_NAME
@@ -52,4 +54,14 @@ spec:
               value: {{ .Values.overops.job.randomSeed | quote }}
             - name: MAX_NUM_EVENTS
               value: {{ .Values.overops.job.numberOfEvents | quote }}
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/takipi/private
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-event-generator.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
 {{- end }}

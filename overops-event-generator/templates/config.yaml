@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "overops-event-generator.fullname" . }}-config
+  labels:
+    {{- include "overops-event-generator.labels" . | nindent 4 }}
+data:
+  agent.properties: |-
+    # Agent Properties File
+    # i.e. takipi.max.depth=10
+  {{- if .Values.overops.enableSourceAttach }}
+    takipi.repository.url=https://github.com/takipi-field/overops-event-generator
+    takipi.repository.type=GITHUB
+    takipi.repository.ref=master
+    takipi.repository.credentials={{ .Values.overops.sourceAttachCredToken }}
+  {{- end }}
+  {{- if .Values.overops.agentProperties }}
+  {{ .Values.overops.agentProperties | nindent 4 }}
+  {{- end }}
