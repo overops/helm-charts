@@ -1,10 +1,10 @@
 # Overops Java Bullshifier
-This is the helm chart for [OverOps](https://www.overops.com/) java bullshifier. It is based on the Overops Java Bullshifier dockerfile found [here](https://github.com/takipi/java-bullshifier/blob/master/Dockerfile). 
+This is the helm chart for [OverOps](https://www.overops.com/) java bullshifier. It is based on the Overops Java Bullshifier dockerfile found [here](https://github.com/takipi/java-bullshifier/blob/master/Dockerfile).
 
 The java bullshifier is an test / demonstration tool you can find source code [here](https://github.com/takipi/java-bullshifier) As part of the helm chart it can be configured to
-communicate with an overops collector in the same k8s cluster. 
+communicate with an overops collector in the same k8s cluster.
 
-The java-bullshifier can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar) 
+The java-bullshifier can also be configured to use the OverOps agent-sidecar rather than the embedded agent. This can be useful example to demostrate the side-car use case which uses an init container. More info on the agent-sidecar can be found [here](https://hub.docker.com/r/overops/agent-sidecar)
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ _See [configuration](#configuration) below._
 _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documentation._
 
 ## Executing Java Bullshifier as a Job
-TBD 
+TBD
 
 ## Uninstall Chart
 
@@ -65,13 +65,30 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.environmentId`                      | Environment ID used with MEC more info [here](https://doc.overops.com/docs/multi-environment-collector) | `nil`                  |
 | `overops.color`                              | The plan of the Bulshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .     | `white`                              |
+| `overops.agentProperties`                    | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)         |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Java Bullshifier                                          | `false`                           |
 | `overops.job.runningDurationHours`           | The number of hours java-bullshifier app should be running                                   | `0`                               |
 | `overops.job.runningDurationMinutes`         | The number of minutes java-bullshifier app should be running                                 | `5`                               |
-| `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                            |
+| `image.repository`                           | `overops-java-bullshifier` image repository.                                                 | `nil`                             |
 | `image.tag`                                  | `overops-java-bullshifier` image tag.                                                        |  Pulled from chart.yaml           |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                    |
 | `overops.agentSidecar.enabled`               | Enable the use of agent-sidecar init container instead of embedded agent.                    | `false`                           |
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`           |
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                    |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                          |
+
+## Advanced
+
+### Agent Properties
+The helm chart allows for extra configuration changes to be added to the `agent.properties` file that will be used by the Overops Agent. More details
+on advance agent settings (here)[https://doc.overops.com/docs/agent-properties]
+
+The agent properties will be mounted as a file to: `/opt/overops/private/agent.properties`
+
+```yaml
+overops:
+  agentProperties: |-
+    MY_PROPERTY1=A
+    MY_PROPERTY2=B
+    MY_PROPERTY3=C
+```

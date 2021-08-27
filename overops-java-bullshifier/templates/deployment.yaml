@@ -27,12 +27,9 @@ spec:
       serviceAccountName: {{ include "overops-java-bullshifier.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      
+
       {{- if .Values.overops.agentSidecar.enabled }}
-      volumes:
-      - name: overops-agent
-        emptyDir: {}
-      initContainers:    
+      initContainers:
         - name: overops-agent-sidecar
           image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
@@ -52,6 +49,8 @@ spec:
             value: {{ .Values.overops.collectorHost | quote }}
           - name: TAKIPI_COLLECTOR_PORT
             value: {{ .Values.overops.collectorPort | quote }}
+          - name: TAKIPI_PROPERTIES_FILE
+            value: "/opt/overops/private/agent.properties"
           - name: TAKIPI_APPLICATION_NAME
             value: {{ .Values.overops.applicationName | quote }}
           - name: TAKIPI_DEPLOYMENT_NAME
@@ -80,16 +79,18 @@ spec:
           - name: JAVA_TOOL_OPTIONS
             value: ""
           {{- end }}
- 
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.nodeSelector }}
-          {{- if .Values.overops.agentSidecar.enabled }}
-            volumeMounts:
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/overops/private
+            {{- if .Values.overops.agentSidecar.enabled }}
             - name: overops-agent
               mountPath: /takipi
-          {{- end }}
+            {{- end }}
 
+      {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -101,3 +102,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-java-bullshifier.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
+        {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent
+          emptyDir: {}
+        {{- end }}
