@@ -29,10 +29,7 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
 
       {{- if .Values.overops.agentSidecar.enabled }}
-      volumes:
-      - name: overops-agent
-        emptyDir: {}
-      initContainers:    
+      initContainers:
         - name: overops-agent-sidecar
           image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
@@ -51,10 +48,14 @@ spec:
               value: {{ include "overops-event-generator.collectorEndpoint" . }}
             - name: TAKIPI_COLLECTOR_PORT
               value: {{ .Values.overops.collectorPort | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/takipi/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
+            {{- if not .Values.overops.sourceAttach.enabled }}
             - name: TAKIPI_DEPLOYMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- end }}
             {{- if .Values.overops.serverName }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
@@ -78,11 +79,13 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.overops.agentSidecar.enabled }}
           volumeMounts:
-          - name: overops-agent
-            mountPath: /takipi
-          {{- end }}
+            - name: overops-private
+              mountPath: /opt/takipi/private
+            {{- if .Values.overops.agentSidecar.enabled }}
+            - name: overops-agent
+              mountPath: /takipi
+            {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -96,3 +99,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-event-generator.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
+        {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent
+          emptyDir: {}
+        {{- end }}

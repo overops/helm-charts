@@ -20,7 +20,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "overops-java-bullshifier.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}    
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       restartPolicy: Never
       containers:
         - name: {{ .Chart.Name }}-job
@@ -31,6 +31,8 @@ spec:
               value: {{ .Values.overops.collectorHost | quote }}
             - name: TAKIPI_COLLECTOR_PORT
               value: {{ .Values.overops.collectorPort | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLOYMENT_NAME
@@ -42,7 +44,7 @@ spec:
             {{- if .Values.overops.environmentId }}
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.environmentId | quote }}
-            {{- end }}            
+            {{- end }}
             {{- if .Values.overops.noAgent }}
             - name: JAVA_TOOL_OPTIONS
               value: ""
@@ -59,4 +61,14 @@ spec:
             - name: RUNNING_DURATION_MINUTES
               value: {{ .Values.overops.job.runningDurationMinutes | quote }}
             {{- end }}
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/overops/private
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-java-bullshifier.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
 {{- end }}

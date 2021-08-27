@@ -1,4 +1,8 @@
 # CHANGELOG: Overops Event Generator Chart
+
+## [0.9.1]
+- Adding Source Attach and Agent Properties.
+
 ## [0.9.0]
 - Updated App Release to OverOps 4.62.0
 - Added Support for Environment ID (MEC)
@@ -25,7 +29,7 @@
 - Added Server Name value.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.0]
 - Updated App Release to OverOps 4.55.0

@@ -20,7 +20,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "overops-event-generator.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}    
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       restartPolicy: Never
       containers:
         - name: {{ .Chart.Name }}-job
@@ -31,10 +31,14 @@ spec:
               value: {{ include "overops-event-generator.collectorEndpoint" . }}
             - name: TAKIPI_COLLECTOR_PORT
               value: {{ .Values.overops.collectorPort | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/takipi/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
+            {{- if not .Values.overops.sourceAttach.enabled }}
             - name: TAKIPI_DEPLOYMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- end }}
             {{- if .Values.overops.serverName }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
@@ -49,4 +53,14 @@ spec:
               value: {{ .Values.overops.job.randomSeed | quote }}
             - name: MAX_NUM_EVENTS
               value: {{ .Values.overops.job.numberOfEvents | quote }}
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/takipi/private
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-event-generator.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
 {{- end }}
