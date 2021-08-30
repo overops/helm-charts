@@ -131,6 +131,8 @@ spec:
               value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.agentSidecar.environmentName | quote }}
             - name: JAVA_TOOL_OPTIONS
@@ -179,16 +181,20 @@ spec:
           configMap:
             name: {{ template "overops-server.fullname" . }}-config
             items:
-            - key: application.properties
-              path: application.properties
-            - key: application-mysql.properties
-              path: application-mysql.properties
-            - key: my.server.properties
-              path: my.server.properties
-            {{- if .Values.overops.rabbitQueue.enabled }}
-            - key: application-msg_rabbit.properties
-              path: application-msg_rabbit.properties
-            {{- end }}
+              {{- if .Values.overops.agentSidecar.enabled }}
+              - key: agent.properties
+                path: agent.proprties
+              {{- end }}
+              - key: application.properties
+                path: application.properties
+              - key: application-mysql.properties
+                path: application-mysql.properties
+              - key: my.server.properties
+                path: my.server.properties
+              {{- if .Values.overops.rabbitQueue.enabled }}
+              - key: application-msg_rabbit.properties
+                path: application-msg_rabbit.properties
+              {{- end }}
         {{- if .Values.overops.agentSidecar.enabled }}
         - name: overops-agent
           emptyDir: {}

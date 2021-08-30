@@ -13,11 +13,8 @@ overops:
   color: "white"
   noAgent: false # Use for tests
 
-  enableSourceAttach: false
-  sourceAttachCredToken: ""
-
   # Extended Agent settings using a Property File
-  # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+  # Note: This will set the TAKIPI_PROPERTIES_FILE environment variable
   agentProperties: ""
   # Example:
   # agentProperties: |-

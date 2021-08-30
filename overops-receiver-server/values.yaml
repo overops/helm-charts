@@ -29,6 +29,14 @@ overops:
     serverName: ""
     environmentName: ""
 
+    # Extended Agent settings using a Property File
+    # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+    agentProperties: ""
+    # Example:
+    # agentProperties: |-
+    #   takipi.max.depth=10
+    #   takipi.shutdown.gracetime=60
+
   auth:
     existingSecret: ""
 
@@ -52,10 +60,10 @@ overops:
     url: ""
     user: overops
     password: ""
-    port: 3306   
+    port: 3306
 
 ## Overops Extended Configuration section populates config files that will be part of application
-#  overops receiver server configMap. These will be mounted to the overops-private volume mount.    
+#  overops receiver server configMap. These will be mounted to the overops-private volume mount.
 config:
   enableExtraAppConfig: false
   applicationProperties: ""

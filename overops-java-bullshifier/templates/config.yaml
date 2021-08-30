@@ -8,12 +8,6 @@ data:
   agent.properties: |-
     # Agent Properties File
     # i.e. takipi.max.depth=10
-  {{- if .Values.overops.enableSourceAttach }}
-    takipi.repository.url=https://github.com/takipi/java-bullshifier
-    takipi.repository.type=GITHUB
-    takipi.repository.ref=master
-    takipi.repository.credentials={{ .Values.overops.sourceAttachCredToken }}
-  {{- end }}
   {{- if .Values.overops.agentProperties }}
   {{ .Values.overops.agentProperties | nindent 4 }}
   {{- end }}

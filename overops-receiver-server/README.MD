@@ -16,7 +16,7 @@ helm repo update
 
 ## Install Chart
 ```console
-# Helm 3 
+# Helm 3
 $ helm install -n=overops  receiver overops/overops-receiver-server
 ```
 
@@ -29,7 +29,7 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 
 ```console
 # Helm
-$ helm uninstal -n [NAMESPACE] [RELEASE_NAME] 
+$ helm uninstal -n [NAMESPACE] [RELEASE_NAME]
 
 ```
 
@@ -71,10 +71,11 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
 | `overops.agentSidecar.collectorURL`          | Agent Sidecar Collector URL                                                                  | `nil`                                                |
-| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)               | `nil`                             |
-| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
+| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)      | `nil`                                                |
+| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)          | `nil`                                                |
+| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.agentProperties`       | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)                            |
 | `overops.mysql.url`                          | mysql database url                                                                           | `nil`                                                |
 | `overops.mysql.port`                         | mysql database port                                                                          | `3306`                                               |
 | `overops.mysql.user`                         | Username of mysql database.                                                                  | `overops`                                            |

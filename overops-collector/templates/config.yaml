@@ -18,7 +18,7 @@ data:
     {{- end }}
     {{- if .Values.overops.storageTestURL }}
     takipi.storage.test.url={{ .Values.overops.storageTestURL }}
-    {{- else }}        
+    {{- else }}
     takipi.storage.test.url={{ include "overops-collector.hostedBackendURL" . }}/service/png
     {{- end }}
     {{- if .Values.overops.collectorName }}
@@ -27,4 +27,11 @@ data:
     {{- if .Values.overops.extraCollectorProperties }}
     {{ .Values.overops.extraCollectorProperties | nindent 4 }}
     {{- end }}
-     
+  {{- if .Values.overops.agentSidecar.enabled }}
+  agent.properties: |-
+    # Agent Properties File
+    # i.e. takipi.max.depth=10
+  {{- if .Values.overops.agentSidecar.agentProperties }}
+  {{ .Values.overops.agentSidecar.agentProperties | nindent 4 }}
+  {{- end }}
+  {{- end }}

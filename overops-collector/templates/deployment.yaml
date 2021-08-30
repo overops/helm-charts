@@ -57,6 +57,8 @@ spec:
               value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.agentSidecar.environmentName | quote }}
             - name: JAVA_TOOL_OPTIONS
@@ -78,8 +80,8 @@ spec:
           {{- end }}
 
           volumeMounts:
-            - mountPath: /opt/overops/private
-              name: overops-private-volume
+            - name: overops-private-volume
+              mountPath: /opt/overops/private
             {{- if .Values.overops.agentSidecar.enabled }}
             - name: overops-agent
               mountPath: /opt/overops-agent
@@ -92,12 +94,16 @@ spec:
           configMap:
             name: {{ template "overops-collector.fullname" . }}
             items:
-            {{- if .Values.overops.installationToken }}
-            - key: installation.token
-              path: installation.token
-            {{- end }}
-            - key: collector.properties
-              path: collector.properties
+              {{- if .Values.overops.agentSidecar.enabled }}
+              - key: agent.properties
+                path: agent.proprties
+              {{- end }}
+              {{- if .Values.overops.installationToken }}
+              - key: installation.token
+                path: installation.token
+              {{- end }}
+              - key: collector.properties
+                path: collector.properties
         {{- if .Values.overops.agentSidecar.enabled }}
         - name: overops-agent
           emptyDir: {}

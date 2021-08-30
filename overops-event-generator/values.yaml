@@ -12,8 +12,10 @@ overops:
   environmentName: ""
   randomSeed: ""
 
-  enableSourceAttach: false
-  sourceAttachCredToken: ""
+  sourceAttach:
+    enabled: false
+    credToken: ""
+    repoRef: master
 
   # Extended Agent settings using a Property File
   # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap

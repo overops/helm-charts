@@ -1,5 +1,8 @@
 # CHANGELOG: Overops v5 Chart
 
+## [5.0.7]
+- Adding Agent Properties.
+- Added Catalina Options
 
 ## [5.0.6]
 - Added the ability to use agent environment property
@@ -32,7 +35,7 @@
 - Added Liveness and Startup Probes for respected services and added Init Container for overops-server to test database connection.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.1]
 - Added support for Postgres Database as default backend database.

@@ -50,8 +50,10 @@ spec:
               value: "/opt/takipi/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
+            {{- if not .Values.overops.sourceAttach.enabled }}
             - name: TAKIPI_DEPLOYMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- end }}
             {{- if .Values.overops.serverName }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}

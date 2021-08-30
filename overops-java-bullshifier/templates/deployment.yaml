@@ -84,7 +84,6 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.nodeSelector }}
           volumeMounts:
             - name: overops-private
               mountPath: /opt/overops/private
@@ -93,6 +92,7 @@ spec:
               mountPath: /takipi
             {{- end }}
 
+      {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
