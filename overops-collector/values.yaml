@@ -4,7 +4,7 @@
 
 # Overops Config settings
 overops:
-  backendURL: 
+  backendURL:
   storageTestURL:
   collectorName:
   installationKey:
@@ -15,7 +15,7 @@ overops:
 
   # Additional collector.properties
   extraCollectorProperties: ''
-  #extraCollectorProperties: |- 
+  #extraCollectorProperties: |-
    #MY_PROP1=A
    #MY_PROP2=B
 
@@ -31,6 +31,14 @@ overops:
     deploymentName: ""
     serverName: ""
     environmentName: ""
+
+    # Extended Agent settings using a Property File
+    # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+    agentProperties: ""
+    # Example:
+    # agentProperties: |-
+    #   takipi.max.depth=10
+    #   takipi.shutdown.gracetime=60
 
 replicaCount: 1
 
@@ -68,7 +76,7 @@ livenessProbe:
   failureThreshold: 3
   successThreshold: 1
   timeoutSeconds: 1
- 
+
 
 # The OverOps collector does not use HTTP/HTTPs but TCP therefore K8S Ingress is not directly supported
 # many Ingress Controller support TCP but is spefific to the Controller. Please refer to your

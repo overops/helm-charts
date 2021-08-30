@@ -37,7 +37,6 @@ data:
     spring.datasource.username={{ .Values.overops.mysql.user}}
     spring.datasource.password=${DB_PASS}
 
-
   application-msg_rabbit.properties: |-
     spring.rabbitmq.host={{ .Values.overops.rabbitQueue.service }}
     spring.rabbitmq.port={{ .Values.overops.rabbitQueue.port }}
@@ -46,4 +45,11 @@ data:
 
     overops.exchange.name={{ .Values.overops.rabbitQueue.exchange }}
 
-
+  {{- if .Values.overops.agentSidecar.enabled }}
+  agent.properties: |-
+    # Agent Properties File
+    # i.e. takipi.max.depth=10
+  {{- if .Values.overops.agentSidecar.agentProperties }}
+  {{ .Values.overops.agentSidecar.agentProperties | nindent 4 }}
+  {{- end }}
+  {{- end }}

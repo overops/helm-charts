@@ -12,11 +12,12 @@ overops:
 
   loglevel: INFO
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
-  catalinaOpts: 
-  
+  catalinaOpts:
+  takipiHost: ""
+
   auth:
     existingSecret: ""
-  
+
   redis:
     enabled: false
     host: ''
@@ -43,6 +44,13 @@ overops:
     serverName: ""
     environmentName: ""
 
+    # Extended Agent settings using a Property File
+    # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+    agentProperties: ""
+    # Example:
+    # agentProperties: |-
+    #   takipi.max.depth=10
+    #   takipi.shutdown.gracetime=60
 
 replicaCount: 1
 image:
@@ -93,7 +101,7 @@ mysql:
       CREATE DATABASE IF NOT EXISTS takipi;
       CREATE DATABASE IF NOT EXISTS overops;
       CREATE DATABASE IF NOT EXISTS overops_next;
-  
+
 postgresql:
   enabled: false
   postgresqlUsername: overops
@@ -110,7 +118,7 @@ postgresql:
       CREATE DATABASE pds;
       ALTER DATABASE pds OWNER to overops;
       GRANT ALL PRIVILEGES ON DATABASE pds TO overops;
-      
+
       CREATE DATABASE qsql;
       ALTER DATABASE qsql OWNER to overops;
       GRANT ALL PRIVILEGES ON DATABASE qsql TO overops;
@@ -124,7 +132,7 @@ postgresql:
 
       CREATE DATABASE overops_next;
       ALTER DATABASE overops_next OWNER to overops;
-      GRANT ALL PRIVILEGES ON DATABASE overops_next TO overops;      
+      GRANT ALL PRIVILEGES ON DATABASE overops_next TO overops;
 
 
 # Networking
@@ -162,7 +170,7 @@ startupProbe:
   periodSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-  timeoutSeconds: 1  
+  timeoutSeconds: 1
 
 
 resources: {}

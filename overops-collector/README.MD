@@ -1,5 +1,5 @@
 # Overops Collector V5 Chart
-This is the main Collector chart for [OverOps](https://www.overops.com/) deployment. It is based on the Overops docker releases of the collector found [here](https://hub.docker.com/r/overops/collector). 
+This is the main Collector chart for [OverOps](https://www.overops.com/) deployment. It is based on the Overops docker releases of the collector found [here](https://hub.docker.com/r/overops/collector).
 
 The collector can be deployed into the same namespace as an Overops Backend Server or configured to work with a remote one.
 
@@ -64,6 +64,7 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)      | `nil`                                                |
 | `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)          | `nil`                                                |
 | `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.agentProperties`       | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)                            |
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
@@ -83,7 +84,7 @@ When using the helm chart, use either a `installationKey` or `installationToken`
 ## Ingress / Service Support
 
 The OverOps collector uses a TCP port (Defaults 6060) for communication with an agent, therefore if a collector requires connections external to a cluster
-configuration specific to an Ingress Controller is required or another method is needed (NodePort, LoadBalancer). TCP is not directly supported by 
+configuration specific to an Ingress Controller is required or another method is needed (NodePort, LoadBalancer). TCP is not directly supported by
 the networking.k8s.io Ingress spec.
 
 For exposing the service on AWS the recommended method is using type `LoadBalancer` and use the AWS Network Load Balancer to do this use the follow values:

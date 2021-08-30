@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Receiver Server Chart
 
+## [5.0.8]
+- Adding Agent Properties.
+
 ## [5.0.7]
 - Added the ability to use agent environment property
 

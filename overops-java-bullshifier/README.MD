@@ -65,8 +65,6 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.color`                              | The plan of the Bullshifier - affect on how intense will be the load on the application - (Options: white/yellow/red/black) .    | `white`                              |
-| `overops.enableSourceAttach`                 | Adds Source Attach settings to the `agent.properties` file                                   | `false`                           |
-| `overops.sourceAttachCredToken`              | Adds Source Attach Token to  `agent.properties` file                                         | `nil`                             |
 | `overops.agentProperties`                    | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)         |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Java Bullshifier                                          | `false`                           |
 | `overops.job.activeDeadlineSeconds`          | Job Deadline to force completion of the Job.                                                 | `600`                             |
@@ -79,3 +77,19 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`           |
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                    |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                          |
+
+## Advanced
+
+### Agent Properties
+The helm chart allows for extra configuration changes to be added to the `agent.properties` file that will be used by the Overops Agent. More details
+on advance agent settings (here)[https://doc.overops.com/docs/agent-properties]
+
+The agent properties will be mounted as a file to: `/opt/overops/private/agent.properties`
+
+```yaml
+overops:
+  agentProperties: |-
+    MY_PROPERTY1=A
+    MY_PROPERTY2=B
+    MY_PROPERTY3=C
+```
