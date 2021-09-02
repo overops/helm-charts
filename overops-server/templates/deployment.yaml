@@ -32,7 +32,7 @@ spec:
       initContainers:  # check if DB is ready, and only continue when true
         - name: check-db-ready
           image: bitnami/postgresql:{{ .Values.postgresql.image.tag }}
-          command: ['sh', '-c',  'until pg_isready -U {{ .Values.postgresql.postgresqlUsername | quote }} -h {{ template "postgresql.hostname" . }} -p {{ .Values.postgresql.service.port }};  do echo waiting for database; sleep 2; done;']          
+          command: ['sh', '-c',  'until pg_isready -U {{ .Values.postgresql.postgresqlUsername | quote }} -h {{ template "postgresql.hostname" . }} -p {{ .Values.postgresql.service.port }};  do echo waiting for database; sleep 2; done;']
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -64,6 +64,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "overops-server.secretName" . }}
                   key: defaultUserServiceKey
+            {{- end }}
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
               value: "mysql"
@@ -147,7 +148,7 @@ spec:
           configMap:
             name: {{ template "overops-server.fullname" . }}-config
             items:
-            - key: my.server.properties 
+            - key: my.server.properties
               path: my.server.properties
             {{- if and .Values.config.enableExtraConfig  .Values.config.extraConfigurationFiles }}
             {{- range $key, $val := .Values.config.extraConfigurationFiles }}
