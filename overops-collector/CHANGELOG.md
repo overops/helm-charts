@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector Chart
 
+## [0.10.0]
+- Added HPA support to Overops collector.
+
 ## [0.9.0]
 - Updated App Release to OverOps 4.62.0
 - Added Support for MEC
