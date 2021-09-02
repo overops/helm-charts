@@ -2,30 +2,30 @@ apiVersion: v2
 name: overops
 description: A Helm chart for OverOps Stack.
 type: application
-version: 0.9.0
-appVersion: 4.62.0
+version: 0.10.0
+appVersion: 4.63.1
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
 
 
 dependencies:
   - name: overops-server
-    version: 0.9.0
+    version: 0.10.0
     repository: https://overops.github.io/helm-charts/
     condition: overops-server.enabled
 
   - name: overops-collector
-    version: 0.9.0
+    version: 0.10.0
     repository: https://overops.github.io/helm-charts/
     condition: overops-collector.enabled
 
   - name: overops-event-generator
-    version: 0.9.0
+    version: 0.10.0
     repository: https://overops.github.io/helm-charts/
     condition: overops-event-generator.enabled
 
   - name: overops-java-bullshifier
-    version: 0.2.0
+    version: 0.2.1
     repository: https://overops.github.io/helm-charts/
     condition: overops-java-bullshifier.enabled
 
