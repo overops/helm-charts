@@ -3,7 +3,7 @@ name: overops-server
 description: A Helm chart for OverOps Backend Server
 type: application
 version: 0.10.0
-appVersion: 4.62.0
+appVersion: 4.63.1
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
 

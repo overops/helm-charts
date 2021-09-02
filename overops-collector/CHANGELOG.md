@@ -1,6 +1,7 @@
 # CHANGELOG: Overops Collector Chart
 
 ## [0.10.0]
+- Updated App Release to OverOps 4.63.0
 - Added HPA support to Overops collector.
 
 ## [0.9.0]
@@ -29,7 +30,7 @@
 - Added Liveness and Startup Probes for respected services and added Init Container for overops-server to test database connection.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.0]
 - Updated App Release to OverOps 4.55.0

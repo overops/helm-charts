@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Chart
 
+## [0.10.0]
+- Updated App Release to OverOps 4.63.1
+
 ## [0.9.0]
 - Updated App Release to OverOps 4.62.0
 
@@ -25,7 +28,7 @@
 - Added Liveness and Startup Probes for respected services and added Init Container for overops-server to test database connection.
 
 ## [0.3.0]
-- Updated App Release to OverOps 4.56.0 
+- Updated App Release to OverOps 4.56.0
 
 ## [0.2.1]
 - Added support for Postgres Database as default backend database.

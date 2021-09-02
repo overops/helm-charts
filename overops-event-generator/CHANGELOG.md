@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Event Generator Chart
 
+## [0.10.0]
+- Updated App Release to OverOps 4.63.0
+
 ## [0.9.1]
 - Adding Source Attach and Agent Properties.
 

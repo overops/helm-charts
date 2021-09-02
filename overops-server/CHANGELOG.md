@@ -1,5 +1,6 @@
 # CHANGELOG: Overops Server Chart
 ## [0.10.0]
+- Updated App Release to OverOps 4.63.1
 - Added CATALINA_OPTS environment variable for Overops server.
 
 ## [0.9.0]
