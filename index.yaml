@@ -3,7 +3,7 @@ entries:
   overops:
   - apiVersion: v2
     appVersion: 4.63.1
-    created: "2021-09-02T10:43:33.67791-04:00"
+    created: "2021-09-02T12:47:21.273811-04:00"
     dependencies:
     - condition: overops-server.enabled
       name: overops-server
@@ -30,7 +30,7 @@ entries:
       repository: https://overops.github.io/helm-charts/
       version: 0.2.1
     description: A Helm chart for OverOps Stack.
-    digest: 3b880b83dac5d6d8f68aa3c5ef6d465a325beced1eb5853dfd52d9d3677c2b91
+    digest: e3bf2112d817b4dc1ba68e9bcd7ea855c3283f01d488e5144b5d5114f1ebe6ad
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops
@@ -776,7 +776,7 @@ entries:
   overops-server:
   - apiVersion: v2
     appVersion: 4.63.1
-    created: "2021-09-02T10:37:40.436326-04:00"
+    created: "2021-09-02T12:47:21.278628-04:00"
     dependencies:
     - condition: mysql.enabled
       name: mysql
@@ -787,7 +787,7 @@ entries:
       repository: https://charts.bitnami.com/bitnami
       version: 10.2.0
     description: A Helm chart for OverOps Backend Server
-    digest: 860f195857796450fb648ef57073f8ee5df0a455eadd1a7fdcc007d9819f6c9f
+    digest: 1a916636899b279d84cc33b1499ed5a05dc4b63d263848ec37a7346bd44cbd3d
     home: https://www.overops.com/
     icon: https://files.readme.io/7d44ac2-o-logo.ico
     name: overops-server
@@ -1134,4 +1134,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-02T10:43:33.669087-04:00"
+generated: "2021-09-02T12:47:21.265244-04:00"
