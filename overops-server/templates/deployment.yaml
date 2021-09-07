@@ -156,7 +156,7 @@ spec:
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              path: /service/png
+              path: /actuator/health/liveness
               port: http
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
@@ -167,7 +167,7 @@ spec:
          {{- if .Values.startupProbe.enabled }}
           startupProbe:
             httpGet:
-              path: /service/png
+              path: /actuator/health/liveness
               port: http
             initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
@@ -175,6 +175,18 @@ spec:
             successThreshold: {{ .Values.startupProbe.successThreshold }}
             timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
           {{- end }}
+
+         {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+         {{- end }}
 
       volumes:
         - name: overops-private
