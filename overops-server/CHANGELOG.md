@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Server Chart
 
+## [5.0.9]
+- Update to use SpringBoot Actuators for k8s probes.
+
 ## [5.0.8]
 - Added Catalina Options
 - Adding Agent Properties.

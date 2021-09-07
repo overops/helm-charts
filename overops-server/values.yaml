@@ -153,25 +153,28 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-ambassador:
-  enabled: false
-  prefix: /
-
 livenessProbe:
-  enabled: false
+  enabled: true
   periodSeconds: 10
   failureThreshold: 3
   successThreshold: 1
   timeoutSeconds: 1
 
 startupProbe:
-  enabled: false
-  initialDelaySeconds: 25
+  enabled: true
+  initialDelaySeconds: 35
   periodSeconds: 5
   failureThreshold: 5
   successThreshold: 1
   timeoutSeconds: 1
 
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 35
+  periodSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 1
 
 resources: {}
 #  requests:
