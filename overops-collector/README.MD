@@ -67,7 +67,6 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
-| `service.loadBalancerType`                   | Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")            | `nil`                                                |
 
 ## Single Environment vs Multi-Environment Collectors
 
