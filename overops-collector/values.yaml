@@ -76,13 +76,6 @@ livenessProbe:
   failureThreshold: 3
   successThreshold: 1
   timeoutSeconds: 1
- 
-
-# The OverOps collector does not use HTTP/HTTPs but TCP therefore K8S Ingress is not directly supported
-# many Ingress Controller support TCP but is spefific to the Controller. Please refer to your
-# Ingress Controller for more info.
-# ingress:
-#  enabled: false
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
