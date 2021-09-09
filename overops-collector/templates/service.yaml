@@ -11,8 +11,5 @@ spec:
       targetPort: 6060
       protocol: TCP
       name: collector
-  {{- if ne .Values.service.loadBalancerType "nlb" }}
-  sessionAffinity: ClientIP
-  {{- end }}
   selector:
     {{- include "overops-collector.selectorLabels" . | nindent 4 }}
