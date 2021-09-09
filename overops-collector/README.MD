@@ -75,19 +75,6 @@ In a typical single collector environment, a `overops.installationKey` is provid
 configuration by using the `overops.installationToken`. This is described, in detail on the [Overops Doc page](https://doc.overops.com/docs/multi-environment-collector)
 
 When using the helm chart, use either a `installationKey` or `installationToken` based on your desired configuration. If both are given, the collector will use the `installationToken`.
-## Ingress / Service Support
-
-The OverOps collector uses a TCP port (Defaults 6060) for communication with an agent, therefore if a collector requires connections external to a cluster
-configuration specific to an Ingress Controller is required or another method is needed (NodePort, LoadBalancer). TCP is not directly supported by 
-the networking.k8s.io Ingress spec.
-
-For exposing the service on AWS the recommended method is using type `LoadBalancer` and use the AWS Network Load Balancer to do this use the follow values:
-
-```
-service:
-  loadBalancerType: nlb
-  type: LoadBalancer
-```
 
 ## Extra Configuration
 The helm chart allows for extra configuration changes to overops-collector's configMap, for the file `collector.properties`.
