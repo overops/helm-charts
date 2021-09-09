@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "overops-java-bullshifier.fullname" . }}-config
+  labels:
+    {{- include "overops-java-bullshifier.labels" . | nindent 4 }}
+data:
+  agent.properties: |-
+    # Agent Properties File
+    # i.e. takipi.max.depth=10
+  {{- if .Values.overops.agentProperties }}
+  {{ .Values.overops.agentProperties | nindent 4 }}
+  {{- end }}

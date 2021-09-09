@@ -29,9 +29,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
 
       {{- if .Values.overops.agentSidecar.enabled }}
-      volumes:
-      - name: overops-agent
-        emptyDir: {}
       initContainers:
         - name: overops-agent-sidecar
           image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
@@ -50,6 +47,8 @@ spec:
           env:
           - name: TAKIPI_COLLECTOR_URL
             value: {{ .Values.overops.collectorURL | quote }}
+          - name: TAKIPI_PROPERTIES_FILE
+            value: "/opt/overops/private/agent.properties"
           - name: TAKIPI_APPLICATION_NAME
             value: {{ .Values.overops.applicationName | quote }}
           - name: TAKIPI_DEPLOYMENT_NAME
@@ -85,13 +84,15 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.nodeSelector }}
-          {{- if .Values.overops.agentSidecar.enabled }}
-            volumeMounts:
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/overops/private
+            {{- if .Values.overops.agentSidecar.enabled }}
             - name: overops-agent
               mountPath: /takipi
-          {{- end }}
+            {{- end }}
 
+      {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -103,3 +104,14 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-java-bullshifier.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
+        {{- if .Values.overops.agentSidecar.enabled }}
+        - name: overops-agent
+          emptyDir: {}
+        {{- end }}

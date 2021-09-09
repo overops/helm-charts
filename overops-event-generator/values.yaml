@@ -12,6 +12,19 @@ overops:
   environmentName: ""
   randomSeed: ""
 
+  sourceAttach:
+    enabled: false
+    credToken: ""
+    repoRef: master
+
+  # Extended Agent settings using a Property File
+  # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+  agentProperties: ""
+  # Example:
+  # agentProperties: |-
+  #   takipi.max.depth=10
+  #   takipi.shutdown.gracetime=60
+
   # Use an agent-sidecard instead of an embedded agent.
   agentSidecar:
     enabled: false
@@ -23,6 +36,7 @@ overops:
   # Job Related settings
   job:
     enabled: false
+    activeDeadlineSeconds: 600
     numberOfEvents: 100
     randomSeed: 123
 

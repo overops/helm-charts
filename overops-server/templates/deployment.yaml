@@ -67,6 +67,11 @@ spec:
                   name: {{ include "overops-server.secretName" . }}
                   key: default-user-password
 
+            {{- if .Values.overops.catalinaOpts }}
+            - name: CATALINA_OPTS
+              value: {{ .Values.overops.catalinaOpts | quote }}
+            {{- end }}
+
             {{ if .Values.mysql.enabled }}
             - name: DB_TYPE
               value: "mysql"
@@ -126,6 +131,8 @@ spec:
               value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.agentSidecar.environmentName | quote }}
             - name: JAVA_TOOL_OPTIONS
@@ -149,7 +156,7 @@ spec:
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
-              path: /service/png
+              path: /actuator/health/liveness
               port: http
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
@@ -160,7 +167,7 @@ spec:
          {{- if .Values.startupProbe.enabled }}
           startupProbe:
             httpGet:
-              path: /service/png
+              path: /actuator/health/liveness
               port: http
             initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
@@ -169,21 +176,37 @@ spec:
             timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
           {{- end }}
 
+         {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+            successThreshold: {{ .Values.readinessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+         {{- end }}
+
       volumes:
         - name: overops-private
           configMap:
             name: {{ template "overops-server.fullname" . }}-config
             items:
-            - key: application.properties
-              path: application.properties
-            - key: application-mysql.properties
-              path: application-mysql.properties
-            - key: my.server.properties
-              path: my.server.properties
-            {{- if .Values.overops.rabbitQueue.enabled }}
-            - key: application-msg_rabbit.properties
-              path: application-msg_rabbit.properties
-            {{- end }}
+              {{- if .Values.overops.agentSidecar.enabled }}
+              - key: agent.properties
+                path: agent.proprties
+              {{- end }}
+              - key: application.properties
+                path: application.properties
+              - key: application-mysql.properties
+                path: application-mysql.properties
+              - key: my.server.properties
+                path: my.server.properties
+              {{- if .Values.overops.rabbitQueue.enabled }}
+              - key: application-msg_rabbit.properties
+                path: application-msg_rabbit.properties
+              {{- end }}
         {{- if .Values.overops.agentSidecar.enabled }}
         - name: overops-agent
           emptyDir: {}

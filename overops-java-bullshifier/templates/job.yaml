@@ -8,6 +8,7 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
 spec:
+  activeDeadlineSeconds: {{ .Values.overops.job.activeDeadlineSeconds }}
   template:
     metadata:
       name: {{ include "overops-java-bullshifier.fullname" . }}-job
@@ -29,6 +30,8 @@ spec:
           env:
             - name: TAKIPI_COLLECTOR_URL
               value: {{ .Values.overops.collectorURL | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
             - name: TAKIPI_DEPLOYMENT_NAME
@@ -61,4 +64,14 @@ spec:
             - name: RUNNING_DURATION_MINUTES
               value: {{ .Values.overops.job.runningDurationMinutes | quote }}
             {{- end }}
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/overops/private
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-java-bullshifier.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
 {{- end }}

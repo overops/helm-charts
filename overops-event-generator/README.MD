@@ -71,7 +71,12 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.serverName`                         | Server Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
 | `overops.environmentName`                    | Environment Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.randomSeed`                         | Seed value to use when randomizing the events for K8s Deployment                             | `nil`                             |
+| `overops.sourceAttach.enabled`               | Adds Source Attach settings to the `agent.properties` file                                   | `false`                           |
+| `overops.sourceAttach.credToken`             | Adds Source Attach Token to  `agent.properties` file                                         | `nil`                             |
+| `overops.sourceAttach.repoRef`               | Adds Source Attach repository reference ( Branch, Tag, SHA )                                 | `master`                          |
+| `overops.agentProperties`                    | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)         |
 | `overops.job.enabled`                        | Enables a k8s Job Workload for the Event Generator                                           | `false`                           |
+| `overops.job.activeDeadlineSeconds`          | Job Deadline to force completion of the Job.                                                 | `600`                             |
 | `overops.job.numberOfEvents`                 | Number of Events the Job should send before terminating                                      | `100`                             |
 | `overops.job.randomSeed`                     | Seed value to use when randomizing the events for K8s Job.                                   | `123`                             |
 | `image.repository`                           | `overops-event-generator` image repository.                                                  | `overops/event-generator`         |
@@ -81,3 +86,36 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.repository`            | Agent Sidecar image repository.                                                              | `overops/agent-sidecar`           |
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                    |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                          |
+
+## Advanced
+### Source Attach
+
+Overops supports source attach using a git repository, this is described in the [overops documentation](https://doc.overops.com/docs/attaching-git-repository). The `event-generator`
+supports source attach using the public github [repo](https://github.com/takipi-field/overops-event-generator). To enable Source Attach and Git Blame data, you must add a
+security token on the Overops Management site that is a valid Github API Key, see docs site for more info. This security token must be set in the `overops.sourceAttach.credToken`,
+additionally the `overops.deploymentName` will be ignored and the `overops.sourceAttach.repoRef` (Github branch / tag) will be used instead.
+Below is an example values.yaml:
+
+```yaml
+overops:
+  collectorHost: collector-overops-collector
+
+  sourceAttach:
+    enabled: true
+    # Where my-token is added to the Overops Server's Settings page, referencing a Github API-TOKEN.
+    credToken: my-token
+```
+
+### Agent Properties
+The helm chart allows for extra configuration changes to be added to the `agent.properties` file that will be used by the Overops Agent. More details
+on advance agent settings (here)[https://doc.overops.com/docs/agent-properties]
+
+The agent properties will be mounted as a file to: `/opt/takipi/private/agent.properties`
+
+```yaml
+overops:
+  agentProperties: |-
+    MY_PROPERTY1=A
+    MY_PROPERTY2=B
+    MY_PROPERTY3=C
+```

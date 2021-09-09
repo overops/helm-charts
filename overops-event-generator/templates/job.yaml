@@ -8,6 +8,7 @@ metadata:
   annotations:
     "helm.sh/hook": post-install,post-upgrade
 spec:
+  activeDeadlineSeconds: {{ .Values.overops.job.activeDeadlineSeconds }}
   template:
     metadata:
       name: {{ include "overops-event-generator.fullname" . }}-job
@@ -29,10 +30,14 @@ spec:
           env:
             - name: TAKIPI_COLLECTOR_URL
               value: {{ include "overops-event-generator.collectorEndpoint" . }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/takipi/private/agent.properties"
             - name: TAKIPI_APPLICATION_NAME
               value: {{ .Values.overops.applicationName | quote }}
+            {{- if not .Values.overops.sourceAttach.enabled }}
             - name: TAKIPI_DEPLOYMENT_NAME
               value: {{ .Values.overops.deploymentName | quote }}
+            {{- end }}
             {{- if .Values.overops.serverName }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.serverName | quote }}
@@ -51,4 +56,14 @@ spec:
               value: {{ .Values.overops.job.randomSeed | quote }}
             - name: MAX_NUM_EVENTS
               value: {{ .Values.overops.job.numberOfEvents | quote }}
+          volumeMounts:
+            - name: overops-private
+              mountPath: /opt/takipi/private
+      volumes:
+        - name: overops-private
+          configMap:
+            name: {{ template "overops-event-generator.fullname" . }}-config
+            items:
+            - key: agent.properties
+              path: agent.properties
 {{- end }}

@@ -4,7 +4,7 @@
 
 # Overops Config settings
 overops:
-  backendURL: 
+  backendURL:
   storageTestURL:
   collectorName:
   installationKey:
@@ -15,7 +15,7 @@ overops:
 
   # Additional collector.properties
   extraCollectorProperties: ''
-  #extraCollectorProperties: |- 
+  #extraCollectorProperties: |-
    #MY_PROP1=A
    #MY_PROP2=B
 
@@ -31,6 +31,14 @@ overops:
     deploymentName: ""
     serverName: ""
     environmentName: ""
+
+    # Extended Agent settings using a Property File
+    # Note: This will set the TAKIPI_PROPERTIES_FILE using a configmap
+    agentProperties: ""
+    # Example:
+    # agentProperties: |-
+    #   takipi.max.depth=10
+    #   takipi.shutdown.gracetime=60
 
 replicaCount: 1
 
@@ -77,6 +85,14 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 1
 
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  timeoutSeconds: 1
+
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
@@ -91,6 +107,10 @@ resources: {}
 
 autoscaling:
   enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+  targetMemoryUtilizationPercentage: 70
 
 nodeSelector: {}
 tolerations: []

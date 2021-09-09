@@ -36,14 +36,14 @@ spec:
       serviceAccountName: {{ include "overops-receiver-server.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{- if .Values.overops.agentSidecar.enabled }}      
+      {{- if .Values.overops.agentSidecar.enabled }}
       initContainers:
         - name: overops-agent-sidecar
           image: "{{ .Values.overops.agentSidecar.repository }}:{{ .Values.overops.agentSidecar.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.overops.agentSidecar.pullPolicy }}
           volumeMounts:
           - name: overops-agent
-            mountPath: /opt/overops-agent      
+            mountPath: /opt/overops-agent
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -73,6 +73,8 @@ spec:
               value: {{ .Values.overops.agentSidecar.deploymentName | quote }}
             - name: TAKIPI_SERVER_NAME
               value: {{ .Values.overops.agentSidecar.serverName | quote }}
+            - name: TAKIPI_PROPERTIES_FILE
+              value: "/opt/overops/private/agent.properties"
             - name: TAKIPI_ENV_ID
               value: {{ .Values.overops.agentSidecar.environmentName | quote }}
             - name: JAVA_TOOL_OPTIONS
@@ -105,23 +107,27 @@ spec:
             {{- if .Values.overops.agentSidecar.enabled }}
             - name: overops-agent
               mountPath: /opt/overops-agent
-            {{- end }}              
+            {{- end }}
 
       volumes:
         - name: overops-private
           configMap:
             name: {{ template "overops-receiver-server.fullname" . }}-config
             items:
-            - key: application.properties
-              path: application.properties
-            - key: application-mysql.properties
-              path: application-mysql.properties
-            - key: application-msg_rabbit.properties
-              path: application-msg_rabbit.properties
+              {{- if .Values.overops.agentSidecar.enabled }}
+              - key: agent.properties
+                path: agent.proprties
+              {{- end }}
+              - key: application.properties
+                path: application.properties
+              - key: application-mysql.properties
+                path: application-mysql.properties
+              - key: application-msg_rabbit.properties
+                path: application-msg_rabbit.properties
         {{- if .Values.overops.agentSidecar.enabled }}
         - name: overops-agent
           emptyDir: {}
-        {{- end }}              
+        {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

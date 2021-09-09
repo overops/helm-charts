@@ -1,5 +1,5 @@
 # Overops Server Backend V5
-This is the helm chart for [OverOps](https://www.overops.com/) backend server. It is based on the Overops Server docker release found [here](https://hub.docker.com/r/overops/server). 
+This is the helm chart for [OverOps](https://www.overops.com/) backend server. It is based on the Overops Server docker release found [here](https://hub.docker.com/r/overops/server).
 
 This is the V5 Version of the Chart.
 
@@ -31,7 +31,7 @@ By default this chart installs additional, dependent charts:
 - [stable/mysql](https://github.com/helm/charts/tree/master/stable/mysql)
 - [bitnami/postgres](https://github.com/bitnami/charts/tree/master/bitnami/postgresql/)  <--- Enabled by default
 
-To disable the default dependency during installation, set `postgresql.enabled` to `false`. 
+To disable the default dependency during installation, set `postgresql.enabled` to `false`.
 
 _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command documentation._
 
@@ -39,7 +39,7 @@ _See [helm dependency](https://helm.sh/docs/helm/helm_dependency/) for command d
 
 ```console
 # Helm
-$ helm uninstall [RELEASE_NAME] 
+$ helm uninstall [RELEASE_NAME]
 
 # To uninstall and delete postgres volume:
 $ helm uninstall -n [NAMESPACE] [RELEASE_NAME] ; kubectl delete -n [NAMESPACE] pvc -l app.kubernetes.io/name=postgresql
@@ -87,10 +87,11 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.agentSidecar.pullPolicy`            | Agent Sidecar image pull policy.                                                             | `IfNotPresent`                                       |
 | `overops.agentSidecar.tag`                   | Agent Sidecar image tag.                                                                     | `latest`                                             |
 | `overops.agentSidecar.collectorURL`          | Agent Sidecar Collector URL                                                                  | `nil`                                                |
-| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)            | `nil`                             |
-| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)               | `nil`                             |
-| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)                        | `nil`                             |
+| `overops.agentSidecar.applicationName`       | Agent Sidecar Application Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)      | `nil`                                                |
+| `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)          | `nil`                                                |
+| `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.agentProperties`       | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)                            |
 | `image.repository`                           | `overops-server` image repository.                                                           | `overops/server`                                     |
 | `image.tag`                                  | `overops-server` image tag.                                                                  |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
@@ -103,7 +104,8 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `mysql.RootPassword`                         | Password for the `root` user. Ignored if existing secret is provided                         | Random 10 characters                                 |
 | `mysql.mysqlUser`                            | Username of new database user to create.                                                     | `overops`                                            |
 | `mysql.mysqlPassword`                        | Password for the new user. Ignored if existing secret is provided                            | Random 10 characters                                 |
-| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                               | 
+| `postgresql.enabled`                         | Enables the postgresql dependency chart.                                                     | `true`                                               |
 | `postgresql.postgresqlUsername`              | Username of new database postgresql user to create.                                          | `overops`                                            |
 | `postgresql.postgresqlPassword`              | Password for the new postgresql database user. Random if not set.                            | Random 10 characters                                 |
 | `config.enableExtraConfig`                   | Populates optional configuration files                                                       | see [values](values.yaml)                            |
+| `overops.catalinaOpts`                       | `CATALINA_OPTS` ENV variable setting for tomcat server.                                      | `nil`                                                |

@@ -1,5 +1,5 @@
 # Overops Collector V5 Chart
-This is the main Collector chart for [OverOps](https://www.overops.com/) deployment. It is based on the Overops docker releases of the collector found [here](https://hub.docker.com/r/overops/collector). 
+This is the main Collector chart for [OverOps](https://www.overops.com/) deployment. It is based on the Overops docker releases of the collector found [here](https://hub.docker.com/r/overops/collector).
 
 The collector can be deployed into the same namespace as an Overops Backend Server or configured to work with a remote one.
 
@@ -64,9 +64,16 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.agentSidecar.deploymentName`        | Agent Sidecar Deployment Name to display on OverOps (Automatically detected if not set)      | `nil`                                                |
 | `overops.agentSidecar.serverName`            | Agent Sidecar Server Name to display on OverOps (Automatically detected if not set)          | `nil`                                                |
 | `overops.agentSidecar.environmentName`       | Agent Sidecar Environment Name to display on OverOps (Automatically detected if not set)     | `nil`                                                |
+| `overops.agentSidecar.agentProperties`       | Extended configuration settings to be added to `agent.properties` file                       | see [values](values.yaml)                            |
 | `image.repository`                           | `overops-collector` image repository.                                                        | `overops/collector`                                  |
 | `image.tag`                                  | `overops-collector` image tag.                                                               |  Pulled from chart.yaml                              |
 | `image.pullPolicy`                           | Image pull policy                                                                            | `IfNotPresent`                                       |
+
+| `autoscaling.enabled`                        | Enable Horizontal Pod Autoscaling                                                            | `false`                                              |
+| `autoscaling.minReplicas`                    | The minimum allowed replicas                                                                 | `1`                                                  |
+| `autoscaling.maxReplicas`                    | The maximum allowed replicas                                                                 | `10`                                                 |
+| `autoscaling.targetCPUUtilizationPercentage` | CPU utilization target                                                                       | `70`                                                 |
+| `autoscaling.targetMemoryUtilizationPercentage`| Memory utilization target                                                                  | `70`                                                 |
 
 ## Single Environment vs Multi-Environment Collectors
 
