@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector V5 Chart
 
+## [5.0.8]
+- Expose Collector port using Ingress instead of Service .
+
 ## [5.0.7]
 - Update to use SpringBoot Actuators for k8s probes.
 
