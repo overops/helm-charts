@@ -162,9 +162,9 @@ livenessProbe:
 
 startupProbe:
   enabled: true
-  initialDelaySeconds: 35
-  periodSeconds: 5
-  failureThreshold: 5
+  initialDelaySeconds: 40
+  periodSeconds: 10
+  failureThreshold: 10
   successThreshold: 1
   timeoutSeconds: 1
 
