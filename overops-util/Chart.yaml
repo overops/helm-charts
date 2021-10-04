@@ -1,0 +1,7 @@
+apiVersion: v2
+name: overops-util
+description: A Helm chart for Overops Util Deployment
+
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
