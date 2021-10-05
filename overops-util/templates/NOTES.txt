@@ -1,0 +1,10 @@
+.  ____                  ____
+  / __ \_   _____  _____/ __ \____  _____
+ / / / / | / / _ \/ ___/ / / / __ \/ ___/
+/ /_/ /| |/ /  __/ /  / /_/ / /_/ (__  )
+\____/ |___/\___/_/   \____/ .___/____/
+                          /_/
+###
+Overops Util Pod deployed!
+
+kubectl exec -n {{ .Release.Namespace }} --stdin --tty deployments.apps/{{ include "overops-util.fullname" . }} -- /bin/bash
