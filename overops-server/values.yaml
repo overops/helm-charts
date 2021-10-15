@@ -4,17 +4,26 @@
 
 # Overops Config settings
 overops:
+  # Enables a Default User to be created at deployment
   defaultUserEnabled: true
+  # Default Username to be pre-populated. This should be an email address
   defaultUser: "user@overops.com"
+  # Default User first name to be pre-populated.
   defaultUserFirst: "Overops"
+  # Default User last name to be pre-populated.
   defaultUserLast: "user"
+  # Default User's Password to be pre-populated.
   defaultUserPass: ""
+  # Default Service Key for the pre-populated key.
   defaultUserServiceKey: ""
 
+  # overops-server frontend url ENV variable setting.
   frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
-  catalinaOpts: 
+  # overops-server CATALINA_OPTS ENV variable setting for tomcat server.
+  catalinaOpts:
+  # overops-server TAKIPI_HOST property (Used for external collectors)
   takipiHost: ""
- 
+
 auth:
   # Name of an existing secret which holds the following sensitive key/values:
   #  dbPassword   (external-db-password)
@@ -35,6 +44,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 podAnnotations: {}
+
+# Standard Pod Security Context to match the OverOps Image
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
@@ -43,21 +54,36 @@ podSecurityContext:
 securityContext: {}
 
 # Database Section
+#  Note: Use only one of the follow - External Database or Mysql or Postgres
 externalDatabase:
+  # Flag to use an external database and not one deployed by helm.
   enabled: false
+  # External Database type used by overops server
   type: "mysql"
+  # External Database URL used by overops server
   url: ""
+  # External Database User used by overops server
   dbUser: ""
+  # External Database Password used by overops server
+  # Note: Use auth.existingSecret instead of passing a password.
   dbPassword: ""
 
+# Mysql Database Section
 mysql:
+   # Enables the mysql dependency chart.
   enabled: false
-
+  # Username of new database user to create.
   mysqlUser: "overops"
+  # Password for the new user. Ignored if existing secret is provided.
+  # If left blank, one will be generated
   mysqlPassword: ""
+  # Password for the `root` user. Ignored if existing secret is provided
+  # If left blank, one will be generated
   mysqlRootPassword:
   service:
+    # Port mysql will use
     port: 3306
+  # Script used on initial deployment, not required to be changed
   initializationFiles:
     initdb.sql: |-
       use sys;
@@ -69,16 +95,23 @@ mysql:
       CREATE DATABASE IF NOT EXISTS pds;
       CREATE DATABASE IF NOT EXISTS qsql;
       CREATE DATABASE IF NOT EXISTS takipi;
-  
+
+# Postgresql Database Section
 postgresql:
+  # Enables the postgresql dependency chart.
   enabled: true
+  # Username of new database postgresql user to create.
   postgresqlUsername: overops
+  # Password for the new postgresql database user. Random if not set.
   postgresqlPassword: ""
   service:
+    # Port to be used
     port: 5432
   image:
+    # Image tag to be used
     tag: 11.10.0-debian-10-r24
   initdbScripts:
+    # Script used on initial deployment, not required to be changed
     initdb.sql: |-
       CREATE DATABASE dynalite;
       ALTER DATABASE dynalite OWNER to overops;
@@ -86,7 +119,7 @@ postgresql:
       CREATE DATABASE pds;
       ALTER DATABASE pds OWNER to overops;
       GRANT ALL PRIVILEGES ON DATABASE pds TO overops;
-      
+
       CREATE DATABASE qsql;
       ALTER DATABASE qsql OWNER to overops;
       GRANT ALL PRIVILEGES ON DATABASE qsql TO overops;
@@ -113,6 +146,7 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
+# Standard Liveness Probe
 livenessProbe:
   enabled: true
   periodSeconds: 10
@@ -120,13 +154,14 @@ livenessProbe:
   successThreshold: 1
   timeoutSeconds: 1
 
+# Standard Startup Probe
 startupProbe:
   enabled: true
   initialDelaySeconds: 25
   periodSeconds: 5
   failureThreshold: 5
   successThreshold: 1
-  timeoutSeconds: 1  
+  timeoutSeconds: 1
 
 
 resources: {}
@@ -149,19 +184,18 @@ persistence:
   size: 20Gi
   annotations: {}
 
-  # Mount Paths used by the overops image. 
-  # Note: Do not change unless using a custom Docker Image and 
+  # Mount Paths used by the overops image.
+  # Note: Do not change unless using a custom Docker Image and
   # require a different path!
   privateMountPath: /opt/private
   storageMountPath: /opt/takipi-server/storage
 
+# Autoscaling is NOT supported for the backend
 autoscaling:
   enabled: false
 
 nodeSelector: {}
-
 tolerations: []
-
 affinity: {}
 
 
@@ -172,7 +206,7 @@ config:
 
   # Additional properties to add to the my.server.properties file.
   myServerProperties: ''
-  #myServerProperties: |- 
+  #myServerProperties: |-
    #GRAFANA_DASHBOARD_ENABLED=true
 
   ## Additional files that can be added to the overops op server as shown below for an example

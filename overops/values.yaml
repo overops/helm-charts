@@ -2,28 +2,42 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
+ # Enables the deployment of the OverOps Storage server
  enableStorageServer: false
+ # Enables the deployment of the OverOps Storage server S3
  enableStorageServerS3: false
 
+# This values.yaml contains required fields for each OverOps
+# component.
+
 overops-server:
+  # Enables the deployment of the OverOps Backend server
   enabled: true
   overops:
+    # Default User's Password to be pre-populated
     defaultUserPass: ""
+    # Default Service Key for the pre-populated key
     defaultUserServiceKey: ""
+    # `overops-server` frontend url ENV variable setting.
     frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
 
 overops-collector:
+  # Enables the deployment of the OverOps Collector.
   enabled: true
   overops:
+    # Service Key for the collector
     serviceKey: ""
 
 overops-event-generator:
+  # Enables the deployment of the OverOps Event Generator (with Agent installed)
   enabled: false
 
 overops-java-bullshifier:
+  # Enables the deployment of the OverOps Java Bullshifier (Internal use only)
   enabled: false
 
 overops-storage-server-s3:
+  # Configuration for OverOps Storage Server S3 See Chart's Readme
   overops:
     bucket: ""
     pathPrefix: ""

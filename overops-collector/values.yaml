@@ -8,14 +8,23 @@ global:
 
 # Overops Config settings
 overops:
-  backendURL: 
+  # URL Address for the Backend Server.
+  backendURL:
+  # URL Address for the Storage Test endpoint.
   storageTestURL:
+  # Collector Name (Appears on backend server)
+  # Defaults to podname
   serverName:
-  jvmHeapSize: "1G" # Overops collector requires 4G heap size .
+  # Collector JVM Heap Size (Overops collector for production use recommends 4G)
+  jvmHeapSize: "1G"
+  # Service Key for the collector
   serviceKey:
+  # Installation Token used with MEC more info https://doc.overops.com/docs/multi-environment-collector
   installToken: '' # Used for MEC Configurations
 
   # Used only if the storage or backend server were installed in a separate helm release
+  # URLs will be generated appropriately. For example `backendReleaseName: backend`
+  # Will result in: http://backend-overops-server:8080
   backendReleaseName:
   storageReleaseName:
 
@@ -48,6 +57,7 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+# Standard Pod Security Context to match the OverOps Image
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
@@ -55,18 +65,21 @@ podSecurityContext:
   fsGroup: 1000
 securityContext: {}
 
+# Service Configuration
 service:
+  # Adds Service Loadbalancer Annotation for required Loadbalancer Types (i.e. "nlb")
   loadBalancerType: ""
   type: ClusterIP
   port: 6060
 
+# Standard Liveness Probe
 livenessProbe:
   enabled: true
   periodSeconds: 10
   failureThreshold: 3
   successThreshold: 1
   timeoutSeconds: 1
- 
+
 
 # The OverOps collector does not use HTTP/HTTPs but TCP therefore K8S Ingress is not directly supported
 # many Ingress Controller support TCP but is spefific to the Controller. Please refer to your
@@ -77,7 +90,7 @@ livenessProbe:
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. 
+  # resources, such as Minikube.
   # If you do want to specify resources, adjust them to Overops collector pre requirements,
   # as described in https://doc.overops.com/docs/overops-installation-requirements#section-collector-system-requirements .
   # or simply uncomment the following lines :
@@ -89,6 +102,7 @@ resources: {}
   #       cpu: "4"
   #       memory: "8G"
 
+# AutoScaling Configuration, if desired please see ReadMe.
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -115,8 +129,8 @@ persistence:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  # storageClass: "-"  
+  # storageClass: "-"
   accessModes:
     - ReadWriteOnce
   size: 1Gi
-  annotations: {}  
+  annotations: {}

@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Chart
 
+## [0.10.1]
+- Documentation Update
+
 ## [0.10.0]
 - Updated App Release to OverOps 4.63.1
 

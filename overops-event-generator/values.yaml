@@ -4,17 +4,28 @@
 
 # Overops Config settings
 overops:
+  # Collector hostname or K8s Service Name
   collectorHost: ""
+  # Collector port
   collectorPort: 6060
+  # Application Name to display on OverOps (Automatically detected if not set)
   applicationName: ""
+  # Deployment Name to display on OverOps (Automatically detected if not set)
   deploymentName: ""
+  # Server Name to display on OverOps (Automatically detected if not set)
   serverName: ""
+  # Seed value to use when randomizing the events for K8s Deployment
   randomSeed: ""
+  # Environment ID used with MEC more info https://doc.overops.com/docs/multi-environment-collector
   environmentId: ""  # Used for MEC Configuration
 
   sourceAttach:
+    # Adds Source Attach settings to the `agent.properties` file
+    # See: https://doc.overops.com/docs/attaching-git-repository
     enabled: false
+    # Adds Source Attach Token to `agent.properties` file
     credToken: ""
+    # Adds Source Attach repository reference ( Branch, Tag, SHA )
     repoRef: master
 
   # Extended Agent settings using a Property File
@@ -25,18 +36,27 @@ overops:
   #   takipi.max.depth=10
   #   takipi.shutdown.gracetime=60
 
-  # Use an agent-sidecar instead of an embedded agent.
+  # Use an agent-sidecar instead of an embedded v4 agent
+  # (https://github.com/takipi-field/kubernetes/tree/master/agent/sidecar).
   agentSidecar:
+    # Enable the use of agent-sidecar init container instead of embedded agent.
     enabled: false
+    # Debug flag changes agent console output to a file instead of console.
     useDebug: false
+    # Agent Sidecar image repository
     repository: overops/agent-sidecar
+    # Agent Sidecar image pull policy.
     pullPolicy: IfNotPresent
+    # Agent Sidecar image tag.
     tag: latest
 
   # Job Related settings
   job:
+    # Enables a k8s Job Workload for the Java Bullshifier
     enabled: false
+    # Number of Events the Job should send before terminating
     numberOfEvents: 100
+    # Seed value to use when randomizing the events for K8s Job.
     randomSeed: 123
 
 replicaCount: 1
@@ -61,6 +81,7 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+# Standard Pod Security Context to match the OverOps Image
 podSecurityContext:
   runAsNonRoot: true
   runAsUser: 1000
@@ -68,9 +89,6 @@ podSecurityContext:
 securityContext: {}
 
 resources: {}
-
-autoscaling:
-  enabled: false
 
 nodeSelector: {}
 tolerations: []

@@ -1,4 +1,8 @@
 # CHANGELOG: Overops Java Bullshifier Chart
+
+## [0.2.2]
+- Documentation Update
+
 ## [0.2.1]
 - Adding Agent Properties.
 
