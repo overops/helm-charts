@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops-event-generator
 description: A Helm chart for OverOps Event Generator
 type: application
-version: 0.10.0
+version: 0.10.1
 appVersion: 3.0.0-agent-4.63.0
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/

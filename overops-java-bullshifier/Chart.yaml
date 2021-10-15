@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops-java-bullshifier
 description: A Helm chart for OverOps Java Bullshifier
 type: application
-version: 0.2.1
+version: 0.2.2
 appVersion: 1.0.0
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
