@@ -15,8 +15,11 @@ helm repo update
 
 ## Install Chart
 ```console
-# Helm 3 (Updating the fields)
-$ helm install -n=overops --set overops.serviceKey=[YOUR-KEY] --set overops.backendURL=[YOUR-BACKEND-URL]  myoverops overops/overops-collector
+# Helm 3 using URLs for the OverOps Backend and Storage servers 
+helm install -n=overops --set overops.serviceKey=[YOUR-KEY] --set overops.backendURL=[YOUR-BACKEND-URL] --set overops.storageTestURL=[YOUR-STORAGE-URL]  collector overops/overops-collector
+
+# OR if Backend was installed in the same cluster use the Helm Release name
+helm install -n=overops --set overops.serviceKey=[YOUR-KEY] --set overops.backendReleaseName=[BACKEND-RELEASE-NAME] collector overops/overops-collector
 ```
 
 _See [configuration](#configuration) below._
@@ -54,6 +57,8 @@ The following table lists the configurable parameters of the OverOps Collector c
 | `overops.installToken`                         | Install Token used with MEC                                                                  | `nil`                                                |
 | `overops.backendURL`                           | URL Address for the Backend Server.                                                          | `Defaults to local deployed backend`                 |
 | `overops.storageTestURL`                       | URL Address for the Storage Test endpoint.                                                   | `Defaults to local deployed backend`                 |
+| `overops.backendReleaseName`                   | Helm Release Name for the Backend Server. (Only if Backend is in the same K8s namespace).    | `nil`           |
+| `overops.storageReleaseName`                   | Helm Release Name for the Storage Server. (Only if Storage Server is in the same K8s namespace).    | `nil`           |
 | `overops.serverName`                           | Collector Name (Appears on backend server)                                                   | `pod name`                                           |
 | `overops.jvmHeapSize`                          | Collector JVM Heap Size (Overops collector requires 4G)                                      | `1G`		                                             |
 | `image.repository`                             | `overops-collector` image repository.                                                        | `overops/collector`                                  |
