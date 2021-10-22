@@ -3,6 +3,43 @@ entries:
   overops:
   - apiVersion: v2
     appVersion: 4.63.1
+    created: "2021-10-22T12:56:17.191098-04:00"
+    dependencies:
+    - condition: overops-server.enabled
+      name: overops-server
+      repository: https://overops.github.io/helm-charts/
+      version: 0.10.1
+    - condition: overops-collector.enabled
+      name: overops-collector
+      repository: https://overops.github.io/helm-charts/
+      version: 0.10.2
+    - condition: overops-event-generator.enabled
+      name: overops-event-generator
+      repository: https://overops.github.io/helm-charts/
+      version: 0.10.1
+    - condition: overops-java-bullshifier.enabled
+      name: overops-java-bullshifier
+      repository: https://overops.github.io/helm-charts/
+      version: 0.2.2
+    - condition: global.enableStorageServer
+      name: overops-storage-server
+      repository: https://overops.github.io/helm-charts/
+      version: 0.2.2
+    - condition: global.enableStorageServerS3
+      name: overops-storage-server-s3
+      repository: https://overops.github.io/helm-charts/
+      version: 0.2.2
+    description: A Helm chart for OverOps Stack.
+    digest: e9639387c67e6c90c47afd76bf6a4a10ef8f194d18e101ac464a392a82ff60f0
+    home: https://www.overops.com/
+    icon: https://files.readme.io/7d44ac2-o-logo.ico
+    name: overops
+    type: application
+    urls:
+    - https://overops.github.io/helm-charts/overops-0.10.2.tgz
+    version: 0.10.2
+  - apiVersion: v2
+    appVersion: 4.63.1
     created: "2021-10-15T12:54:04.596206-04:00"
     dependencies:
     - condition: overops-server.enabled
@@ -1264,4 +1301,4 @@ entries:
     urls:
     - https://overops.github.io/helm-charts/overops-storage-server-s3-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-22T12:40:46.548164-04:00"
+generated: "2021-10-22T12:56:17.181956-04:00"
