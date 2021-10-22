@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Chart
 
+## [0.10.2]
+- Update to Collector, defaults to connect to OverOps SaaS
+
 ## [0.10.1]
 - Documentation Update
 

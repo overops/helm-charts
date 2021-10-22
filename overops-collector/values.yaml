@@ -3,14 +3,15 @@
 # Declare variables to be passed into your templates.
 global:
  # Used only when deploying with the overops/overops chart.
+ deployAsStack: false
  enableStorageServer: false
  enableStorageServerS3: false
 
 # Overops Config settings
 overops:
-  # URL Address for the Backend Server.
+  # URL Address for an On-Prem Backend Server.
   backendURL:
-  # URL Address for the Storage Test endpoint.
+  # URL Address for an On-Prem Storage Test endpoint.
   storageTestURL:
   # Collector Name (Appears on backend server)
   # Defaults to podname
