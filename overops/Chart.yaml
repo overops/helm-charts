@@ -2,7 +2,7 @@ apiVersion: v2
 name: overops
 description: A Helm chart for OverOps Stack.
 type: application
-version: 0.10.1
+version: 0.10.2
 appVersion: 4.63.1
 icon: https://files.readme.io/7d44ac2-o-logo.ico
 home: https://www.overops.com/
@@ -15,7 +15,7 @@ dependencies:
     condition: overops-server.enabled
 
   - name: overops-collector
-    version: 0.10.1
+    version: 0.10.2
     repository: https://overops.github.io/helm-charts/
     condition: overops-collector.enabled
 

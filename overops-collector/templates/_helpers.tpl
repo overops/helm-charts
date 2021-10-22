@@ -30,13 +30,15 @@ Either use the current release name or one from the values.
 {{- define "overops-collector.hostedBackendURL" -}}
 {{- if .Values.overops.backendReleaseName }}
 {{- printf "http://%s-overops-server:8080" .Values.overops.backendReleaseName }}
-{{- else }}
+{{- else if .Values.global.deployAsStack }}
 {{- printf "http://%s-overops-server:8080" .Release.Name }}
+{{- else }}
+{{- printf "https://backend.overops.com" }}
 {{- end }}
 {{- end }}
 
 {{/*
-URL used for a storage server running in the same namespace. 
+URL used for a storage server running in the same namespace.
 Either use the current release name or one from the values.
 */}}
 {{- define "overops-collector.hostedStorageURL" -}}
@@ -56,6 +58,21 @@ Either use the current release name or one from the values.
 {{- printf "http://%s-overops-storage-server-s3:8080" .Values.overops.storageReleaseName }}
 {{- else }}
 {{- printf "http://%s-overops-storage-server-s3:8080" .Release.Name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Full Storage Test URL to be used in the collector.properties. Defaults to the SaaS url.
+*/}}
+{{- define "overops-collector.storageTestURL" -}}
+{{- if or (.Values.global.enableStorageServer) (.Values.overops.storageReleaseName) }}
+{{- printf "%s/storage/v1/diag/ping" (include "overops-collector.hostedStorageURL" .) }}
+{{- else if .Values.global.enableStorageServerS3 }}
+{{- printf "%s/storage/v1/diag/ping" (include "overops-collector.hostedStorageS3URL" .) }}
+{{- else if or (.Values.global.deployAsStack) (.Values.overops.backendReleaseName) }}
+{{- printf "%s/service/png" (include "overops-collector.hostedBackendURL" .) }}
+{{- else }}
+{{- printf "https://s3.amazonaws.com/app-takipi-com/ConnectionTest" }}
 {{- end }}
 {{- end }}
 

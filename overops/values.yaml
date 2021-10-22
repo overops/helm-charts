@@ -2,6 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 global:
+ # (Internal) Indicates deploying multiple components
+ deployAsStack: true
  # Enables the deployment of the OverOps Storage server
  enableStorageServer: false
  # Enables the deployment of the OverOps Storage server S3

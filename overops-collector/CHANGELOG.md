@@ -1,5 +1,8 @@
 # CHANGELOG: Overops Collector Chart
 
+## [0.10.2]
+- Defaults to SaaS Backend.
+
 ## [0.10.1]
 - Documentation Update
 
