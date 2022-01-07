@@ -29,9 +29,9 @@ Either use the current release name or one from the values.
 */}}
 {{- define "overops-collector.hostedBackendURL" -}}
 {{- if .Values.overops.backendReleaseName }}
-{{- printf "http://%s-overops-server:8080" .Values.overops.backendReleaseName }}
+{{- printf "http://%s-overops-server:9191" .Values.overops.backendReleaseName }}
 {{- else }}
-{{- printf "http://%s-overops-server:8080" .Release.Name }}
+{{- printf "http://%s-overops-server:9191" .Release.Name }}
 {{- end }}
 {{- end }}
 

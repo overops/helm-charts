@@ -64,7 +64,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 
 | Parameter                                    | Description                                                                                  | Default                           |
 | -------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------|
-| `overops.collectorURL`                       | Collector URL i.e. http://overops-collector:6060                                             | `nil`                             |
+| `overops.collectorURL`                       | Collector URL i.e. http://overops-collector:6070                                             | `nil`                             |
 | `overops.collectorKeyID`                     | Collector Key ID used with MEC                                                               | `nil`                             |
 | `overops.applicationName`                    | Application Name to display on OverOps (Automatically detected if not set)                   | `nil`                             |
 | `overops.deploymentName`                     | Deployment Name to display on OverOps (Automatically detected if not set)                    | `nil`                             |

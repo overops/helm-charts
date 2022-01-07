@@ -69,6 +69,6 @@ Hostname used for a server running in the same namespace.
 {{- if .Values.overops.collectorURL }}
 {{- .Values.overops.collectorURL | quote }}
 {{- else }}
-{{- printf "http://%s-overops-collector:6060" .Release.Name }}
+{{- printf "http://%s-overops-collector:6070" .Release.Name }}
 {{- end }}
 {{- end }}

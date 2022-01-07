@@ -67,7 +67,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 6060
+  port: 6070
 
 ingress:
   enabled: false

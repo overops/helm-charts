@@ -44,7 +44,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: collector
-              containerPort: 6060
+              containerPort: 6070
               protocol: TCP
 
           {{- if .Values.overops.agentSidecar.enabled }}

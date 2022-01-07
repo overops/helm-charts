@@ -82,7 +82,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops-server.overops.defaultUserLast`     | Default User last name to be pre-populated.                                    | `user`                                               |
 | `overops-server.overops.defaultUserPass`     | Default User's Password to be pre-populated.  *                                | `nil`                                                |
 | `overops-server.overops.defaultUserServiceKey` | Default Service Key for the pre-populated key *                              | `nil`                                                |
-| `overops-server.overops.frontendURL`         | `overops-server` frontend url ENV variable setting.                            | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops-server.overops.frontendURL`         | `overops-server` frontend url ENV variable setting.                            | `http://overops.127.0.0.1.nip.io:9191/`              |
 | `global.enableStorageServer`                 | Enables the deployment of the OverOps Storage server                           | `false`                                              |
 | `global.enableStorageServerS3`               | Enables the deployment of the OverOps Storage server S3                        | `false`                                              |
 | `global.enableKedaAuth`                      | Enables the use of a shared KEDA Autoscaler Authentication and Secret.         | `false`                                              |

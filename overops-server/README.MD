@@ -71,7 +71,7 @@ The following table lists the configurable parameters of the OverOps chart and t
 | `overops.defaultUserLast`                    | Default User last name to be pre-populated.                                                  | `user`                                               |
 | `overops.defaultUserPass`                    | Default User's Password to be pre-populated.                                                 | `nil`                                                |
 | `overops.defaultUserServiceKey`              | Default Service Key for the pre-populated key                                                | `nil`                                                |
-| `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:8080/`              |
+| `overops.frontendURL`                        | `overops-server` frontend url ENV variable setting.                                          | `http://overops.127.0.0.1.nip.io:9191/`              |
 | `overops.auth.existingSecret`                | Name of an existing secret rather than creating a one.                                       | `nil`                                                |
 | `overops.redis.enabled`                      | V5: Enables the OverOps to run with an external Redis Cache                                  | `false`                                              |
 | `overops.redis.host`                         | V5: Hostname of the Redis server                                                             | `nil`                                                |

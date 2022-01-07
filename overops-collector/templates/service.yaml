@@ -8,7 +8,7 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: 6060
+      targetPort: 6070
       protocol: TCP
       name: collector
   selector:
