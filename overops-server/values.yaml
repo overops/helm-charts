@@ -11,7 +11,7 @@ overops:
   defaultUserServiceKey: ""
 
   loglevel: INFO
-  frontendURL: "http://overops.127.0.0.1.nip.io:8080/"
+  frontendURL: "http://overops.127.0.0.1.nip.io:9191/"
   catalinaOpts:
   takipiHost: ""
 
@@ -138,7 +138,7 @@ postgresql:
 # Networking
 service:
   type: ClusterIP
-  port: 8080
+  port: 9191
 
 ingress:
   enabled: false

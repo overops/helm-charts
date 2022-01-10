@@ -9,7 +9,7 @@ data:
   installation.token:  {{ .Values.overops.installationToken }}
   {{- end }}
   collector.properties: |-
-    takipi.listen.port=6060
+    takipi.listen.port=6070
     takipi.installation.key={{ .Values.overops.installationKey }}
     {{- if .Values.overops.backendURL }}
     takipi.backend.url={{ .Values.overops.backendURL }}
