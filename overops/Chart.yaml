@@ -10,7 +10,7 @@ home: https://www.overops.com/
 
 dependencies:
   - name: overops-server
-    version: 5.0.9
+    version: 5.0.10
     repository: https://overops.github.io/helm-charts/
     condition: overops-server.enabled
 
