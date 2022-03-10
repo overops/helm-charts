@@ -14,7 +14,7 @@ spec:
     - port: {{ .Values.service.port }}
       targetPort: 6060
       protocol: TCP
-      name: collector
+      name: tcp-collector
   {{- if ne .Values.service.loadBalancerType "nlb" }}
   sessionAffinity: ClientIP
   {{- end }}
